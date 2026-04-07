@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR — Premium Lounge & Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C87A;
+    --gold-dim: #7a6330;
+    --black: #080808;
+    --deep: #0e0e0e;
+    --surface: #141414;
+    --border: rgba(201,168,76,0.18);
+    --text: #e8e0d0;
+    --muted: #888070;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Shippori Mincho', serif;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 80% at 20% 60%, rgba(201,168,76,0.04) 0%, transparent 70%),
+      linear-gradient(160deg, #111008 0%, #080808 50%, #0a0805 100%);
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 48%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+    opacity: 0.3;
+  }
+
+  .hero-year {
+    position: absolute;
+    top: 50%;
+    right: 48px;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 200;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+  }
+
+  .hero-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 2;
+    max-width: 340px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 36px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .btn-ghost {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 2px;
+    transition: color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 48px;
+    margin: 80px 0;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--gold-dim);
+    opacity: 0.6;
+  }
+
+  /* ── CONCEPT ── */
+  #concept {
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .concept-text {}
+
+  .section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .section-body {
+    font-size: 0.88rem;
+    line-height: 2.2;
+    color: var(--muted);
+  }
+
+  .concept-visual {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .concept-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.12), transparent),
+      linear-gradient(180deg, var(--surface) 0%, rgba(20,14,5,0.9) 100%);
+  }
+
+  .concept-visual-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .glass-icon {
+    width: 80px;
+    height: 120px;
+    position: relative;
+  }
+
+  .glass-icon svg { width: 100%; height: 100%; }
+
+  .concept-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--gold-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .concept-visual-border {
+    position: absolute;
+    inset: 16px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+  }
+
+  /* ── FEATURES ── */
+  #features {
+    padding: 0 48px;
+  }
+
+  .features-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .feature-card {
+    background: var(--deep);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: transparent;
+    transition: background 0.4s;
+  }
+
+  .feature-card:hover {
+    background: #111008;
+  }
+
+  .feature-card:hover::before {
+    background: var(--gold);
+  }
+
+  .feature-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: color 0.4s;
+  }
+
+  .feature-card:hover .feature-num {
+    color: rgba(201,168,76,0.2);
+  }
+
+  .feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .feature-body {
+    font-size: 0.8rem;
+    line-height: 2;
+    color: var(--muted);
+  }
+
+  /* ── CAST ── */
+  #cast {
+    padding: 0 48px;
+  }
+
+  .cast-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .cast-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .cast-card {
+    position: relative;
+    aspect-ratio: 2/3;
+    background: var(--surface);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .cast-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg,
+      rgba(201,168,76,0.08) 0%,
+      transparent 40%,
+      rgba(0,0,0,0.6) 100%);
+    z-index: 1;
+    transition: opacity 0.4s;
+  }
+
+  .cast-card:hover::before {
+    opacity: 0.7;
+  }
+
+  .cast-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cast-silhouette {
+    width: 60%;
+    opacity: 0.15;
+  }
+
+  .cast-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px 20px;
+    z-index: 2;
+    transform: translateY(8px);
+    transition: transform 0.4s;
+  }
+
+  .cast-card:hover .cast-info {
+    transform: translateY(0);
+  }
+
+  .cast-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .cast-role {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .cast-border {
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(201,168,76,0.1);
+    pointer-events: none;
+    z-index: 2;
+    transition: border-color 0.4s;
+  }
+
+  .cast-card:hover .cast-border {
+    border-color: rgba(201,168,76,0.3);
+  }
+
+  /* ── INFO ── */
+  #info {
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .info-table {
+    border-top: 1px solid var(--border);
+  }
+
+  .info-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    line-height: 1.9;
+  }
+
+  .info-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    padding-top: 3px;
+  }
+
+  .info-value {
+    color: var(--muted);
+  }
+
+  .map-placeholder {
+    aspect-ratio: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.06), transparent 70%);
+  }
+
+  .map-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-dim);
+    font-size: 1rem;
+    z-index: 1;
+  }
+
+  /* ── RESERVATION ── */
+  #reservation {
+    margin: 0 48px;
+    padding: 80px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #reservation::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.06), transparent);
+    pointer-events: none;
+  }
+
+  .reservation-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .reservation-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 2.2;
+    margin-bottom: 48px;
+  }
+
+  .reservation-tel {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    display: block;
+    text-decoration: none;
+  }
+
+  .reservation-hours {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .line-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 40px;
+    background: #06C755;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  .line-cta:hover { opacity: 0.85; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 120px;
+    padding: 40px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+  }
+
+  .footer-copy {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 200;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 0 24px 60px; }
+    #concept { padding: 0 24px; grid-template-columns: 1fr; gap: 40px; }
+    #features { padding: 0 24px; }
+    .features-grid { grid-template-columns: 1fr; }
+    #cast { padding: 0 24px; }
+    .cast-grid { grid-template-columns: repeat(2, 1fr); }
+    #info { padding: 0 24px; grid-template-columns: 1fr; gap: 40px; }
+    #reservation { margin: 0 24px; padding: 48px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+    .divider { padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="site-notice-banner" style="display:none; position:fixed; top:0; left:0; right:0; z-index:200; background:var(--gold); color:var(--black); font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-align:center; padding:10px 48px; animation:fadeUp 0.5s ease forwards;">
+    <span id="site-notice-text"></span>
+    <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:var(--black);cursor:pointer;margin-left:16px;font-size:0.8rem;">✕</button>
+  </div>
+
+<!-- LINE FLOATING BUTTON -->
+<div id="line-float" style="position:fixed;bottom:32px;right:32px;z-index:500;opacity:0;transform:translateY(16px);transition:opacity 0.4s,transform 0.4s;pointer-events:none;">
+  <a id="line-float-link" href="#" target="_blank" rel="noopener"
+    style="display:flex;align-items:center;gap:10px;background:#06C755;color:white;padding:14px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(6,199,85,0.4);font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:400;letter-spacing:0.15em;white-space:nowrap;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+    <span>LINE で友だち追加</span>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">NOIR</a>
+  <ul class="nav-links">
+    <li><a href="#concept">コンセプト</a></li>
+    <li><a href="#cast">キャスト</a></li>
+    <li><a href="#info">店舗情報</a></li>
+    <li><a href="#reservation">ご予約</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="section-wrapper" id="wrapper-hero">
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-year">SINCE 2018</div>
+
+  <div class="hero-tag">Ginza Premium Lounge</div>
+  <h1 class="hero-title" id="site-hero-title">
+    夜の<em id="site-hero-em">静寂</em>に<br>溶けていく
+  </h1>
+  <p class="hero-sub" id="site-hero-sub">喧騒を忘れ、選ばれた時間の中へ。<br>銀座の夜に息づく、大人の社交場。</p>
+  <div class="hero-cta">
+    <a href="#reservation" class="btn-primary">ご予約はこちら</a>
+    <a href="#concept" class="btn-ghost">詳しく見る</a>
+  </div>
+</section>
+</div><!-- /wrapper-hero -->
+
+<div class="section-wrapper" id="wrapper-concept">
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- CONCEPT -->
+<section id="concept" class="reveal">
+  <div class="concept-text">
+    <div class="section-label">Our Philosophy</div>
+    <h2 class="section-title">ここは、<em>本物</em>の<br>くつろぎの場所</h2>
+    <p class="section-body" id="site-concept-body">NOIRは、日々の喧噪から離れ、真の安らぎを求める方々のための空間です。洗練されたインテリア、厳選された銘酒、そして一流のホステスたちが織りなす会話——すべてが、あなただけの特別な夜のために用意されています。ドレスコードは「心地よさ」。格式の中に温もりを。それが私たちのこだわりです。</p>
+  </div>
+  <div class="concept-visual">
+    <div class="concept-visual-inner">
+      <div class="glass-icon">
+        <svg viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 8 L65 8 L52 58 L52 100 L28 100 L28 58 Z" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.6"/>
+          <path d="M20 18 L60 18 L48 54 L32 54 Z" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.2)" stroke-width="0.5"/>
+          <line x1="28" y1="100" x2="52" y2="100" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
+          <line x1="20" y1="108" x2="60" y2="108" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
+          <circle cx="40" cy="35" r="2" fill="#C9A84C" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="concept-caption">première classe</div>
+    </div>
+    <div class="concept-visual-border"></div>
+  </div>
+</section>
+
+</div><!-- /wrapper-concept -->
+<div class="section-wrapper" id="wrapper-features">
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" class="reveal">
+  <div class="features-header">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">NOIRが選ばれる理由</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-title">厳選された銘酒</div>
+      <p class="feature-body">世界各地から取り寄せたウイスキー、シャンパン、ワインを取り揃えております。ソムリエ監修の豊富なラインナップをご用意。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-title">洗練された空間</div>
+      <p class="feature-body">著名なインテリアデザイナーが手がけた上質な内装。プライベート感のある個室からオープンなカウンター席まで、様々なニーズに対応。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-title">一流のホステス</div>
+      <p class="feature-body">知性と教養を兼ね備えた、厳選されたホステスたちがお出迎え。ビジネスから趣味まで、幅広い話題で楽しい時間をご提供します。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">04</div>
+      <div class="feature-title">完全個室対応</div>
+      <p class="feature-body">大切な接待やプライベートなお集まりに。防音設備を完備した完全個室を複数ご用意。最大12名様まで収容可能。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">05</div>
+      <div class="feature-title">会員制特典</div>
+      <p class="feature-body">ご登録いただいた会員様には、優先予約・専用ラウンジのご利用・特別イベントへのご招待など、数々の特典をご用意しております。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">06</div>
+      <div class="feature-title">フードメニュー</div>
+      <p class="feature-body">一流シェフが監修した軽食・おつまみをご用意。お酒に合う厳選された料理で、至高のペアリングをお楽しみください。</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrapper-features -->
+<div class="section-wrapper" id="wrapper-cast">
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- CAST -->
+<section id="cast" class="reveal">
+  <div class="cast-header">
+    <div class="section-label">Our Hostess</div>
+    <h2 class="section-title">キャスト紹介</h2>
+  </div>
+  <div class="cast-grid">
+    <div class="cast-card">
+      <div class="cast-visual">
+        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
+          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
+        </svg>
+      </div>
+      <div class="cast-border"></div>
+      <div class="cast-info">
+        <div class="cast-name" id="site-cast-name-0">Reina — 麗奈</div>
+        <div class="cast-role" id="site-cast-role-0">No.1 Hostess</div>
+      </div>
+    </div>
+    <div class="cast-card">
+      <div class="cast-visual">
+        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
+          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
+        </svg>
+      </div>
+      <div class="cast-border"></div>
+      <div class="cast-info">
+        <div class="cast-name" id="site-cast-name-1">Sakura — 咲良</div>
+        <div class="cast-role" id="site-cast-role-1">Top Cast</div>
+      </div>
+    </div>
+    <div class="cast-card">
+      <div class="cast-visual">
+        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
+          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
+        </svg>
+      </div>
+      <div class="cast-border"></div>
+      <div class="cast-info">
+        <div class="cast-name" id="site-cast-name-2">Yuki — 雪</div>
+        <div class="cast-role" id="site-cast-role-2">Top Cast</div>
+      </div>
+    </div>
+    <div class="cast-card">
+      <div class="cast-visual">
+        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
+          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
+        </svg>
+      </div>
+      <div class="cast-border"></div>
+      <div class="cast-info">
+        <div class="cast-name" id="site-cast-name-3">Aoi — 葵</div>
+        <div class="cast-role" id="site-cast-role-3">New Face</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrapper-cast -->
+<div class="section-wrapper" id="wrapper-info">
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- INFO -->
+<section id="info" class="reveal">
+  <div>
+    <div class="section-label">Shop Information</div>
+    <h2 class="section-title" style="margin-bottom:40px">店舗情報</h2>
+    <div class="info-table">
+      <div class="info-row">
+        <div class="info-label">店名</div>
+        <div class="info-value" id="site-info-name">NOIR（ノワール）</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">住所</div>
+        <div class="info-value" id="site-info-address">東京都中央区銀座5-X-X<br>銀座プレミアムビル B1F</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">営業時間</div>
+        <div class="info-value" id="site-info-hours">20:00 〜 翌5:00<br>（日曜・祝日定休）</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">アクセス</div>
+        <div class="info-value" id="site-info-access">銀座駅 A3出口 徒歩2分<br>新橋駅 銀座口 徒歩5分</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">ドレスコード</div>
+        <div class="info-value" id="site-info-dress">スマートカジュアル以上<br>（デニム・スニーカーはご遠慮ください）</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">料金</div>
+        <div class="info-value" id="site-info-price">セット料金 ¥15,000〜<br>（サービス料15%別途）</div>
+      </div>
+    </div>
+  </div>
+  <div class="map-placeholder" style="padding:0;overflow:hidden;position:relative;">
+    <iframe id="site-gmap"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.4!2d139.7641!3d35.6716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188be791b8d9b1%3A0xba7bc2875f0cf5b9!2z6YqA5bqK77yV5LiB55uu!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp"
+      width="100%" height="100%" style="border:0;position:absolute;inset:0;filter:grayscale(0.6) contrast(1.1);"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <div style="position:absolute;inset:0;pointer-events:none;border:1px solid var(--border);"></div>
+  </div>
+</section>
+
+</div><!-- /wrapper-info -->
+<div class="section-wrapper" id="wrapper-reservation">
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- RESERVATION -->
+<section id="reservation" class="reveal">
+  <h2 class="reservation-title">特別な夜の、ご予約を</h2>
+  <p class="reservation-sub">
+    はじめてのお客様も、お気軽にどうぞ。<br>
+    ご予算・ご要望に合わせたプランをご提案いたします。
+  </p>
+  <a href="tel:03-XXXX-XXXX" class="reservation-tel">03-XXXX-XXXX</a>
+  <div class="reservation-hours">受付時間 18:00 — 翌2:00</div>
+  <a href="#" class="line-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+    LINEでご予約・お問い合わせ
+  </a>
+</section>
+</div><!-- /wrapper-reservation -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NOIR</div>
+  <div class="footer-copy">© 2025 NOIR Premium Lounge. All rights reserved.
+    <span style="margin-left:24px; opacity:0.3; cursor:pointer; font-size:0.5rem; letter-spacing:0.1em;" onclick="showAdminLogin()">管理者</span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     ADMIN OVERLAY
+══════════════════════════════════════ -->
+<div id="admin-overlay" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(4,4,4,0.97); backdrop-filter:blur(8px); overflow-y:auto;">
+
+  <!-- LOGIN SCREEN -->
+  <div id="admin-login" style="min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:24px;">
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; letter-spacing:0.3em; color:var(--gold); margin-bottom:8px;">ADMIN</div>
+    <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--muted); margin-bottom:24px;">NOIR 管理者パネル</div>
+    <input id="admin-pw-input" type="password" placeholder="パスワードを入力"
+      style="background:var(--surface); border:1px solid var(--border); color:var(--text); font-family:'Montserrat',sans-serif; font-size:0.8rem; padding:14px 24px; width:280px; outline:none; letter-spacing:0.1em; text-align:center;"
+      onkeydown="if(event.key==='Enter') checkAdminLogin()">
+    <div id="admin-login-err" style="color:#c0392b; font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.15em; display:none;">パスワードが違います</div>
+    <div style="display:flex; gap:16px; margin-top:8px;">
+      <button onclick="checkAdminLogin()"
+        style="padding:12px 32px; border:1px solid var(--gold); background:transparent; color:var(--gold); font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase; transition:all 0.3s;"
+        onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'"
+        onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">ログイン</button>
+      <button onclick="closeAdmin()"
+        style="padding:12px 32px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase;">閉じる</button>
+    </div>
+    <div style="font-family:'Montserrat',sans-serif; font-size:0.52rem; color:var(--muted); opacity:0.4; margin-top:32px; letter-spacing:0.2em;">初期パスワード: noir2025</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="admin-dashboard" style="display:none; padding:60px 48px; max-width:960px; margin:0 auto;">
+
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; border-bottom:1px solid var(--border); padding-bottom:24px;">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; letter-spacing:0.2em; color:var(--gold);">NOIR Admin</div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.55rem; letter-spacing:0.25em; color:var(--muted); margin-top:4px;">管理者ダッシュボード</div>
+      </div>
+      <button onclick="closeAdmin()" style="padding:10px 24px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.2em; cursor:pointer; text-transform:uppercase;">ログアウト</button>
+    </div>
+
+    <!-- Tab Nav -->
+    <div style="display:flex; gap:2px; margin-bottom:32px; flex-wrap:wrap;">
+      <button onclick="showEditSection('ai')"      id="etab-ai"      style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--gold); background:var(--gold); color:var(--black);">✦ AI配信</button>
+      <button onclick="showEditSection('cast')"    id="etab-cast"    style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">キャスト</button>
+      <button onclick="showEditSection('store')"   id="etab-store"   style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">店舗情報</button>
+      <button onclick="showEditSection('notice')"  id="etab-notice"  style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">お知らせ</button>
+      <button onclick="showEditSection('concept')" id="etab-concept" style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">コンセプト</button>
+      <button onclick="showEditSection('line')"    id="etab-line"    style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">LINE設定</button>
+      <button onclick="showEditSection('analytics')" id="etab-analytics" style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">アクセス解析</button>
+      <button onclick="showEditSection('layout')"  id="etab-layout"  style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">レイアウト</button>
+    </div>
+
+    <!-- ═══════ AI配信タブ ═══════ -->
+    <div id="esec-ai" class="edit-section">
+
+      <!-- AI Chat -->
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">✦ AIライティングアシスタント</div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:var(--muted); margin-bottom:20px; line-height:1.8;">AIと相談しながらLINE配信メッセージを作成できます。完成したら「配信欄に転送」で下の配信フォームにコピーできます。</div>
+        <div id="ai-chat-messages" style="height:320px; overflow-y:auto; border:1px solid var(--border); background:var(--deep); padding:20px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px; scroll-behavior:smooth;">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="width:28px;height:28px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.6rem;color:var(--gold);font-family:'Montserrat',sans-serif;">AI</div>
+            <div style="background:var(--surface);border:1px solid var(--border);padding:12px 16px;font-family:'Shippori Mincho',serif;font-size:0.85rem;color:var(--text);line-height:1.9;max-width:85%;border-radius:0 4px 4px 4px;">
+              こんにちは！NOIRのLINE配信メッセージ作成をお手伝いします。<br>「今週末のイベント告知を作って」「新キャストのお披露目案内を書いて」など、お気軽にご相談ください。
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-end;">
+          <textarea id="ai-chat-input" rows="2" placeholder="例：今週末に新キャスト・咲良のお披露目イベントがあります。LINE配信用の案内メッセージを作って。" style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.85rem;padding:12px 16px;outline:none;resize:none;line-height:1.8;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAiChat();}"></textarea>
+          <button onclick="sendAiChat()" id="ai-send-btn" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">送信</button>
+        </div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:8px;opacity:0.5;">Shift+Enterで改行 / Enterで送信</div>
+      </div>
+
+      <!-- LINE Broadcast -->
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#06C755; text-transform:uppercase; margin-bottom:20px;">📢 LINE 一斉配信</div>
+        <div style="display:flex; gap:2px; margin-bottom:20px;">
+          <button id="tab-text" onclick="switchTab('text')" style="padding:8px 20px;border:1px solid var(--gold);background:var(--gold);color:var(--black);font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">テキスト</button>
+          <button id="tab-image" onclick="switchTab('image')" style="padding:8px 20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">画像＋テキスト</button>
+        </div>
+        <div id="panel-text">
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.1em;">メッセージ本文</div>
+          <textarea id="msg-text" rows="6" placeholder="配信するメッセージを入力してください..." style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:16px;outline:none;resize:vertical;line-height:1.9;" oninput="document.getElementById('char-count').textContent=this.value.length+' / 5000文字'"></textarea>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+            <div id="char-count" style="font-family:'Montserrat',sans-serif;font-size:0.55rem;color:var(--muted);opacity:0.6;">0 / 5000文字</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;color:var(--muted);opacity:0.5;">友だち全員に送信されます</div>
+          </div>
+        </div>
+        <div id="panel-image" style="display:none;">
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.1em;">画像URL（公開URLを入力）</div>
+          <input id="msg-image-url" type="url" placeholder="https://example.com/image.jpg" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.75rem;padding:12px 16px;outline:none;margin-bottom:16px;">
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.1em;">テキスト（省略可）</div>
+          <textarea id="msg-image-text" rows="4" placeholder="画像に添えるメッセージ（省略可）" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:16px;outline:none;resize:vertical;line-height:1.9;"></textarea>
+        </div>
+        <div id="msg-preview-box" style="margin-top:20px;padding:16px;border:1px solid rgba(6,199,85,0.2);background:rgba(6,199,85,0.04);display:none;">
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#06C755;margin-bottom:8px;">PREVIEW</div>
+          <div id="msg-preview-text" style="font-family:'Shippori Mincho',serif;font-size:0.85rem;color:var(--text);line-height:1.9;white-space:pre-wrap;"></div>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:24px;align-items:center;">
+          <button onclick="previewMsg()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">プレビュー</button>
+          <button id="send-btn" onclick="sendLineMessage()" style="padding:12px 32px;border:1px solid #06C755;background:#06C755;color:white;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">LINEに配信する</button>
+        </div>
+        <div id="send-status" style="margin-top:16px;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.15em;display:none;"></div>
+      </div>
+
+      <!-- History -->
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:20px;">📋 配信履歴</div>
+        <div id="history-list" style="font-family:'Montserrat',sans-serif; font-size:0.65rem; color:var(--muted); line-height:2;">
+          <div style="opacity:0.4;font-size:0.6rem;letter-spacing:0.1em;">配信履歴はありません</div>
+        </div>
+      </div>
+
+    </div><!-- /esec-ai -->
+
+    <!-- ═══════ キャストタブ ═══════ -->
+    <div id="esec-cast" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">🎭 キャスト情報の編集</div>
+        <div id="cast-editor" style="display:flex; flex-direction:column; gap:24px;"></div>
+        <button onclick="saveCastEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
+        <div id="cast-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+      </div>
+    </div>
+
+    <!-- ═══════ 店舗情報タブ ═══════ -->
+    <div id="esec-store" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">🏪 店舗情報の編集</div>
+        <div style="display:grid; gap:16px;">
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">店名</label><input id="edit-name" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="NOIR（ノワール）"></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">住所</label><textarea id="edit-address" rows="2" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">営業時間</label><input id="edit-hours" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">アクセス</label><textarea id="edit-access" rows="2" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">ドレスコード</label><input id="edit-dress" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">料金</label><input id="edit-price" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">電話番号</label><input id="edit-tel" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="03-XXXX-XXXX"></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">LINE 公式アカウント URL</label><input id="edit-lineUrl" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://line.me/R/ti/p/@xxxxxxxx"><div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:6px;opacity:0.6;">LINE公式アカウント → プロフィール → URLをコピー</div></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">Google マップ埋め込みURL</label><input id="edit-gmap" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://www.google.com/maps/embed?pb=..."><div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:6px;opacity:0.6;">Googleマップ → 共有 → 地図を埋め込む → HTMLをコピー → src=&quot;...&quot; の中のURLのみ貼り付け</div></div>
+        </div>
+        <button onclick="saveStoreEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
+        <div id="store-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+      </div>
+    </div>
+
+    <!-- ═══════ お知らせタブ ═══════ -->
+    <div id="esec-notice" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">📣 お知らせ・イベント情報</div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:var(--muted); margin-bottom:20px; line-height:1.8;">設定するとページ上部にゴールドのバナーで表示されます。</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;">バナー表示</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="notice-active" onchange="toggleNoticePreview()" style="accent-color:var(--gold);">
+            <span style="font-family:'Montserrat',sans-serif;font-size:0.6rem;color:var(--text);">有効にする</span>
+          </label>
+        </div>
+        <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">バナーテキスト</label>
+          <input id="notice-text-input" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="例：【今週末限定】新キャスト・葵のデビューイベント開催！" oninput="updateNoticePreview()">
+        </div>
+        <button onclick="saveNoticeEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
+        <div id="notice-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+      </div>
+    </div>
+
+    <!-- ═══════ コンセプトタブ ═══════ -->
+    <div id="esec-concept" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">✍ キャッチコピー・コンセプト文の編集</div>
+        <div style="display:grid; gap:16px;">
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">ヒーロー強調ワード（金色で表示される言葉）</label><input id="edit-hero-em" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1rem;padding:10px 14px;outline:none;" placeholder="静寂"></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">ヒーローサブテキスト</label><textarea id="edit-hero-sub" rows="2" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;" placeholder="喧騒を忘れ、選ばれた時間の中へ。"></textarea></div>
+          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">コンセプト本文</label><textarea id="edit-concept-body" rows="6" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:vertical;line-height:1.8;"></textarea></div>
+        </div>
+        <button onclick="saveConceptEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
+        <div id="concept-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+      </div>
+    </div>
+
+    <!-- ═══════ LINE設定タブ ═══════ -->
+    <div id="esec-line" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:16px;">⚙ LINE API 設定</div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.65rem; color:var(--muted); margin-bottom:10px; letter-spacing:0.1em;">チャンネルアクセストークン</div>
+        <div style="display:flex; gap:12px;">
+          <input id="line-token" type="password" placeholder="LINE Messaging API チャンネルアクセストークン" style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
+          <button onclick="saveToken()" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">保存</button>
+        </div>
+        <div id="token-saved-msg" style="font-family:'Montserrat',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.55rem; color:var(--muted); margin-top:16px; line-height:1.9; opacity:0.7;">
+          LINE Developersコンソール → チャンネル → Messaging API → チャンネルアクセストークン（長期）で発行できます。<br>
+          管理者パスワード変更はHTMLファイル内の <code style="background:var(--deep);padding:2px 6px;">ADMIN_PASSWORD</code> を書き換えてください。
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ アナリティクスタブ ═══════ -->
+    <div id="esec-analytics" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase;">📊 アクセス解析</div>
+          <button onclick="clearAnalytics()" style="padding:6px 16px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">データをリセット</button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;">
+          <div style="background:var(--deep);border:1px solid var(--border);padding:20px 16px;text-align:center;">
+            <div id="stat-visits" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);">—</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);margin-top:4px;text-transform:uppercase;">総訪問数</div>
+          </div>
+          <div style="background:var(--deep);border:1px solid var(--border);padding:20px 16px;text-align:center;">
+            <div id="stat-bounce" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);">—</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);margin-top:4px;text-transform:uppercase;">直帰率</div>
+          </div>
+          <div style="background:var(--deep);border:1px solid var(--border);padding:20px 16px;text-align:center;">
+            <div id="stat-line-clicks" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);">—</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);margin-top:4px;text-transform:uppercase;">LINE タップ数</div>
+          </div>
+        </div>
+
+        <!-- Daily Chart -->
+        <div style="margin-bottom:20px;">
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">直近7日間の訪問数</div>
+          <div id="analytics-chart" style="display:flex;align-items:flex-end;gap:6px;height:80px;"></div>
+          <div id="analytics-chart-labels" style="display:flex;gap:6px;margin-top:6px;"></div>
+        </div>
+
+        <!-- Section Scroll Depth -->
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">セクション到達率</div>
+          <div id="scroll-depth-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+        <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:20px;opacity:0.5;line-height:1.8;">
+          ※ このブラウザのデータのみ記録されます。複数端末での集計には Google Analytics をお勧めします。
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ レイアウトタブ ═══════ -->
+    <div id="esec-layout" class="edit-section" style="display:none;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">⠿ ページレイアウト管理</div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:var(--muted); margin-bottom:24px; line-height:1.9;">
+          ドラッグで順番を変更 / トグルで表示・非表示を切り替え。変更は即座にページに反映されます。
+        </div>
+        <div id="layout-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+        <div style="margin-top:24px; display:flex; gap:12px;">
+          <button onclick="applyLayout()" style="padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">ページに反映する</button>
+          <button onclick="resetLayout()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">リセット</button>
+        </div>
+        <div id="layout-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+      </div>
+    </div>
+
+  </div><!-- /admin-dashboard -->
+</div><!-- /admin-overlay -->
+
+<script>
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Admin state ──
+  const ADMIN_PASSWORD = 'noir2025';
+  let currentTab = 'text';
+  let broadcastHistory = [];
+  let aiChatHistory = [];
+  const CAST_DATA = [
+    { name: 'Reina — 麗奈', role: 'No.1 Hostess' },
+    { name: 'Sakura — 咲良', role: 'Top Cast' },
+    { name: 'Yuki — 雪', role: 'Top Cast' },
+    { name: 'Aoi — 葵', role: 'New Face' },
+  ];
+
+  // ── Admin login ──
+  function showAdminLogin() {
+    document.getElementById('admin-overlay').style.display = 'block';
+    document.getElementById('admin-login').style.display = 'flex';
+    document.getElementById('admin-dashboard').style.display = 'none';
+    document.getElementById('admin-login-err').style.display = 'none';
+    document.getElementById('admin-pw-input').value = '';
+    setTimeout(() => document.getElementById('admin-pw-input').focus(), 100);
+  }
+
+  function checkAdminLogin() {
+    if (document.getElementById('admin-pw-input').value === ADMIN_PASSWORD) {
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'block';
+      loadToken();
+      renderHistory();
+      initCastEditor();
+      loadStoreEdits();
+      loadConceptEdits();
+      loadNoticeEdits();
+      initLayout();
+      loadAnalyticsDashboard();
+    } else {
+      document.getElementById('admin-login-err').style.display = 'block';
+      document.getElementById('admin-pw-input').value = '';
+      document.getElementById('admin-pw-input').focus();
+    }
+  }
+
+  function closeAdmin() {
+    document.getElementById('admin-overlay').style.display = 'none';
+  }
+
+  // ── Tab switching ──
+  function showEditSection(name) {
+    const sections = ['ai','cast','store','notice','concept','line','analytics','layout'];
+    sections.forEach(s => {
+      document.getElementById('esec-'+s).style.display = s === name ? 'block' : 'none';
+      const tab = document.getElementById('etab-'+s);
+      if (s === name) {
+        tab.style.background = 'var(--gold)'; tab.style.color = 'var(--black)'; tab.style.borderColor = 'var(--gold)';
+      } else {
+        tab.style.background = 'transparent'; tab.style.color = 'var(--muted)'; tab.style.borderColor = 'var(--border)';
+      }
+    });
+    if (name === 'analytics') loadAnalyticsDashboard();
+  }
+
+  // ── LINE token ──
+  function saveToken() {
+    const t = document.getElementById('line-token').value.trim();
+    if (t) { localStorage.setItem('noir_line_token', t); }
+    const msg = document.getElementById('token-saved-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
+  }
+  function loadToken() {
+    document.getElementById('line-token').value = localStorage.getItem('noir_line_token') || '';
+  }
+
+  // ── Broadcast tabs ──
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('panel-text').style.display = tab === 'text' ? 'block' : 'none';
+    document.getElementById('panel-image').style.display = tab === 'image' ? 'block' : 'none';
+    const tText = document.getElementById('tab-text'), tImg = document.getElementById('tab-image');
+    if (tab === 'text') {
+      tText.style.background='var(--gold)';tText.style.color='var(--black)';tText.style.borderColor='var(--gold)';
+      tImg.style.background='transparent';tImg.style.color='var(--muted)';tImg.style.borderColor='var(--border)';
+    } else {
+      tImg.style.background='var(--gold)';tImg.style.color='var(--black)';tImg.style.borderColor='var(--gold)';
+      tText.style.background='transparent';tText.style.color='var(--muted)';tText.style.borderColor='var(--border)';
+    }
+    document.getElementById('msg-preview-box').style.display = 'none';
+  }
+
+  function previewMsg() {
+    const box = document.getElementById('msg-preview-box');
+    const pre = document.getElementById('msg-preview-text');
+    if (currentTab === 'text') {
+      const txt = document.getElementById('msg-text').value.trim();
+      if (!txt) { alert('メッセージを入力してください'); return; }
+      pre.textContent = txt;
+    } else {
+      const url = document.getElementById('msg-image-url').value.trim();
+      const txt = document.getElementById('msg-image-text').value.trim();
+      if (!url) { alert('画像URLを入力してください'); return; }
+      pre.textContent = '[画像] ' + url + (txt ? '\n\n' + txt : '');
+    }
+    box.style.display = 'block';
+  }
+
+  async function sendLineMessage() {
+    const token = (document.getElementById('line-token').value || localStorage.getItem('noir_line_token') || '').trim();
+    if (!token) { showStatus('error', 'LINE設定タブでアクセストークンを設定してください'); return; }
+    let messages = [];
+    if (currentTab === 'text') {
+      const txt = document.getElementById('msg-text').value.trim();
+      if (!txt) { showStatus('error', 'メッセージを入力してください'); return; }
+      messages = [{ type: 'text', text: txt }];
+    } else {
+      const imgUrl = document.getElementById('msg-image-url').value.trim();
+      const txt = document.getElementById('msg-image-text').value.trim();
+      if (!imgUrl) { showStatus('error', '画像URLを入力してください'); return; }
+      messages = [{ type: 'image', originalContentUrl: imgUrl, previewImageUrl: imgUrl }];
+      if (txt) messages.push({ type: 'text', text: txt });
+    }
+    const btn = document.getElementById('send-btn');
+    btn.disabled = true; btn.style.opacity = '0.5';
+    showStatus('sending', '送信中...');
+    try {
+      const res = await fetch('https://api.line.me/v2/bot/message/broadcast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ messages })
+      });
+      if (res.ok) {
+        showStatus('success', '✓ 配信が完了しました！');
+        addHistory(messages);
+        document.getElementById('msg-text').value = '';
+        document.getElementById('msg-image-url').value = '';
+        document.getElementById('msg-image-text').value = '';
+        document.getElementById('msg-preview-box').style.display = 'none';
+      } else {
+        const err = await res.json().catch(() => ({}));
+        showStatus('error', 'エラー: ' + (err.message || res.status));
+      }
+    } catch(e) { showStatus('error', '送信失敗: ' + e.message); }
+    finally { btn.disabled = false; btn.style.opacity = '1'; }
+  }
+
+  function showStatus(type, msg) {
+    const el = document.getElementById('send-status');
+    el.style.display = 'block';
+    el.style.color = type === 'success' ? '#27ae60' : type === 'error' ? '#c0392b' : 'var(--gold)';
+    el.textContent = msg;
+    if (type !== 'sending') setTimeout(() => el.style.display = 'none', 4000);
+  }
+
+  function addHistory(messages) {
+    const now = new Date().toLocaleString('ja-JP');
+    const preview = messages[0].type === 'text' ? messages[0].text.slice(0, 40) : '[画像メッセージ]';
+    broadcastHistory.unshift({ time: now, preview });
+    if (broadcastHistory.length > 20) broadcastHistory.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const el = document.getElementById('history-list');
+    if (!broadcastHistory.length) {
+      el.innerHTML = '<div style="opacity:0.4;font-size:0.6rem;letter-spacing:0.1em;">配信履歴はありません</div>';
+      return;
+    }
+    el.innerHTML = broadcastHistory.map(h =>
+      '<div style="display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--border);">' +
+      '<span style="opacity:0.5;white-space:nowrap;">' + h.time + '</span>' +
+      '<span style="color:var(--text);">' + h.preview + (h.preview.length >= 40 ? '…' : '') + '</span></div>'
+    ).join('');
+  }
+
+  // ── AI Chat ──
+  async function sendAiChat() {
+    const input = document.getElementById('ai-chat-input');
+    const userText = input.value.trim();
+    if (!userText) return;
+    const btn = document.getElementById('ai-send-btn');
+    btn.disabled = true; btn.style.opacity = '0.5';
+    input.value = '';
+    appendChatMsg('user', userText);
+    const thinkingId = 'thinking-' + Date.now();
+    appendChatMsg('ai', '考え中...', thinkingId);
+    aiChatHistory.push({ role: 'user', content: userText });
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: 'あなたはNOIRという銀座の高級クラブ・ラウンジのLINE配信メッセージ専門ライティングアシスタントです。店名=NOIR（ノワール）、場所=銀座5丁目、営業20:00〜翌5:00（日祝定休）、キャスト=麗奈(No.1)・咲良(Top)・雪(Top)・葵(New Face)。文体は丁寧で上品、絵文字1〜3個、100〜300文字、冒頭に「✦ NOIR からお知らせ ✦」などの見出し。メッセージ案を出したら転送するか聞いてください。転送希望時は<TRANSFER>転送テキスト</TRANSFER>タグで出力してください。',
+          messages: aiChatHistory
+        })
+      });
+      const data = await res.json();
+      const aiText = (data.content || []).map(c => c.text || '').join('') || 'エラーが発生しました。';
+      document.getElementById(thinkingId)?.remove();
+      aiChatHistory.push({ role: 'assistant', content: aiText });
+      const transferMatch = aiText.match(/<TRANSFER>([\s\S]*?)<\/TRANSFER>/);
+      if (transferMatch) {
+        appendChatMsg('ai', aiText.replace(/<TRANSFER>[\s\S]*?<\/TRANSFER>/, '').trim());
+        appendTransferBtn(transferMatch[1].trim());
+      } else {
+        appendChatMsg('ai', aiText);
+      }
+    } catch(e) {
+      document.getElementById(thinkingId)?.remove();
+      appendChatMsg('ai', 'エラー: ' + e.message);
+    } finally {
+      btn.disabled = false; btn.style.opacity = '1'; input.focus();
+    }
+  }
+
+  function appendChatMsg(role, text, id) {
+    const box = document.getElementById('ai-chat-messages');
+    const isAi = role === 'ai';
+    const row = document.createElement('div');
+    if (id) row.id = id;
+    row.style.cssText = 'display:flex;gap:12px;align-items:flex-start;' + (!isAi ? 'flex-direction:row-reverse;' : '');
+    const avatar = document.createElement('div');
+    avatar.style.cssText = 'width:28px;height:28px;border:1px solid ' + (isAi?'var(--gold)':'var(--muted)') + ';border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.6rem;color:' + (isAi?'var(--gold)':'var(--muted)') + ";font-family:'Montserrat',sans-serif;";
+    avatar.textContent = isAi ? 'AI' : '管';
+    const bubble = document.createElement('div');
+    bubble.style.cssText = 'background:' + (isAi?'var(--surface)':'rgba(201,168,76,0.08)') + ';border:1px solid ' + (isAi?'var(--border)':'rgba(201,168,76,0.25)') + ";padding:12px 16px;font-family:'Shippori Mincho',serif;font-size:0.85rem;color:var(--text);line-height:1.9;max-width:85%;border-radius:" + (isAi?'0 4px 4px 4px':'4px 0 4px 4px') + ';white-space:pre-wrap;';
+    bubble.textContent = text;
+    row.appendChild(avatar); row.appendChild(bubble);
+    box.appendChild(row); box.scrollTop = box.scrollHeight;
+  }
+
+  function appendTransferBtn(text) {
+    const box = document.getElementById('ai-chat-messages');
+    const btn = document.createElement('button');
+    btn.style.cssText = "align-self:flex-start;margin-left:40px;padding:10px 20px;border:1px solid #06C755;background:rgba(6,199,85,0.1);color:#06C755;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;";
+    btn.textContent = '↓ 配信欄に転送する';
+    btn.onclick = () => {
+      document.getElementById('msg-text').value = text;
+      document.getElementById('char-count').textContent = text.length + ' / 5000文字';
+      switchTab('text');
+      btn.textContent = '✓ 転送しました'; btn.style.color = 'var(--gold)'; btn.style.borderColor = 'var(--gold)'; btn.disabled = true;
+    };
+    box.appendChild(btn); box.scrollTop = box.scrollHeight;
+  }
+
+  // ── Cast editor ──
+  function initCastEditor() {
+    const saved = JSON.parse(localStorage.getItem('noir_cast') || 'null') || CAST_DATA;
+    const container = document.getElementById('cast-editor');
+    container.innerHTML = '';
+    const labelStyle = 'font-family:Montserrat,sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;';
+    const inputStyle = 'width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:0.9rem;padding:8px 12px;outline:none;';
+    saved.forEach((cast, i) => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;border:1px solid var(--border);background:var(--deep);';
+      const nameDiv = document.createElement('div');
+      const nameLbl = document.createElement('label');
+      nameLbl.style.cssText = labelStyle;
+      nameLbl.textContent = 'キャスト' + (i+1) + ' 名前';
+      const nameInp = document.createElement('input');
+      nameInp.dataset.castName = i;
+      nameInp.value = cast.name;
+      nameInp.style.cssText = inputStyle;
+      nameDiv.appendChild(nameLbl);
+      nameDiv.appendChild(nameInp);
+      const roleDiv = document.createElement('div');
+      const roleLbl = document.createElement('label');
+      roleLbl.style.cssText = labelStyle;
+      roleLbl.textContent = '役職';
+      const roleInp = document.createElement('input');
+      roleInp.dataset.castRole = i;
+      roleInp.value = cast.role;
+      roleInp.style.cssText = inputStyle;
+      roleDiv.appendChild(roleLbl);
+      roleDiv.appendChild(roleInp);
+      row.appendChild(nameDiv);
+      row.appendChild(roleDiv);
+      container.appendChild(row);
+    });
+  }
+
+
+  function saveCastEdits() {
+    const newData = [];
+    for (let i = 0; i < 4; i++) {
+      const nameEl = document.querySelector('[data-cast-name="'+i+'"]');
+      const roleEl = document.querySelector('[data-cast-role="'+i+'"]');
+      if (!nameEl) continue;
+      const name = nameEl.value.trim();
+      const role = roleEl.value.trim();
+      newData.push({ name, role });
+      const nameDiv = document.getElementById('site-cast-name-' + i);
+      const roleDiv = document.getElementById('site-cast-role-' + i);
+      if (nameDiv) nameDiv.textContent = name;
+      if (roleDiv) roleDiv.textContent = role;
+    }
+    localStorage.setItem('noir_cast', JSON.stringify(newData));
+    const msg = document.getElementById('cast-save-msg');
+    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 2000);
+  }
+
+  // ── Store editor ──
+  function loadStoreEdits() {
+    const d = JSON.parse(localStorage.getItem('noir_store') || '{}');
+    const fields = ['name','address','hours','access','dress','price','tel','gmap','lineUrl'];
+    fields.forEach(f => {
+      const el = document.getElementById('edit-' + f);
+      const siteEl = document.getElementById('site-info-' + f);
+      if (d[f]) {
+        if (el) el.value = d[f];
+        if (siteEl) siteEl.innerHTML = d[f].replace(/\n/g, '<br>');
+      } else if (siteEl && el) {
+        el.value = siteEl.innerText || siteEl.textContent;
+      }
+    });
+  }
+
+  function saveStoreEdits() {
+    const fields = ['name','address','hours','access','dress','price','tel'];
+    const d = {};
+    fields.forEach(f => {
+      const el = document.getElementById('edit-' + f);
+      if (!el) return;
+      d[f] = el.value.trim();
+      const siteEl = document.getElementById('site-info-' + f);
+      if (siteEl) siteEl.innerHTML = d[f].replace(/\n/g, '<br>');
+    });
+    // Update gmap
+    if (d.gmap) {
+      const iframe = document.getElementById('site-gmap');
+      if (iframe) iframe.src = d.gmap;
+    }
+    // Update LINE float URL
+    if (d.lineUrl) {
+      const lineLink = document.getElementById('line-float-link');
+      if (lineLink) lineLink.href = d.lineUrl;
+    }
+    // Update tel link
+    if (d.tel) {
+      const telLink = document.querySelector('.reservation-tel');
+      if (telLink) { telLink.href = 'tel:' + d.tel; telLink.textContent = d.tel; }
+    }
+    localStorage.setItem('noir_store', JSON.stringify(d));
+    const msg = document.getElementById('store-save-msg');
+    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 2000);
+  }
+
+  // ── Concept editor ──
+  function loadConceptEdits() {
+    const d = JSON.parse(localStorage.getItem('noir_concept') || '{}');
+    if (d.heroEm) {
+      document.getElementById('edit-hero-em').value = d.heroEm;
+      const em = document.getElementById('site-hero-em');
+      if (em) em.textContent = d.heroEm;
+    }
+    if (d.heroSub) {
+      document.getElementById('edit-hero-sub').value = d.heroSub;
+      const sub = document.getElementById('site-hero-sub');
+      if (sub) sub.innerHTML = d.heroSub.replace(/\n/g, '<br>');
+    }
+    if (d.conceptBody) {
+      document.getElementById('edit-concept-body').value = d.conceptBody;
+      const body = document.getElementById('site-concept-body');
+      if (body) body.textContent = d.conceptBody;
+    }
+    // Init placeholders from current site
+    if (!d.heroEm) {
+      const em = document.getElementById('site-hero-em');
+      if (em) document.getElementById('edit-hero-em').value = em.textContent;
+    }
+    if (!d.conceptBody) {
+      const body = document.getElementById('site-concept-body');
+      if (body) document.getElementById('edit-concept-body').value = body.textContent;
+    }
+  }
+
+  function saveConceptEdits() {
+    const heroEm = document.getElementById('edit-hero-em').value.trim();
+    const heroSub = document.getElementById('edit-hero-sub').value.trim();
+    const conceptBody = document.getElementById('edit-concept-body').value.trim();
+    if (heroEm) {
+      const em = document.getElementById('site-hero-em');
+      if (em) em.textContent = heroEm;
+    }
+    if (heroSub) {
+      const sub = document.getElementById('site-hero-sub');
+      if (sub) sub.innerHTML = heroSub.replace(/\n/g, '<br>');
+    }
+    if (conceptBody) {
+      const body = document.getElementById('site-concept-body');
+      if (body) body.textContent = conceptBody;
+    }
+    localStorage.setItem('noir_concept', JSON.stringify({ heroEm, heroSub, conceptBody }));
+    const msg = document.getElementById('concept-save-msg');
+    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 2000);
+  }
+
+  // ── Notice editor ──
+  function loadNoticeEdits() {
+    const d = JSON.parse(localStorage.getItem('noir_notice') || '{}');
+    if (d.text) document.getElementById('notice-text-input').value = d.text;
+    if (d.active) {
+      document.getElementById('notice-active').checked = true;
+      showNoticeBanner(d.text);
+    }
+  }
+
+  function toggleNoticePreview() {
+    const active = document.getElementById('notice-active').checked;
+    const text = document.getElementById('notice-text-input').value.trim();
+    if (active && text) showNoticeBanner(text);
+    else hideNoticeBanner();
+  }
+
+  function updateNoticePreview() {
+    if (document.getElementById('notice-active').checked) {
+      showNoticeBanner(document.getElementById('notice-text-input').value);
+    }
+  }
+
+  function showNoticeBanner(text) {
+    const banner = document.getElementById('site-notice-banner');
+    document.getElementById('site-notice-text').textContent = text;
+    banner.style.display = 'block';
+  }
+
+  function hideNoticeBanner() {
+    document.getElementById('site-notice-banner').style.display = 'none';
+  }
+
+  function saveNoticeEdits() {
+    const text = document.getElementById('notice-text-input').value.trim();
+    const active = document.getElementById('notice-active').checked;
+    localStorage.setItem('noir_notice', JSON.stringify({ text, active }));
+    if (active && text) showNoticeBanner(text); else hideNoticeBanner();
+    const msg = document.getElementById('notice-save-msg');
+    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 2000);
+  }
+
+  // ── Analytics ──
+  const SECTIONS_TRACK = ['hero','concept','features','cast','info','reservation'];
+
+  function getAnalyticsData() {
+    return JSON.parse(localStorage.getItem('noir_analytics') || '{"visits":[],"lineClicks":0,"scrollDepth":{},"bounces":0}');
+  }
+
+  function saveAnalyticsData(d) {
+    localStorage.setItem('noir_analytics', JSON.stringify(d));
+  }
+
+  function recordVisit() {
+    const d = getAnalyticsData();
+    const today = new Date().toISOString().slice(0,10);
+    d.visits = d.visits || [];
+    const existing = d.visits.find(v => v.date === today);
+    if (existing) { existing.count++; } else { d.visits.push({ date: today, count: 1 }); }
+    if (d.visits.length > 30) d.visits = d.visits.slice(-30);
+    // bounce tracking: mark as bounced unless engaged
+    d._sessionStart = Date.now();
+    d._bounced = true;
+    saveAnalyticsData(d);
+    setTimeout(() => {
+      const d2 = getAnalyticsData();
+      if (d2._bounced) { d2.bounces = (d2.bounces || 0) + 1; d2._bounced = false; saveAnalyticsData(d2); }
+    }, 30000); // 30秒滞在で直帰扱い解除
+  }
+
+  function markEngaged() {
+    const d = getAnalyticsData();
+    d._bounced = false;
+    saveAnalyticsData(d);
+  }
+
+  function recordLineClick() {
+    const d = getAnalyticsData();
+    d.lineClicks = (d.lineClicks || 0) + 1;
+    saveAnalyticsData(d);
+    markEngaged();
+  }
+
+  function recordScrollDepth(sectionId) {
+    const d = getAnalyticsData();
+    d.scrollDepth = d.scrollDepth || {};
+    d.scrollDepth[sectionId] = (d.scrollDepth[sectionId] || 0) + 1;
+    saveAnalyticsData(d);
+    markEngaged();
+  }
+
+  function loadAnalyticsDashboard() {
+    const d = getAnalyticsData();
+    // Total visits
+    const totalVisits = (d.visits || []).reduce((s,v) => s + v.count, 0);
+    document.getElementById('stat-visits').textContent = totalVisits || 0;
+    // Bounce rate
+    const bounceRate = totalVisits > 0 ? Math.round((d.bounces || 0) / totalVisits * 100) : 0;
+    document.getElementById('stat-bounce').textContent = bounceRate + '%';
+    // LINE clicks
+    document.getElementById('stat-line-clicks').textContent = d.lineClicks || 0;
+    // Chart: last 7 days
+    const chart = document.getElementById('analytics-chart');
+    const labels = document.getElementById('analytics-chart-labels');
+    chart.innerHTML = ''; labels.innerHTML = '';
+    const last7 = [];
+    for (let i = 6; i >= 0; i--) {
+      const dt = new Date(); dt.setDate(dt.getDate() - i);
+      const key = dt.toISOString().slice(0,10);
+      const found = (d.visits || []).find(v => v.date === key);
+      last7.push({ date: key, count: found ? found.count : 0, label: (dt.getMonth()+1)+'/'+(dt.getDate()) });
+    }
+    const maxCount = Math.max(...last7.map(v => v.count), 1);
+    last7.forEach(v => {
+      const bar = document.createElement('div');
+      const pct = Math.max(v.count / maxCount * 100, 2);
+      bar.style.cssText = 'flex:1;background:var(--gold);opacity:0.7;border-radius:2px 2px 0 0;transition:height 0.4s;height:' + pct + '%;position:relative;';
+      bar.title = v.label + ': ' + v.count + '件';
+      chart.appendChild(bar);
+      const lbl = document.createElement('div');
+      lbl.style.cssText = "flex:1;text-align:center;font-family:'Montserrat',sans-serif;font-size:0.48rem;color:var(--muted);";
+      lbl.textContent = v.label;
+      labels.appendChild(lbl);
+    });
+    // Scroll depth
+    const depthList = document.getElementById('scroll-depth-list');
+    depthList.innerHTML = '';
+    const sectionLabels = { hero:'ヒーロー', concept:'コンセプト', features:'特徴', cast:'キャスト', info:'店舗情報', reservation:'予約' };
+    const heroCount = (d.scrollDepth || {})['hero'] || totalVisits;
+    SECTIONS_TRACK.forEach(id => {
+      const count = (d.scrollDepth || {})[id] || 0;
+      const pct = heroCount > 0 ? Math.round(count / heroCount * 100) : 0;
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:12px;';
+      row.innerHTML = (
+        '<div style="width:80px;font-size:0.58rem;color:var(--muted);text-align:right;flex-shrink:0;">' + (sectionLabels[id]||id) + '</div>' +
+        '<div style="flex:1;background:var(--deep);border:1px solid var(--border);height:12px;border-radius:2px;overflow:hidden;">' +
+          '<div style="width:' + pct + '%;height:100%;background:var(--gold);opacity:0.7;"></div>' +
+        '</div>' +
+        '<div style="width:36px;font-size:0.58rem;color:var(--gold);text-align:right;">' + pct + '%</div>'
+      );
+      depthList.appendChild(row);
+    });
+  }
+
+  function clearAnalytics() {
+    if (!confirm('アクセスデータをリセットしますか？')) return;
+    localStorage.removeItem('noir_analytics');
+    loadAnalyticsDashboard();
+  }
+
+  // ── LINE Floating Button ──
+  function initLineFloat() {
+    const btn = document.getElementById('line-float');
+    const link = document.getElementById('line-float-link');
+    // Load LINE URL from storage
+    const saved = JSON.parse(localStorage.getItem('noir_store') || '{}');
+    if (saved.lineUrl) link.href = saved.lineUrl;
+
+    // Track clicks
+    link.addEventListener('click', () => { recordLineClick(); });
+
+    // Scroll show/hide
+    let shown = false;
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const threshold = window.innerHeight * 0.4;
+      if (scrollY > threshold && !shown) {
+        btn.style.opacity = '1';
+        btn.style.transform = 'translateY(0)';
+        btn.style.pointerEvents = 'auto';
+        shown = true;
+      } else if (scrollY <= threshold && shown) {
+        btn.style.opacity = '0';
+        btn.style.transform = 'translateY(16px)';
+        btn.style.pointerEvents = 'none';
+        shown = false;
+      }
+    }, { passive: true });
+  }
+
+  // ── Scroll depth tracking ──
+  function initScrollTracking() {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          if (SECTIONS_TRACK.includes(id)) recordScrollDepth(id);
+        }
+      });
+    }, { threshold: 0.3 });
+    SECTIONS_TRACK.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
+  }
+
+  // ── Layout Manager ──
+  const SECTION_META = [
+    { id: 'hero',        label: 'ヒーロー（メインビジュアル）', required: true },
+    { id: 'concept',     label: 'コンセプト' },
+    { id: 'features',    label: '特徴・こだわり（6項目）' },
+    { id: 'cast',        label: 'キャスト紹介' },
+    { id: 'info',        label: '店舗情報' },
+    { id: 'reservation', label: 'ご予約' },
+  ];
+
+  let layoutOrder   = SECTION_META.map(s => s.id);
+  let layoutVisible = Object.fromEntries(SECTION_META.map(s => [s.id, true]));
+  let dragSrcIndex  = null;
+
+  function initLayout() {
+    const saved = JSON.parse(localStorage.getItem('noir_layout') || 'null');
+    if (saved) {
+      layoutOrder   = saved.order   || layoutOrder;
+      layoutVisible = saved.visible || layoutVisible;
+    }
+    renderLayoutList();
+  }
+
+  function renderLayoutList() {
+    const list = document.getElementById('layout-list');
+    list.innerHTML = '';
+    layoutOrder.forEach((id, idx) => {
+      const meta = SECTION_META.find(s => s.id === id);
+      if (!meta) return;
+      const visible = layoutVisible[id] !== false;
+
+      const row = document.createElement('div');
+      row.draggable = !meta.required;
+      row.dataset.idx = idx;
+      row.style.cssText = [
+        'display:flex;align-items:center;gap:16px;padding:14px 16px;',
+        'background:' + (visible ? 'var(--deep)' : 'rgba(255,255,255,0.02)') + ';',
+        'border:1px solid ' + (visible ? 'var(--border)' : 'rgba(255,255,255,0.05)') + ';',
+        'cursor:' + (meta.required ? 'default' : 'grab') + ';',
+        'transition:all 0.2s;user-select:none;',
+        'opacity:' + (visible ? '1' : '0.45') + ';',
+      ].join('');
+
+      // Drag handle
+      const handle = document.createElement('div');
+      handle.style.cssText = 'font-size:1rem;color:' + (meta.required ? 'transparent' : 'var(--gold-dim)') + ';flex-shrink:0;cursor:inherit;line-height:1;';
+      handle.textContent = '⠿';
+
+      // Label
+      const label = document.createElement('div');
+      label.style.cssText = "flex:1;font-family:'Shippori Mincho',serif;font-size:0.9rem;color:var(--text);";
+      label.textContent = meta.label;
+
+      // Required badge
+      if (meta.required) {
+        const badge = document.createElement('span');
+        badge.style.cssText = "font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.2em;color:var(--gold-dim);border:1px solid var(--gold-dim);padding:2px 8px;text-transform:uppercase;";
+        badge.textContent = '固定';
+        label.appendChild(badge);
+      }
+
+      // Toggle
+      const toggle = document.createElement('label');
+      toggle.style.cssText = 'position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;cursor:pointer;';
+      toggle.title = meta.required ? 'ヒーローは非表示にできません' : '';
+      const inp = document.createElement('input');
+      inp.type = 'checkbox';
+      inp.checked = visible;
+      inp.disabled = !!meta.required;
+      inp.style.cssText = 'opacity:0;width:0;height:0;position:absolute;';
+      inp.onchange = () => {
+        layoutVisible[id] = inp.checked;
+        renderLayoutList();
+      };
+      const slider = document.createElement('span');
+      slider.style.cssText = [
+        'position:absolute;inset:0;border-radius:24px;transition:0.3s;',
+        'background:' + (visible && !meta.required ? 'var(--gold)' : 'var(--border)') + ';',
+      ].join('');
+      const knob = document.createElement('span');
+      knob.style.cssText = [
+        'position:absolute;width:18px;height:18px;border-radius:50%;background:white;',
+        'top:3px;transition:0.3s;',
+        'left:' + (visible ? '23px' : '3px') + ';',
+      ].join('');
+      slider.appendChild(knob);
+      toggle.appendChild(inp);
+      toggle.appendChild(slider);
+
+      // Drag events
+      if (!meta.required) {
+        row.addEventListener('dragstart', e => {
+          dragSrcIndex = idx;
+          e.dataTransfer.effectAllowed = 'move';
+          setTimeout(() => row.style.opacity = '0.3', 0);
+        });
+        row.addEventListener('dragend', () => {
+          row.style.opacity = '';
+          renderLayoutList();
+        });
+        row.addEventListener('dragover', e => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          row.style.borderColor = 'var(--gold)';
+        });
+        row.addEventListener('dragleave', () => {
+          row.style.borderColor = visible ? 'var(--border)' : 'rgba(255,255,255,0.05)';
+        });
+        row.addEventListener('drop', e => {
+          e.preventDefault();
+          if (dragSrcIndex === null || dragSrcIndex === idx) return;
+          const moved = layoutOrder.splice(dragSrcIndex, 1)[0];
+          layoutOrder.splice(idx, 0, moved);
+          dragSrcIndex = null;
+          renderLayoutList();
+        });
+      }
+
+      row.appendChild(handle);
+      row.appendChild(label);
+      row.appendChild(toggle);
+      list.appendChild(row);
+    });
+  }
+
+  function applyLayout() {
+    const main = document.querySelector('body');
+    const allWrappers = layoutOrder.map(id => document.getElementById('wrapper-' + id)).filter(Boolean);
+
+    // hero is outside wrapper system — handle separately
+    const heroWrapper = document.getElementById('wrapper-hero');
+    if (heroWrapper) {
+      heroWrapper.style.display = layoutVisible['hero'] === false ? 'none' : '';
+    }
+
+    // For non-hero sections, reorder DOM and set visibility
+    const parent = document.getElementById('wrapper-concept')?.parentElement;
+    if (!parent) return;
+
+    layoutOrder.forEach(id => {
+      if (id === 'hero') return;
+      const el = document.getElementById('wrapper-' + id);
+      if (!el) return;
+      el.style.display = layoutVisible[id] === false ? 'none' : '';
+      parent.appendChild(el); // reorder by appending in order
+    });
+
+    localStorage.setItem('noir_layout', JSON.stringify({ order: layoutOrder, visible: layoutVisible }));
+    const msg = document.getElementById('layout-save-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
+  }
+
+  function resetLayout() {
+    layoutOrder   = SECTION_META.map(s => s.id);
+    layoutVisible = Object.fromEntries(SECTION_META.map(s => [s.id, true]));
+    localStorage.removeItem('noir_layout');
+    applyLayout();
+    renderLayoutList();
+  }
+
+  // ── On page load: apply saved data ──
+  window.addEventListener('load', () => {
+    // Analytics
+    recordVisit();
+    initLineFloat();
+    initScrollTracking();
+
+    // Apply saved layout
+    const savedLayout = JSON.parse(localStorage.getItem('noir_layout') || 'null');
+    if (savedLayout) {
+      layoutOrder   = savedLayout.order   || layoutOrder;
+      layoutVisible = savedLayout.visible || layoutVisible;
+      applyLayout();
+    }
+    // Cast
+    const savedCast = JSON.parse(localStorage.getItem('noir_cast') || 'null');
+    if (savedCast) {
+      savedCast.forEach((cast, i) => {
+        const nameEl = document.getElementById('site-cast-name-' + i);
+        const roleEl = document.getElementById('site-cast-role-' + i);
+        if (nameEl) nameEl.textContent = cast.name;
+        if (roleEl) roleEl.textContent = cast.role;
+      });
+    }
+    // Store
+    const savedStore = JSON.parse(localStorage.getItem('noir_store') || '{}');
+    const storeFields = ['name','address','hours','access','dress','price'];
+    storeFields.forEach(f => {
+      if (savedStore[f]) {
+        const el = document.getElementById('site-info-' + f);
+        if (el) el.innerHTML = savedStore[f].replace(/\n/g, '<br>');
+      }
+    });
+    if (savedStore.gmap) {
+      const iframe = document.getElementById('site-gmap');
+      if (iframe) iframe.src = savedStore.gmap;
+    }
+    if (savedStore.lineUrl) {
+      const lineLink = document.getElementById('line-float-link');
+      if (lineLink) lineLink.href = savedStore.lineUrl;
+    }
+    if (savedStore.tel) {
+      const telLink = document.querySelector('.reservation-tel');
+      if (telLink) { telLink.href = 'tel:' + savedStore.tel; telLink.textContent = savedStore.tel; }
+    }
+    // Concept
+    const savedConcept = JSON.parse(localStorage.getItem('noir_concept') || '{}');
+    if (savedConcept.heroEm) { const em = document.getElementById('site-hero-em'); if(em) em.textContent = savedConcept.heroEm; }
+    if (savedConcept.heroSub) { const sub = document.getElementById('site-hero-sub'); if(sub) sub.innerHTML = savedConcept.heroSub.replace(/\n/g,'<br>'); }
+    if (savedConcept.conceptBody) { const body = document.getElementById('site-concept-body'); if(body) body.textContent = savedConcept.conceptBody; }
+    // Notice
+    const savedNotice = JSON.parse(localStorage.getItem('noir_notice') || '{}');
+    if (savedNotice.active && savedNotice.text) showNoticeBanner(savedNotice.text);
+  });
+</script>
+</body>
+</html>
