@@ -1135,109 +1135,201 @@
 <!-- ══════════════════════════════════════
      ADMIN OVERLAY
 ══════════════════════════════════════ -->
-<div id="admin-overlay" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(4,4,4,0.97); backdrop-filter:blur(8px); overflow-y:auto;">
+<style>
+#admin-overlay {
+  --adm-bg: #faf8f5;
+  --adm-surface: #ffffff;
+  --adm-deep: #f3efe9;
+  --adm-border: rgba(140,112,96,0.18);
+  --adm-border2: rgba(140,112,96,0.3);
+  --adm-text: #3a2e28;
+  --adm-muted: #9a8878;
+  --adm-accent: #b8907a;
+  --adm-gold: #b8907a;
+  --adm-dark: #2a1f18;
+  --adm-green: #06C755;
+}
+#admin-overlay .adm-card {
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+#admin-overlay .adm-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: var(--adm-accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+#admin-overlay .adm-input {
+  width: 100%;
+  background: var(--adm-deep);
+  border: 1px solid var(--adm-border);
+  color: var(--adm-text);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  outline: none;
+}
+#admin-overlay .adm-btn {
+  padding: 11px 28px;
+  border: 1px solid var(--adm-accent);
+  background: transparent;
+  color: var(--adm-accent);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+#admin-overlay .adm-btn:hover { background: var(--adm-accent); color: white; }
+#admin-overlay .adm-btn-dark {
+  background: var(--adm-dark);
+  border-color: var(--adm-dark);
+  color: white;
+}
+#admin-overlay .adm-btn-dark:hover { background: var(--adm-accent); border-color: var(--adm-accent); }
+#admin-overlay .adm-tab {
+  padding: 9px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: 1px solid var(--adm-border);
+  background: transparent;
+  color: var(--adm-muted);
+  transition: all 0.2s;
+}
+#admin-overlay .adm-tab.active-adm-tab {
+  background: var(--adm-dark);
+  border-color: var(--adm-dark);
+  color: white;
+}
+#admin-overlay textarea, #admin-overlay input[type="text"], #admin-overlay input[type="password"], #admin-overlay input[type="url"] {
+  background: var(--adm-deep) !important;
+  border-color: var(--adm-border) !important;
+  color: var(--adm-text) !important;
+}
+#admin-overlay .chat-bubble-ai {
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+}
+#admin-overlay #ai-chat-messages {
+  background: var(--adm-deep) !important;
+  border-color: var(--adm-border) !important;
+}
+#admin-overlay .section-bg {
+  background: var(--adm-surface) !important;
+  border-color: var(--adm-border) !important;
+}
+</style>
+<div id="admin-overlay" style="display:none; position:fixed; inset:0; z-index:9000; background:#faf8f5; overflow-y:auto;">
 
   <!-- LOGIN SCREEN -->
   <div id="admin-login" style="min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:24px;">
-    <div style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; letter-spacing:0.3em; color:var(--gold); margin-bottom:8px;">ADMIN</div>
-    <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--muted); margin-bottom:24px;">NOIR 管理者パネル</div>
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; letter-spacing:0.2em; color:var(--dark); margin-bottom:4px;">Cow girl.</div>
+    <div style="font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.35em; color:var(--accent); text-transform:uppercase; margin-bottom:24px;">Admin Panel</div>
     <input id="admin-pw-input" type="password" placeholder="パスワードを入力"
-      style="background:var(--surface); border:1px solid var(--border); color:var(--text); font-family:'Montserrat',sans-serif; font-size:0.8rem; padding:14px 24px; width:280px; outline:none; letter-spacing:0.1em; text-align:center;"
+      style="background:white; border:1px solid var(--border2); color:#3a2e28; font-family:'DM Sans',sans-serif; font-size:0.8rem; padding:14px 24px; width:280px; outline:none; letter-spacing:0.1em; text-align:center;"
       onkeydown="if(event.key==='Enter') checkAdminLogin()">
-    <div id="admin-login-err" style="color:#c0392b; font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.15em; display:none;">パスワードが違います</div>
+    <div id="admin-login-err" style="color:#c0392b; font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.15em; display:none;">パスワードが違います</div>
     <div style="display:flex; gap:16px; margin-top:8px;">
       <button onclick="checkAdminLogin()"
-        style="padding:12px 32px; border:1px solid var(--gold); background:transparent; color:var(--gold); font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase; transition:all 0.3s;"
-        onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'"
-        onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">ログイン</button>
+        style="padding:12px 32px; border:1px solid #b8907a; background:transparent; color:#b8907a; font-family:'DM Sans',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase; transition:all 0.3s;"
+        onmouseover="this.style.background='#b8907a';this.style.color='white'"
+        onmouseout="this.style.background='transparent';this.style.color='#b8907a'">ログイン</button>
       <button onclick="closeAdmin()"
-        style="padding:12px 32px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase;">閉じる</button>
+        style="padding:12px 32px; border:1px solid var(--border); background:transparent; color:#9a8878; font-family:'DM Sans',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase;">閉じる</button>
     </div>
-    <div style="font-family:'Montserrat',sans-serif; font-size:0.52rem; color:var(--muted); opacity:0.4; margin-top:32px; letter-spacing:0.2em;">初期パスワード: noir2025</div>
+    <div style="font-family:'DM Sans',sans-serif; font-size:0.52rem; color:#9a8878; opacity:0.4; margin-top:32px; letter-spacing:0.2em;">初期パスワード: noir2025</div>
   </div>
 
   <!-- DASHBOARD -->
-  <div id="admin-dashboard" style="display:none; padding:60px 48px; max-width:960px; margin:0 auto;">
+  <div id="admin-dashboard" style="display:none; padding:60px 48px; max-width:960px; margin:0 auto; background:transparent;">
 
     <!-- Header -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; border-bottom:1px solid var(--border); padding-bottom:24px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; border-bottom:1px solid rgba(140,112,96,0.18); padding-bottom:24px;">
       <div>
-        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; letter-spacing:0.2em; color:var(--gold);">NOIR Admin</div>
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.55rem; letter-spacing:0.25em; color:var(--muted); margin-top:4px;">管理者ダッシュボード</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; letter-spacing:0.12em; color:var(--dark);">Lounge Cow girl.</div>
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.55rem; letter-spacing:0.3em; color:var(--accent); margin-top:4px; text-transform:uppercase;">Admin Dashboard</div>
       </div>
-      <button onclick="closeAdmin()" style="padding:10px 24px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.2em; cursor:pointer; text-transform:uppercase;">ログアウト</button>
+      <button onclick="closeAdmin()" style="padding:10px 24px; border:1px solid var(--border); background:transparent; color:#9a8878; font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.2em; cursor:pointer; text-transform:uppercase;">ログアウト</button>
     </div>
 
     <!-- Tab Nav -->
     <div style="display:flex; gap:2px; margin-bottom:32px; flex-wrap:wrap;">
-      <button onclick="showEditSection('ai')"      id="etab-ai"      style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--gold); background:var(--gold); color:var(--black);">✦ AI配信</button>
-      <button onclick="showEditSection('cast')"    id="etab-cast"    style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">キャスト</button>
-      <button onclick="showEditSection('store')"   id="etab-store"   style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">店舗情報</button>
-      <button onclick="showEditSection('notice')"  id="etab-notice"  style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">お知らせ</button>
-      <button onclick="showEditSection('concept')" id="etab-concept" style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">コンセプト</button>
-      <button onclick="showEditSection('line')"    id="etab-line"    style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">LINE設定</button>
-      <button onclick="showEditSection('analytics')" id="etab-analytics" style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">アクセス解析</button>
-      <button onclick="showEditSection('layout')"  id="etab-layout"  style="padding:9px 18px; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:var(--muted);">レイアウト</button>
+      <button onclick="showEditSection('ai')"      id="etab-ai"      style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid #b8907a; background:#b8907a; color:var(--black);">✦ AI配信</button>
+      <button onclick="showEditSection('cast')"    id="etab-cast"    style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">キャスト</button>
+      <button onclick="showEditSection('store')"   id="etab-store"   style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">店舗情報</button>
+      <button onclick="showEditSection('notice')"  id="etab-notice"  style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">お知らせ</button>
+      <button onclick="showEditSection('concept')" id="etab-concept" style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">コンセプト</button>
+      <button onclick="showEditSection('line')"    id="etab-line"    style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">LINE設定</button>
+      <button onclick="showEditSection('analytics')" id="etab-analytics" style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">アクセス解析</button>
+      <button onclick="showEditSection('layout')"  id="etab-layout"  style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">レイアウト</button>
     </div>
 
     <!-- ═══════ AI配信タブ ═══════ -->
     <div id="esec-ai" class="edit-section">
 
       <!-- AI Chat -->
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">✦ AIライティングアシスタント</div>
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:var(--muted); margin-bottom:20px; line-height:1.8;">AIと相談しながらLINE配信メッセージを作成できます。完成したら「配信欄に転送」で下の配信フォームにコピーできます。</div>
-        <div id="ai-chat-messages" style="height:320px; overflow-y:auto; border:1px solid var(--border); background:var(--deep); padding:20px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px; scroll-behavior:smooth;">
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:8px;">✦ AIライティングアシスタント</div>
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; color:#9a8878; margin-bottom:20px; line-height:1.8;">AIと相談しながらLINE配信メッセージを作成できます。完成したら「配信欄に転送」で下の配信フォームにコピーできます。</div>
+        <div id="ai-chat-messages" style="height:320px; overflow-y:auto; border:1px solid rgba(140,112,96,0.18); background:#f3efe9; padding:20px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px; scroll-behavior:smooth;">
           <div style="display:flex; gap:12px; align-items:flex-start;">
-            <div style="width:28px;height:28px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.6rem;color:var(--gold);font-family:'Montserrat',sans-serif;">AI</div>
-            <div style="background:var(--surface);border:1px solid var(--border);padding:12px 16px;font-family:'Shippori Mincho',serif;font-size:0.85rem;color:var(--text);line-height:1.9;max-width:85%;border-radius:0 4px 4px 4px;">
+            <div style="width:28px;height:28px;border:1px solid #b8907a;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.6rem;color:#b8907a;font-family:'DM Sans',sans-serif;">AI</div>
+            <div style="background:#ffffff;border:1px solid rgba(140,112,96,0.18);padding:12px 16px;font-family:'Noto Serif JP',serif;font-size:0.85rem;color:#3a2e28;line-height:1.9;max-width:85%;border-radius:0 4px 4px 4px;">
               こんにちは！NOIRのLINE配信メッセージ作成をお手伝いします。<br>「今週末のイベント告知を作って」「新キャストのお披露目案内を書いて」など、お気軽にご相談ください。
             </div>
           </div>
         </div>
         <div style="display:flex; gap:12px; align-items:flex-end;">
-          <textarea id="ai-chat-input" rows="2" placeholder="例：今週末に新キャスト・咲良のお披露目イベントがあります。LINE配信用の案内メッセージを作って。" style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.85rem;padding:12px 16px;outline:none;resize:none;line-height:1.8;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAiChat();}"></textarea>
-          <button onclick="sendAiChat()" id="ai-send-btn" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">送信</button>
+          <textarea id="ai-chat-input" rows="2" placeholder="例：今週末に新キャスト・咲良のお披露目イベントがあります。LINE配信用の案内メッセージを作って。" style="flex:1;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.85rem;padding:12px 16px;outline:none;resize:none;line-height:1.8;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAiChat();}"></textarea>
+          <button onclick="sendAiChat()" id="ai-send-btn" style="padding:12px 20px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">送信</button>
         </div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:8px;opacity:0.5;">Shift+Enterで改行 / Enterで送信</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:8px;opacity:0.5;">Shift+Enterで改行 / Enterで送信</div>
       </div>
 
       <!-- LINE Broadcast -->
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#06C755; text-transform:uppercase; margin-bottom:20px;">📢 LINE 一斉配信</div>
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#06C755; text-transform:uppercase; margin-bottom:20px;">📢 LINE 一斉配信</div>
         <div style="display:flex; gap:2px; margin-bottom:20px;">
-          <button id="tab-text" onclick="switchTab('text')" style="padding:8px 20px;border:1px solid var(--gold);background:var(--gold);color:var(--black);font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">テキスト</button>
-          <button id="tab-image" onclick="switchTab('image')" style="padding:8px 20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">画像＋テキスト</button>
+          <button id="tab-text" onclick="switchTab('text')" style="padding:8px 20px;border:1px solid #b8907a;background:#b8907a;color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">テキスト</button>
+          <button id="tab-image" onclick="switchTab('image')" style="padding:8px 20px;border:1px solid var(--border);background:transparent;color:#9a8878;font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">画像＋テキスト</button>
         </div>
         <div id="panel-text">
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.1em;">メッセージ本文</div>
-          <textarea id="msg-text" rows="6" placeholder="配信するメッセージを入力してください..." style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:16px;outline:none;resize:vertical;line-height:1.9;" oninput="document.getElementById('char-count').textContent=this.value.length+' / 5000文字'"></textarea>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.62rem;color:#9a8878;margin-bottom:8px;letter-spacing:0.1em;">メッセージ本文</div>
+          <textarea id="msg-text" rows="6" placeholder="配信するメッセージを入力してください..." style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:16px;outline:none;resize:vertical;line-height:1.9;" oninput="document.getElementById('char-count').textContent=this.value.length+' / 5000文字'"></textarea>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
-            <div id="char-count" style="font-family:'Montserrat',sans-serif;font-size:0.55rem;color:var(--muted);opacity:0.6;">0 / 5000文字</div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;color:var(--muted);opacity:0.5;">友だち全員に送信されます</div>
+            <div id="char-count" style="font-family:'DM Sans',sans-serif;font-size:0.55rem;color:#9a8878;opacity:0.6;">0 / 5000文字</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;color:#9a8878;opacity:0.5;">友だち全員に送信されます</div>
           </div>
         </div>
         <div id="panel-image" style="display:none;">
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.1em;">画像URL（公開URLを入力）</div>
-          <input id="msg-image-url" type="url" placeholder="https://example.com/image.jpg" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.75rem;padding:12px 16px;outline:none;margin-bottom:16px;">
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.1em;">テキスト（省略可）</div>
-          <textarea id="msg-image-text" rows="4" placeholder="画像に添えるメッセージ（省略可）" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:16px;outline:none;resize:vertical;line-height:1.9;"></textarea>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.62rem;color:#9a8878;margin-bottom:8px;letter-spacing:0.1em;">画像URL（公開URLを入力）</div>
+          <input id="msg-image-url" type="url" placeholder="https://example.com/image.jpg" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.75rem;padding:12px 16px;outline:none;margin-bottom:16px;">
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.62rem;color:#9a8878;margin-bottom:8px;letter-spacing:0.1em;">テキスト（省略可）</div>
+          <textarea id="msg-image-text" rows="4" placeholder="画像に添えるメッセージ（省略可）" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:16px;outline:none;resize:vertical;line-height:1.9;"></textarea>
         </div>
         <div id="msg-preview-box" style="margin-top:20px;padding:16px;border:1px solid rgba(6,199,85,0.2);background:rgba(6,199,85,0.04);display:none;">
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#06C755;margin-bottom:8px;">PREVIEW</div>
-          <div id="msg-preview-text" style="font-family:'Shippori Mincho',serif;font-size:0.85rem;color:var(--text);line-height:1.9;white-space:pre-wrap;"></div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#06C755;margin-bottom:8px;">PREVIEW</div>
+          <div id="msg-preview-text" style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:#3a2e28;line-height:1.9;white-space:pre-wrap;"></div>
         </div>
         <div style="display:flex;gap:16px;margin-top:24px;align-items:center;">
-          <button onclick="previewMsg()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">プレビュー</button>
-          <button id="send-btn" onclick="sendLineMessage()" style="padding:12px 32px;border:1px solid #06C755;background:#06C755;color:white;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">LINEに配信する</button>
+          <button onclick="previewMsg()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:#9a8878;font-family:'DM Sans',sans-serif;font-size:0.62rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.borderColor='#b8907a';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">プレビュー</button>
+          <button id="send-btn" onclick="sendLineMessage()" style="padding:12px 32px;border:1px solid #06C755;background:#06C755;color:white;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">LINEに配信する</button>
         </div>
-        <div id="send-status" style="margin-top:16px;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.15em;display:none;"></div>
+        <div id="send-status" style="margin-top:16px;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.15em;display:none;"></div>
       </div>
 
       <!-- History -->
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:20px;">📋 配信履歴</div>
-        <div id="history-list" style="font-family:'Montserrat',sans-serif; font-size:0.65rem; color:var(--muted); line-height:2;">
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:20px;">📋 配信履歴</div>
+        <div id="history-list" style="font-family:'DM Sans',sans-serif; font-size:0.65rem; color:#9a8878; line-height:2;">
           <div style="opacity:0.4;font-size:0.6rem;letter-spacing:0.1em;">配信履歴はありません</div>
         </div>
       </div>
@@ -1246,93 +1338,93 @@
 
     <!-- ═══════ キャストタブ ═══════ -->
     <div id="esec-cast" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">🎭 キャスト情報の編集</div>
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:24px;">🎭 キャスト情報の編集</div>
         <div id="cast-editor" style="display:flex; flex-direction:column; gap:24px;"></div>
-        <button onclick="saveCastEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
-        <div id="cast-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+        <button onclick="saveCastEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
+        <div id="cast-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
       </div>
     </div>
 
     <!-- ═══════ 店舗情報タブ ═══════ -->
     <div id="esec-store" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">🏪 店舗情報の編集</div>
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:24px;">🏪 店舗情報の編集</div>
         <div style="display:grid; gap:16px;">
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">店名</label><input id="edit-name" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="NOIR（ノワール）"></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">住所</label><textarea id="edit-address" rows="2" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">営業時間</label><input id="edit-hours" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">アクセス</label><textarea id="edit-access" rows="2" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">ドレスコード</label><input id="edit-dress" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">料金</label><input id="edit-price" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">電話番号</label><input id="edit-tel" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="03-XXXX-XXXX"></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">LINE 公式アカウント URL</label><input id="edit-lineUrl" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://line.me/R/ti/p/@xxxxxxxx"><div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:6px;opacity:0.6;">LINE公式アカウント → プロフィール → URLをコピー</div></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">Google マップ埋め込みURL</label><input id="edit-gmap" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://www.google.com/maps/embed?pb=..."><div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:6px;opacity:0.6;">Googleマップ → 共有 → 地図を埋め込む → HTMLをコピー → src=&quot;...&quot; の中のURLのみ貼り付け</div></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">店名</label><input id="edit-name" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="NOIR（ノワール）"></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">住所</label><textarea id="edit-address" rows="2" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">営業時間</label><input id="edit-hours" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">アクセス</label><textarea id="edit-access" rows="2" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">ドレスコード</label><input id="edit-dress" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">料金</label><input id="edit-price" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">電話番号</label><input id="edit-tel" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="03-XXXX-XXXX"></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">LINE 公式アカウント URL</label><input id="edit-lineUrl" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://line.me/R/ti/p/@xxxxxxxx"><div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:6px;opacity:0.6;">LINE公式アカウント → プロフィール → URLをコピー</div></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">Google マップ埋め込みURL</label><input id="edit-gmap" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://www.google.com/maps/embed?pb=..."><div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:6px;opacity:0.6;">Googleマップ → 共有 → 地図を埋め込む → HTMLをコピー → src=&quot;...&quot; の中のURLのみ貼り付け</div></div>
         </div>
-        <button onclick="saveStoreEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
-        <div id="store-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+        <button onclick="saveStoreEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
+        <div id="store-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
       </div>
     </div>
 
     <!-- ═══════ お知らせタブ ═══════ -->
     <div id="esec-notice" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">📣 お知らせ・イベント情報</div>
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:var(--muted); margin-bottom:20px; line-height:1.8;">設定するとページ上部にゴールドのバナーで表示されます。</div>
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:8px;">📣 お知らせ・イベント情報</div>
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; color:#9a8878; margin-bottom:20px; line-height:1.8;">設定するとページ上部にゴールドのバナーで表示されます。</div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-          <label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;">バナー表示</label>
+          <label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;">バナー表示</label>
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-            <input type="checkbox" id="notice-active" onchange="toggleNoticePreview()" style="accent-color:var(--gold);">
-            <span style="font-family:'Montserrat',sans-serif;font-size:0.6rem;color:var(--text);">有効にする</span>
+            <input type="checkbox" id="notice-active" onchange="toggleNoticePreview()" style="accent-color:#b8907a;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#3a2e28;">有効にする</span>
           </label>
         </div>
-        <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">バナーテキスト</label>
-          <input id="notice-text-input" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="例：【今週末限定】新キャスト・葵のデビューイベント開催！" oninput="updateNoticePreview()">
+        <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">バナーテキスト</label>
+          <input id="notice-text-input" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="例：【今週末限定】新キャスト・葵のデビューイベント開催！" oninput="updateNoticePreview()">
         </div>
-        <button onclick="saveNoticeEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
-        <div id="notice-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+        <button onclick="saveNoticeEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
+        <div id="notice-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
       </div>
     </div>
 
     <!-- ═══════ コンセプトタブ ═══════ -->
     <div id="esec-concept" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">✍ キャッチコピー・コンセプト文の編集</div>
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:24px;">✍ キャッチコピー・コンセプト文の編集</div>
         <div style="display:grid; gap:16px;">
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">ヒーロー強調ワード（金色で表示される言葉）</label><input id="edit-hero-em" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1rem;padding:10px 14px;outline:none;" placeholder="静寂"></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">ヒーローサブテキスト</label><textarea id="edit-hero-sub" rows="2" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;" placeholder="喧騒を忘れ、選ばれた時間の中へ。"></textarea></div>
-          <div><label style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">コンセプト本文</label><textarea id="edit-concept-body" rows="6" style="width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Shippori Mincho',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:vertical;line-height:1.8;"></textarea></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">ヒーロー強調ワード（金色で表示される言葉）</label><input id="edit-hero-em" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Cormorant Garamond',serif;font-size:1rem;padding:10px 14px;outline:none;" placeholder="静寂"></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">ヒーローサブテキスト</label><textarea id="edit-hero-sub" rows="2" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;" placeholder="喧騒を忘れ、選ばれた時間の中へ。"></textarea></div>
+          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">コンセプト本文</label><textarea id="edit-concept-body" rows="6" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:vertical;line-height:1.8;"></textarea></div>
         </div>
-        <button onclick="saveConceptEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">変更をサイトに反映する</button>
-        <div id="concept-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+        <button onclick="saveConceptEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
+        <div id="concept-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
       </div>
     </div>
 
     <!-- ═══════ LINE設定タブ ═══════ -->
     <div id="esec-line" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:20px;">⚙ API 設定</div>
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:20px;">⚙ API 設定</div>
 
         <div style="margin-bottom:24px;">
-          <div style="font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Anthropic APIキー（AIチャット用）</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:#9a8878; text-transform:uppercase; margin-bottom:6px;">Anthropic APIキー（AIチャット用）</div>
           <div style="display:flex; gap:12px;">
-            <input id="anthropic-key" type="password" placeholder="sk-ant-..." style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
-            <button onclick="saveAnthropicKey()" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">保存</button>
+            <input id="anthropic-key" type="password" placeholder="sk-ant-..." style="flex:1;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
+            <button onclick="saveAnthropicKey()" style="padding:12px 20px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">保存</button>
           </div>
-          <div id="anthropic-key-saved-msg" style="font-family:'Montserrat',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:8px;opacity:0.7;line-height:1.8;">console.anthropic.com → API Keys → Create Key で発行できます。</div>
+          <div id="anthropic-key-saved-msg" style="font-family:'DM Sans',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:8px;opacity:0.7;line-height:1.8;">console.anthropic.com → API Keys → Create Key で発行できます。</div>
         </div>
 
         <div style="border-top:1px solid var(--border);padding-top:24px;">
-          <div style="font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">LINE チャンネルアクセストークン（配信用）</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:#9a8878; text-transform:uppercase; margin-bottom:6px;">LINE チャンネルアクセストークン（配信用）</div>
           <div style="display:flex; gap:12px;">
-            <input id="line-token" type="password" placeholder="LINE Messaging API チャンネルアクセストークン" style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
-            <button onclick="saveToken()" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">保存</button>
+            <input id="line-token" type="password" placeholder="LINE Messaging API チャンネルアクセストークン" style="flex:1;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
+            <button onclick="saveToken()" style="padding:12px 20px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">保存</button>
           </div>
-          <div id="token-saved-msg" style="font-family:'Montserrat',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:8px;opacity:0.7;line-height:1.8;">LINE Developersコンソール → Messaging API → チャンネルアクセストークン（長期）で発行できます。</div>
+          <div id="token-saved-msg" style="font-family:'DM Sans',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:8px;opacity:0.7;line-height:1.8;">LINE Developersコンソール → Messaging API → チャンネルアクセストークン（長期）で発行できます。</div>
         </div>
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.55rem; color:var(--muted); margin-top:16px; line-height:1.9; opacity:0.7;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.55rem; color:#9a8878; margin-top:16px; line-height:1.9; opacity:0.7;">
           LINE Developersコンソール → チャンネル → Messaging API → チャンネルアクセストークン（長期）で発行できます。<br>
           管理者パスワード変更はHTMLファイル内の <code style="background:var(--deep);padding:2px 6px;">ADMIN_PASSWORD</code> を書き換えてください。
         </div>
@@ -1341,42 +1433,42 @@
 
     <!-- ═══════ アナリティクスタブ ═══════ -->
     <div id="esec-analytics" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-          <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase;">📊 アクセス解析</div>
-          <button onclick="clearAnalytics()" style="padding:6px 16px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">データをリセット</button>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase;">📊 アクセス解析</div>
+          <button onclick="clearAnalytics()" style="padding:6px 16px;border:1px solid var(--border);background:transparent;color:#9a8878;font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">データをリセット</button>
         </div>
 
         <!-- KPI Cards -->
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;">
-          <div style="background:var(--deep);border:1px solid var(--border);padding:20px 16px;text-align:center;">
-            <div id="stat-visits" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);">—</div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);margin-top:4px;text-transform:uppercase;">総訪問数</div>
+          <div style="background:#f3efe9;border:1px solid rgba(140,112,96,0.18);padding:20px 16px;text-align:center;">
+            <div id="stat-visits" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#b8907a;">—</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#9a8878;margin-top:4px;text-transform:uppercase;">総訪問数</div>
           </div>
-          <div style="background:var(--deep);border:1px solid var(--border);padding:20px 16px;text-align:center;">
-            <div id="stat-bounce" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);">—</div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);margin-top:4px;text-transform:uppercase;">直帰率</div>
+          <div style="background:#f3efe9;border:1px solid rgba(140,112,96,0.18);padding:20px 16px;text-align:center;">
+            <div id="stat-bounce" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#b8907a;">—</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#9a8878;margin-top:4px;text-transform:uppercase;">直帰率</div>
           </div>
-          <div style="background:var(--deep);border:1px solid var(--border);padding:20px 16px;text-align:center;">
-            <div id="stat-line-clicks" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);">—</div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);margin-top:4px;text-transform:uppercase;">LINE タップ数</div>
+          <div style="background:#f3efe9;border:1px solid rgba(140,112,96,0.18);padding:20px 16px;text-align:center;">
+            <div id="stat-line-clicks" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#b8907a;">—</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#9a8878;margin-top:4px;text-transform:uppercase;">LINE タップ数</div>
           </div>
         </div>
 
         <!-- Daily Chart -->
         <div style="margin-bottom:20px;">
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">直近7日間の訪問数</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:#9a8878;text-transform:uppercase;margin-bottom:12px;">直近7日間の訪問数</div>
           <div id="analytics-chart" style="display:flex;align-items:flex-end;gap:6px;height:80px;"></div>
           <div id="analytics-chart-labels" style="display:flex;gap:6px;margin-top:6px;"></div>
         </div>
 
         <!-- Section Scroll Depth -->
         <div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">セクション到達率</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:#9a8878;text-transform:uppercase;margin-bottom:12px;">セクション到達率</div>
           <div id="scroll-depth-list" style="display:flex;flex-direction:column;gap:8px;"></div>
         </div>
 
-        <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:20px;opacity:0.5;line-height:1.8;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:20px;opacity:0.5;line-height:1.8;">
           ※ このブラウザのデータのみ記録されます。複数端末での集計には Google Analytics をお勧めします。
         </div>
       </div>
@@ -1384,17 +1476,17 @@
 
     <!-- ═══════ レイアウトタブ ═══════ -->
     <div id="esec-layout" class="edit-section" style="display:none;">
-      <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">⠿ ページレイアウト管理</div>
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:var(--muted); margin-bottom:24px; line-height:1.9;">
+      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:8px;">⠿ ページレイアウト管理</div>
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; color:#9a8878; margin-bottom:24px; line-height:1.9;">
           ドラッグで順番を変更 / トグルで表示・非表示を切り替え。変更は即座にページに反映されます。
         </div>
         <div id="layout-list" style="display:flex; flex-direction:column; gap:8px;"></div>
         <div style="margin-top:24px; display:flex; gap:12px;">
-          <button onclick="applyLayout()" style="padding:12px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">ページに反映する</button>
-          <button onclick="resetLayout()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">リセット</button>
+          <button onclick="applyLayout()" style="padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">ページに反映する</button>
+          <button onclick="resetLayout()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:#9a8878;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">リセット</button>
         </div>
-        <div id="layout-save-msg" style="display:none;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
+        <div id="layout-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
       </div>
     </div>
 
@@ -1461,9 +1553,9 @@
       document.getElementById('esec-'+s).style.display = s === name ? 'block' : 'none';
       const tab = document.getElementById('etab-'+s);
       if (s === name) {
-        tab.style.background = 'var(--gold)'; tab.style.color = 'var(--black)'; tab.style.borderColor = 'var(--gold)';
+        tab.style.background = '#2a1f18'; tab.style.color = 'white'; tab.style.borderColor = '#2a1f18';
       } else {
-        tab.style.background = 'transparent'; tab.style.color = 'var(--muted)'; tab.style.borderColor = 'var(--border)';
+        tab.style.background = 'transparent'; tab.style.color = '#9a8878'; tab.style.borderColor = 'rgba(140,112,96,0.18)';
       }
     });
     if (name === 'analytics') loadAnalyticsDashboard();
@@ -1501,11 +1593,11 @@
     document.getElementById('panel-image').style.display = tab === 'image' ? 'block' : 'none';
     const tText = document.getElementById('tab-text'), tImg = document.getElementById('tab-image');
     if (tab === 'text') {
-      tText.style.background='var(--gold)';tText.style.color='var(--black)';tText.style.borderColor='var(--gold)';
-      tImg.style.background='transparent';tImg.style.color='var(--muted)';tImg.style.borderColor='var(--border)';
+      tText.style.background='#2a1f18';tText.style.color='white';tText.style.borderColor='#2a1f18';
+      tImg.style.background='transparent';tImg.style.color='#9a8878';tImg.style.borderColor='rgba(140,112,96,0.18)';
     } else {
-      tImg.style.background='var(--gold)';tImg.style.color='var(--black)';tImg.style.borderColor='var(--gold)';
-      tText.style.background='transparent';tText.style.color='var(--muted)';tText.style.borderColor='var(--border)';
+      tImg.style.background='#2a1f18';tImg.style.color='white';tImg.style.borderColor='#2a1f18';
+      tText.style.background='transparent';tText.style.color='#9a8878';tText.style.borderColor='rgba(140,112,96,0.18)';
     }
     document.getElementById('msg-preview-box').style.display = 'none';
   }
