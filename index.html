@@ -3,44 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOIR — Premium Lounge & Club</title>
+<title>Lounge Cow girl. — 宇部市 会員制ラウンジ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #C9A84C;
-    --gold-light: #E2C87A;
-    --gold-dim: #7a6330;
-    --black: #080808;
-    --deep: #0e0e0e;
-    --surface: #141414;
-    --border: rgba(201,168,76,0.18);
-    --text: #e8e0d0;
-    --muted: #888070;
+    --white: #ffffff;
+    --cream: #faf8f5;
+    --cream2: #f3efe9;
+    --blush: #f0e8e0;
+    --taupe: #c8b8a8;
+    --brown: #8c7060;
+    --dark: #2a1f18;
+    --text: #3a2e28;
+    --muted: #9a8878;
+    --accent: #b8907a;
+    --accent2: #d4a896;
+    --green: #06C755;
+    --border: rgba(140,112,96,0.15);
+    --border2: rgba(140,112,96,0.25);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--black);
+    background: var(--white);
     color: var(--text);
-    font-family: 'Shippori Mincho', serif;
+    font-family: 'Noto Serif JP', serif;
     overflow-x: hidden;
-    cursor: crosshair;
   }
 
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.5;
-  }
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--taupe); }
 
   /* ── NAV ── */
   nav {
@@ -50,184 +47,263 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 28px 48px;
-    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    padding: 20px 48px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
   }
 
   .nav-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.4em;
-    color: var(--gold);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--dark);
     text-decoration: none;
+    line-height: 1.1;
+  }
+
+  .nav-logo span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.52rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 2px;
   }
 
   .nav-links {
     display: flex;
-    gap: 40px;
+    gap: 36px;
     list-style: none;
   }
 
   .nav-links a {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
     font-weight: 300;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.22em;
     color: var(--muted);
     text-decoration: none;
     text-transform: uppercase;
     transition: color 0.3s;
   }
 
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover { color: var(--accent); }
 
   /* ── HERO ── */
   #hero {
-    position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    align-items: flex-end;
     padding: 0 48px 80px;
+    position: relative;
     overflow: hidden;
+    background: var(--cream);
   }
 
   .hero-bg {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 80% at 20% 60%, rgba(201,168,76,0.04) 0%, transparent 70%),
-      linear-gradient(160deg, #111008 0%, #080808 50%, #0a0805 100%);
+      radial-gradient(ellipse 70% 70% at 80% 30%, rgba(212,168,150,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(200,184,168,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, #fdfbf8 0%, #f5efe8 100%);
   }
 
-  .hero-line {
+  .hero-deco {
     position: absolute;
-    top: 0; bottom: 0;
-    left: 48%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
-    opacity: 0.3;
+    top: 15%;
+    right: 8%;
+    width: 380px;
+    height: 480px;
+    border: 1px solid rgba(184,144,122,0.2);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: linear-gradient(135deg, rgba(212,168,150,0.08), rgba(240,232,224,0.15));
   }
 
-  .hero-year {
+  .hero-deco2 {
+    position: absolute;
+    top: 8%;
+    right: 12%;
+    width: 280px;
+    height: 360px;
+    border: 1px solid rgba(184,144,122,0.12);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
+
+  .hero-tag {
     position: absolute;
     top: 50%;
     right: 48px;
     transform: translateY(-50%) rotate(90deg);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 200;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 300;
     letter-spacing: 0.4em;
-    color: var(--gold-dim);
+    color: var(--taupe);
+    text-transform: uppercase;
   }
 
-  .hero-tag {
-    font-family: 'Montserrat', sans-serif;
+  .hero-content { position: relative; z-index: 1; max-width: 600px; }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.6rem;
     font-weight: 300;
-    letter-spacing: 0.35em;
-    color: var(--gold);
+    letter-spacing: 0.4em;
+    color: var(--accent);
     text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     opacity: 0;
-    animation: fadeUp 1s ease 0.3s forwards;
+    animation: fadeUp 0.9s ease 0.2s forwards;
   }
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(4rem, 10vw, 9rem);
+    font-size: clamp(3.5rem, 8vw, 7rem);
     font-weight: 300;
-    line-height: 0.9;
-    letter-spacing: -0.01em;
-    color: var(--text);
+    line-height: 1;
+    color: var(--dark);
+    margin-bottom: 8px;
     opacity: 0;
-    animation: fadeUp 1s ease 0.5s forwards;
+    animation: fadeUp 0.9s ease 0.4s forwards;
   }
 
-  .hero-title em {
+  .hero-title-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 300;
     font-style: italic;
-    color: var(--gold);
+    color: var(--accent);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.55s forwards;
   }
 
-  .hero-sub {
-    margin-top: 32px;
+  .hero-desc {
     font-size: 0.85rem;
-    font-weight: 400;
+    line-height: 2.2;
     color: var(--muted);
-    line-height: 2;
     max-width: 340px;
+    margin-bottom: 40px;
     opacity: 0;
-    animation: fadeUp 1s ease 0.8s forwards;
+    animation: fadeUp 0.9s ease 0.7s forwards;
   }
 
   .hero-cta {
-    margin-top: 40px;
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: center;
     opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
+    animation: fadeUp 0.9s ease 0.85s forwards;
   }
 
   .btn-primary {
     display: inline-block;
     padding: 14px 36px;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    font-family: 'Montserrat', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
     font-weight: 300;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     text-decoration: none;
-    background: transparent;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, transform 0.2s;
   }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
 
-  .btn-primary:hover {
-    background: var(--gold);
-    color: var(--black);
-  }
-
-  .btn-ghost {
-    font-family: 'Montserrat', sans-serif;
+  .btn-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--green);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
     font-weight: 300;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .btn-line:hover { opacity: 0.85; }
+
+  .hero-rating {
+    position: absolute;
+    bottom: 80px;
+    right: 80px;
+    text-align: center;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1s forwards;
+  }
+
+  .hero-rating-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--dark);
+    line-height: 1;
+  }
+
+  .hero-rating-stars {
+    color: var(--accent);
+    font-size: 0.8rem;
+    margin: 4px 0;
+  }
+
+  .hero-rating-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.52rem;
     letter-spacing: 0.2em;
     color: var(--muted);
-    text-decoration: none;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--gold-dim);
-    padding-bottom: 2px;
-    transition: color 0.3s;
   }
 
-  .btn-ghost:hover { color: var(--gold); }
+  /* ── SECTION COMMON ── */
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
 
-  /* ── DIVIDER ── */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--dark);
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .section-body {
+    font-size: 0.88rem;
+    line-height: 2.3;
+    color: var(--muted);
+  }
+
   .divider {
     display: flex;
     align-items: center;
     gap: 16px;
     padding: 0 48px;
-    margin: 80px 0;
+    margin: 72px 0;
   }
-
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .divider-symbol {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: var(--gold-dim);
-    opacity: 0.6;
-  }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--taupe); opacity: 0.5; }
 
   /* ── CONCEPT ── */
   #concept {
@@ -238,252 +314,88 @@
     align-items: center;
   }
 
-  .concept-text {}
-
-  .section-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.58rem;
-    font-weight: 300;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.3;
-    color: var(--text);
-    margin-bottom: 28px;
-  }
-
-  .section-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .section-body {
-    font-size: 0.88rem;
-    line-height: 2.2;
-    color: var(--muted);
-  }
-
   .concept-visual {
     position: relative;
     aspect-ratio: 3/4;
-    background: var(--surface);
+    background: var(--blush);
     overflow: hidden;
-  }
-
-  .concept-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.12), transparent),
-      linear-gradient(180deg, var(--surface) 0%, rgba(20,14,5,0.9) 100%);
   }
 
   .concept-visual-inner {
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .glass-icon {
-    width: 80px;
-    height: 120px;
-    position: relative;
-  }
-
-  .glass-icon svg { width: 100%; height: 100%; }
-
-  .concept-caption {
+  .concept-logo-big {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-style: italic;
-    color: var(--gold-dim);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--brown);
     letter-spacing: 0.1em;
+    opacity: 0.4;
+    text-align: center;
+    line-height: 1.2;
   }
 
-  .concept-visual-border {
-    position: absolute;
-    inset: 16px;
-    border: 1px solid var(--border);
-    pointer-events: none;
-  }
+  .concept-border { position: absolute; inset: 16px; border: 1px solid rgba(140,112,96,0.2); pointer-events: none; }
 
   /* ── FEATURES ── */
-  #features {
-    padding: 0 48px;
-  }
+  #features { padding: 0 48px; }
 
-  .features-header {
-    text-align: center;
-    margin-bottom: 64px;
-  }
+  .features-header { margin-bottom: 56px; }
 
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    gap: 1px;
     background: var(--border);
   }
 
   .feature-card {
-    background: var(--deep);
-    padding: 48px 36px;
+    background: var(--white);
+    padding: 40px 32px;
     position: relative;
     overflow: hidden;
-    transition: background 0.4s;
+    transition: background 0.3s;
   }
 
-  .feature-card::before {
+  .feature-card::after {
     content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: transparent;
-    transition: background 0.4s;
-  }
-
-  .feature-card:hover {
-    background: #111008;
-  }
-
-  .feature-card:hover::before {
-    background: var(--gold);
-  }
-
-  .feature-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 24px;
-    transition: color 0.4s;
-  }
-
-  .feature-card:hover .feature-num {
-    color: rgba(201,168,76,0.2);
-  }
-
-  .feature-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 14px;
-  }
-
-  .feature-body {
-    font-size: 0.8rem;
-    line-height: 2;
-    color: var(--muted);
-  }
-
-  /* ── CAST ── */
-  #cast {
-    padding: 0 48px;
-  }
-
-  .cast-header {
-    text-align: center;
-    margin-bottom: 56px;
-  }
-
-  .cast-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-
-  .cast-card {
-    position: relative;
-    aspect-ratio: 2/3;
-    background: var(--surface);
-    overflow: hidden;
-    cursor: pointer;
-  }
-
-  .cast-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg,
-      rgba(201,168,76,0.08) 0%,
-      transparent 40%,
-      rgba(0,0,0,0.6) 100%);
-    z-index: 1;
-    transition: opacity 0.4s;
-  }
-
-  .cast-card:hover::before {
-    opacity: 0.7;
-  }
-
-  .cast-visual {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cast-silhouette {
-    width: 60%;
-    opacity: 0.15;
-  }
-
-  .cast-info {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 24px 20px;
-    z-index: 2;
-    transform: translateY(8px);
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
     transition: transform 0.4s;
   }
 
-  .cast-card:hover .cast-info {
-    transform: translateY(0);
-  }
+  .feature-card:hover { background: var(--cream); }
+  .feature-card:hover::after { transform: scaleX(1); }
 
-  .cast-name {
+  .feature-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
+    font-size: 2.5rem;
     font-weight: 300;
-    color: var(--text);
-    margin-bottom: 4px;
+    color: var(--blush);
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+  .feature-card:hover .feature-num { color: rgba(184,144,122,0.3); }
+
+  .feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 12px;
   }
 
-  .cast-role {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.55rem;
-    font-weight: 300;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  .cast-border {
-    position: absolute;
-    inset: 8px;
-    border: 1px solid rgba(201,168,76,0.1);
-    pointer-events: none;
-    z-index: 2;
-    transition: border-color 0.4s;
-  }
-
-  .cast-card:hover .cast-border {
-    border-color: rgba(201,168,76,0.3);
-  }
+  .feature-body { font-size: 0.8rem; line-height: 2; color: var(--muted); }
 
   /* ── INFO ── */
   #info {
@@ -494,66 +406,254 @@
     align-items: start;
   }
 
-  .info-table {
-    border-top: 1px solid var(--border);
-  }
+  .info-table { border-top: 1px solid var(--border); }
 
   .info-row {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 20px;
-    padding: 20px 0;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
+    padding: 18px 0;
     border-bottom: 1px solid var(--border);
     font-size: 0.85rem;
     line-height: 1.9;
   }
 
   .info-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.58rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
     font-weight: 300;
     letter-spacing: 0.2em;
-    color: var(--gold-dim);
+    color: var(--accent);
     text-transform: uppercase;
     padding-top: 3px;
   }
 
-  .info-value {
-    color: var(--muted);
+  .info-value { color: var(--muted); }
+
+  .map-box {
+    aspect-ratio: 1;
+    background: var(--cream2);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
   }
 
-  .map-placeholder {
-    aspect-ratio: 1;
-    background: var(--surface);
+  .map-box iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    position: absolute;
+    inset: 0;
+    filter: saturate(0.7) contrast(1.05);
+  }
+
+  /* ── RECRUIT ── */
+  #recruit {
+    background: var(--cream);
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #recruit::before {
+    content: 'RECRUIT';
+    position: absolute;
+    top: 40px;
+    right: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 300;
+    color: var(--blush);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .recruit-header { margin-bottom: 56px; position: relative; }
+
+  .recruit-catch {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .recruit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .recruit-card {
+    background: var(--white);
     border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative;
+  }
+
+  .recruit-card-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .recruit-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+
+  .recruit-list {
+    list-style: none;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .recruit-list li {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .recruit-list li::before {
+    content: '♡';
+    color: var(--accent2);
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    margin-top: 3px;
+  }
+
+  .pay-highlight {
+    background: var(--dark);
+    color: var(--white);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
   }
 
-  .map-placeholder::before {
-    content: '';
+  .pay-highlight::before {
+    content: '¥';
     position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.06), transparent 70%);
+    right: -10px;
+    top: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
   }
 
-  .map-text {
+  .pay-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--taupe);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .pay-amount {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    color: var(--gold-dim);
-    font-size: 1rem;
-    z-index: 1;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .pay-amount span {
+    font-size: 1.2rem;
+    opacity: 0.7;
+  }
+
+  .pay-backs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .pay-back-item {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .pay-back-item strong { color: var(--accent2); }
+
+  .recruit-cta {
+    text-align: center;
+    padding: 48px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .recruit-cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .recruit-cta-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 2;
+    margin-bottom: 32px;
+  }
+
+  .recruit-cta-tel {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--dark);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+  }
+  .recruit-cta-tel:hover { color: var(--accent); }
+
+  .recruit-cta-note {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 28px;
   }
 
   /* ── RESERVATION ── */
   #reservation {
     margin: 0 48px;
-    padding: 80px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    padding: 64px;
+    background: var(--dark);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -563,155 +663,180 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.06), transparent);
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(212,168,150,0.1), transparent);
     pointer-events: none;
   }
 
   .reservation-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     font-weight: 300;
-    color: var(--text);
-    margin-bottom: 16px;
+    color: var(--white);
+    margin-bottom: 12px;
   }
 
   .reservation-sub {
     font-size: 0.82rem;
-    color: var(--muted);
+    color: rgba(255,255,255,0.5);
     line-height: 2.2;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
   }
 
   .reservation-tel {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     font-weight: 300;
-    color: var(--gold);
-    letter-spacing: 0.08em;
-    margin-bottom: 12px;
-    display: block;
+    color: var(--accent2);
     text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s;
   }
+  .reservation-tel:hover { color: var(--white); }
 
   .reservation-hours {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.35);
     text-transform: uppercase;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
   }
 
-  .line-cta {
-    display: inline-flex;
+  /* ── LINE FLOAT ── */
+  #line-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 500;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
+  }
+
+  #line-float-link {
+    display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 40px;
-    background: #06C755;
+    gap: 10px;
+    background: var(--green);
     color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
+    padding: 13px 20px;
+    border-radius: 50px;
     text-decoration: none;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 0.3s;
+    box-shadow: 0 4px 20px rgba(6,199,85,0.35);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
   }
 
-  .line-cta:hover { opacity: 0.85; }
+  /* ── NOTICE BANNER ── */
+  #site-notice-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-align: center;
+    padding: 10px 48px;
+    display: none;
+  }
 
   /* ── FOOTER ── */
   footer {
-    margin-top: 120px;
+    margin-top: 80px;
     padding: 40px 48px;
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--cream);
   }
 
   .footer-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 300;
-    letter-spacing: 0.4em;
-    color: var(--gold-dim);
+    letter-spacing: 0.12em;
+    color: var(--brown);
   }
 
   .footer-copy {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.55rem;
     font-weight: 200;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     color: var(--muted);
-    opacity: 0.5;
+    opacity: 0.6;
   }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   .reveal {
     opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--black); }
-  ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ── MOBILE ── */
   @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
+    nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    #hero { padding: 0 24px 60px; }
-    #concept { padding: 0 24px; grid-template-columns: 1fr; gap: 40px; }
-    #features { padding: 0 24px; }
+    #hero { padding: 100px 20px 60px; min-height: auto; }
+    .hero-deco, .hero-deco2, .hero-rating, .hero-tag { display: none; }
+    #concept { padding: 0 20px; grid-template-columns: 1fr; gap: 40px; }
+    .concept-visual { display: none; }
+    #features { padding: 0 20px; }
     .features-grid { grid-template-columns: 1fr; }
-    #cast { padding: 0 24px; }
-    .cast-grid { grid-template-columns: repeat(2, 1fr); }
-    #info { padding: 0 24px; grid-template-columns: 1fr; gap: 40px; }
-    #reservation { margin: 0 24px; padding: 48px 24px; }
-    footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
-    .divider { padding: 0 24px; }
+    #info { padding: 0 20px; grid-template-columns: 1fr; gap: 40px; }
+    #recruit { padding: 60px 20px; }
+    .recruit-grid { grid-template-columns: 1fr; }
+    #reservation { margin: 0 20px; padding: 48px 24px; }
+    footer { padding: 32px 20px; flex-direction: column; gap: 12px; text-align: center; }
+    .divider { padding: 0 20px; }
+    #line-float { bottom: 16px; right: 16px; }
   }
 </style>
 </head>
 <body>
 
-  <div id="site-notice-banner" style="display:none; position:fixed; top:0; left:0; right:0; z-index:200; background:var(--gold); color:var(--black); font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-align:center; padding:10px 48px; animation:fadeUp 0.5s ease forwards;">
-    <span id="site-notice-text"></span>
-    <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:var(--black);cursor:pointer;margin-left:16px;font-size:0.8rem;">✕</button>
-  </div>
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
 
 <!-- LINE FLOATING BUTTON -->
-<div id="line-float" style="position:fixed;bottom:32px;right:32px;z-index:500;opacity:0;transform:translateY(16px);transition:opacity 0.4s,transform 0.4s;pointer-events:none;">
-  <a id="line-float-link" href="#" target="_blank" rel="noopener"
-    style="display:flex;align-items:center;gap:10px;background:#06C755;color:white;padding:14px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(6,199,85,0.4);font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:400;letter-spacing:0.15em;white-space:nowrap;">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-    <span>LINE で友だち追加</span>
+<div id="line-float">
+  <a id="line-float-link" href="tel:0836-52-8997"
+    style="display:flex;align-items:center;gap:10px;background:#06C755;color:white;padding:13px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 20px rgba(6,199,85,0.35);font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.12em;white-space:nowrap;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+    友だち追加・お問合せ
   </a>
 </div>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">NOIR</a>
+  <a href="#" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#concept">コンセプト</a></li>
-    <li><a href="#cast">キャスト</a></li>
-    <li><a href="#info">店舗情報</a></li>
-    <li><a href="#reservation">ご予約</a></li>
+    <li><a href="#concept">About</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#info">Access</a></li>
+    <li><a href="#recruit">Recruit</a></li>
+    <li><a href="#reservation">Reserve</a></li>
   </ul>
 </nav>
 
@@ -719,256 +844,293 @@
 <div class="section-wrapper" id="wrapper-hero">
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-line"></div>
-  <div class="hero-year">SINCE 2018</div>
+  <div class="hero-deco"></div>
+  <div class="hero-deco2"></div>
+  <div class="hero-tag">Lounge · Ube · Members Only</div>
 
-  <div class="hero-tag">Ginza Premium Lounge</div>
-  <h1 class="hero-title" id="site-hero-title">
-    夜の<em id="site-hero-em">静寂</em>に<br>溶けていく
-  </h1>
-  <p class="hero-sub" id="site-hero-sub">喧騒を忘れ、選ばれた時間の中へ。<br>銀座の夜に息づく、大人の社交場。</p>
-  <div class="hero-cta">
-    <a href="#reservation" class="btn-primary">ご予約はこちら</a>
-    <a href="#concept" class="btn-ghost">詳しく見る</a>
+  <div class="hero-content">
+    <div class="hero-eyebrow">宇部市 会員制ラウンジ</div>
+    <h1 class="hero-title">Lounge<br>Cow girl.</h1>
+    <div class="hero-title-sub">by MORE Co., Ltd.</div>
+    <p class="hero-desc" id="site-hero-sub">
+      白を基調とした明るく居心地のいい空間で、<br>
+      笑顔あふれる特別な夜を。<br>
+      宇部市中央町、PLAZA19.III 2階。
+    </p>
+    <div class="hero-cta">
+      <a href="#reservation" class="btn-primary">ご予約はこちら</a>
+      <a href="tel:0836-52-8997" class="btn-line">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        お問合せ
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-rating">
+    <div class="hero-rating-num">5.0</div>
+    <div class="hero-rating-stars">★★★★★</div>
+    <div class="hero-rating-label">Google 21 reviews</div>
   </div>
 </section>
 </div><!-- /wrapper-hero -->
 
-<div class="section-wrapper" id="wrapper-concept">
 <!-- DIVIDER -->
 <div class="divider reveal">
   <div class="divider-line"></div>
-  <div class="divider-symbol">✦</div>
+  <div class="divider-dot"></div>
   <div class="divider-line"></div>
 </div>
 
 <!-- CONCEPT -->
+<div class="section-wrapper" id="wrapper-concept">
 <section id="concept" class="reveal">
-  <div class="concept-text">
-    <div class="section-label">Our Philosophy</div>
-    <h2 class="section-title">ここは、<em>本物</em>の<br>くつろぎの場所</h2>
-    <p class="section-body" id="site-concept-body">NOIRは、日々の喧噪から離れ、真の安らぎを求める方々のための空間です。洗練されたインテリア、厳選された銘酒、そして一流のホステスたちが織りなす会話——すべてが、あなただけの特別な夜のために用意されています。ドレスコードは「心地よさ」。格式の中に温もりを。それが私たちのこだわりです。</p>
+  <div>
+    <div class="section-label">Our Concept</div>
+    <h2 class="section-title">笑顔が集まる、<br><em>ナチュラルな</em>大人の空間</h2>
+    <p class="section-body" id="site-concept-body">Cow girl. は、白を基調としたナチュラル＆カジュアルな雰囲気の会員制ラウンジです。お酒が飲めなくても全く心配なし。山崎・白州・竹鶴など厳選されたウイスキーをはじめ、豊富なドリンクをご用意しています。堅苦しくなく、でも上質な時間を。それが私たちのコンセプトです。</p>
   </div>
   <div class="concept-visual">
     <div class="concept-visual-inner">
-      <div class="glass-icon">
-        <svg viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 8 L65 8 L52 58 L52 100 L28 100 L28 58 Z" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.6"/>
-          <path d="M20 18 L60 18 L48 54 L32 54 Z" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.2)" stroke-width="0.5"/>
-          <line x1="28" y1="100" x2="52" y2="100" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
-          <line x1="20" y1="108" x2="60" y2="108" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
-          <circle cx="40" cy="35" r="2" fill="#C9A84C" opacity="0.4"/>
-        </svg>
-      </div>
-      <div class="concept-caption">première classe</div>
+      <div class="concept-logo-big">COW<br>GIRL.</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--taupe);text-transform:uppercase;">By MORE Co., Ltd.</div>
     </div>
-    <div class="concept-visual-border"></div>
+    <div class="concept-border"></div>
   </div>
 </section>
+</div>
 
-</div><!-- /wrapper-concept -->
-<div class="section-wrapper" id="wrapper-features">
 <!-- DIVIDER -->
 <div class="divider reveal">
   <div class="divider-line"></div>
-  <div class="divider-symbol">✦</div>
+  <div class="divider-dot"></div>
   <div class="divider-line"></div>
 </div>
 
 <!-- FEATURES -->
+<div class="section-wrapper" id="wrapper-features">
 <section id="features" class="reveal">
   <div class="features-header">
-    <div class="section-label">What We Offer</div>
-    <h2 class="section-title">NOIRが選ばれる理由</h2>
+    <div class="section-label">Why Cow girl.</div>
+    <h2 class="section-title">選ばれる理由</h2>
   </div>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-num">01</div>
-      <div class="feature-title">厳選された銘酒</div>
-      <p class="feature-body">世界各地から取り寄せたウイスキー、シャンパン、ワインを取り揃えております。ソムリエ監修の豊富なラインナップをご用意。</p>
+      <div class="feature-title">会員制の安心感</div>
+      <p class="feature-body">完全会員制だからこそ実現できる、落ち着いた空間と質の高いサービス。はじめての方も体験入店でお気軽にどうぞ。</p>
     </div>
     <div class="feature-card">
       <div class="feature-num">02</div>
-      <div class="feature-title">洗練された空間</div>
-      <p class="feature-body">著名なインテリアデザイナーが手がけた上質な内装。プライベート感のある個室からオープンなカウンター席まで、様々なニーズに対応。</p>
+      <div class="feature-title">厳選ウイスキー</div>
+      <p class="feature-body">山崎・白州・竹鶴など国内外の銘酒を豊富に取り揃え。ソムリエ顔負けのラインナップでお迎えします。</p>
     </div>
     <div class="feature-card">
       <div class="feature-num">03</div>
-      <div class="feature-title">一流のホステス</div>
-      <p class="feature-body">知性と教養を兼ね備えた、厳選されたホステスたちがお出迎え。ビジネスから趣味まで、幅広い話題で楽しい時間をご提供します。</p>
+      <div class="feature-title">明るく居心地のいい空間</div>
+      <p class="feature-body">白を基調としたナチュラルでカジュアルなインテリア。堅苦しくなく、自然体で過ごせる雰囲気が自慢です。</p>
     </div>
     <div class="feature-card">
       <div class="feature-num">04</div>
-      <div class="feature-title">完全個室対応</div>
-      <p class="feature-body">大切な接待やプライベートなお集まりに。防音設備を完備した完全個室を複数ご用意。最大12名様まで収容可能。</p>
+      <div class="feature-title">Google評価 5.0</div>
+      <p class="feature-body">21件すべて★5つの圧倒的な評価。お客様の笑顔と満足が私たちの誇りです。</p>
     </div>
     <div class="feature-card">
       <div class="feature-num">05</div>
-      <div class="feature-title">会員制特典</div>
-      <p class="feature-body">ご登録いただいた会員様には、優先予約・専用ラウンジのご利用・特別イベントへのご招待など、数々の特典をご用意しております。</p>
+      <div class="feature-title">アクセス良好</div>
+      <p class="feature-body">宇部市中央町3丁目、PLAZA19.III 2階。中央町のランドマークに位置し、アクセス抜群です。</p>
     </div>
     <div class="feature-card">
       <div class="feature-num">06</div>
-      <div class="feature-title">フードメニュー</div>
-      <p class="feature-body">一流シェフが監修した軽食・おつまみをご用意。お酒に合う厳選された料理で、至高のペアリングをお楽しみください。</p>
+      <div class="feature-title">手頃な料金設定</div>
+      <p class="feature-body">お一人様¥4,000〜5,000のリーズナブルな料金設定。特別な夜も、気軽な一杯も。</p>
     </div>
   </div>
 </section>
-
-</div><!-- /wrapper-features -->
-<div class="section-wrapper" id="wrapper-cast">
-<!-- DIVIDER -->
-<div class="divider reveal">
-  <div class="divider-line"></div>
-  <div class="divider-symbol">✦</div>
-  <div class="divider-line"></div>
 </div>
 
-<!-- CAST -->
-<section id="cast" class="reveal">
-  <div class="cast-header">
-    <div class="section-label">Our Hostess</div>
-    <h2 class="section-title">キャスト紹介</h2>
-  </div>
-  <div class="cast-grid">
-    <div class="cast-card">
-      <div class="cast-visual">
-        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
-          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
-        </svg>
-      </div>
-      <div class="cast-border"></div>
-      <div class="cast-info">
-        <div class="cast-name" id="site-cast-name-0">Reina — 麗奈</div>
-        <div class="cast-role" id="site-cast-role-0">No.1 Hostess</div>
-      </div>
-    </div>
-    <div class="cast-card">
-      <div class="cast-visual">
-        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
-          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
-        </svg>
-      </div>
-      <div class="cast-border"></div>
-      <div class="cast-info">
-        <div class="cast-name" id="site-cast-name-1">Sakura — 咲良</div>
-        <div class="cast-role" id="site-cast-role-1">Top Cast</div>
-      </div>
-    </div>
-    <div class="cast-card">
-      <div class="cast-visual">
-        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
-          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
-        </svg>
-      </div>
-      <div class="cast-border"></div>
-      <div class="cast-info">
-        <div class="cast-name" id="site-cast-name-2">Yuki — 雪</div>
-        <div class="cast-role" id="site-cast-role-2">Top Cast</div>
-      </div>
-    </div>
-    <div class="cast-card">
-      <div class="cast-visual">
-        <svg class="cast-silhouette" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="50" cy="25" rx="18" ry="22" fill="#C9A84C"/>
-          <path d="M20 70 Q30 55 50 55 Q70 55 80 70 L85 140 L15 140 Z" fill="#C9A84C"/>
-        </svg>
-      </div>
-      <div class="cast-border"></div>
-      <div class="cast-info">
-        <div class="cast-name" id="site-cast-name-3">Aoi — 葵</div>
-        <div class="cast-role" id="site-cast-role-3">New Face</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-</div><!-- /wrapper-cast -->
-<div class="section-wrapper" id="wrapper-info">
 <!-- DIVIDER -->
 <div class="divider reveal">
   <div class="divider-line"></div>
-  <div class="divider-symbol">✦</div>
+  <div class="divider-dot"></div>
   <div class="divider-line"></div>
 </div>
 
 <!-- INFO -->
+<div class="section-wrapper" id="wrapper-info">
 <section id="info" class="reveal">
   <div>
     <div class="section-label">Shop Information</div>
-    <h2 class="section-title" style="margin-bottom:40px">店舗情報</h2>
+    <h2 class="section-title" style="margin-bottom:36px;">店舗情報</h2>
     <div class="info-table">
       <div class="info-row">
         <div class="info-label">店名</div>
-        <div class="info-value" id="site-info-name">NOIR（ノワール）</div>
+        <div class="info-value" id="site-info-name">Lounge Cow girl.（ラウンジ カウガール）</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">運営</div>
+        <div class="info-value">株式会社MORE（MORE Co., Ltd.）</div>
       </div>
       <div class="info-row">
         <div class="info-label">住所</div>
-        <div class="info-value" id="site-info-address">東京都中央区銀座5-X-X<br>銀座プレミアムビル B1F</div>
+        <div class="info-value" id="site-info-address">山口県宇部市中央町3丁目1-1<br>PLAZA19.III 2階</div>
       </div>
       <div class="info-row">
         <div class="info-label">営業時間</div>
-        <div class="info-value" id="site-info-hours">20:00 〜 翌5:00<br>（日曜・祝日定休）</div>
+        <div class="info-value" id="site-info-hours">月〜土曜日 20:00 〜 0:00</div>
       </div>
       <div class="info-row">
-        <div class="info-label">アクセス</div>
-        <div class="info-value" id="site-info-access">銀座駅 A3出口 徒歩2分<br>新橋駅 銀座口 徒歩5分</div>
+        <div class="info-label">定休日</div>
+        <div class="info-value" id="site-info-access">日曜日・祝日</div>
       </div>
       <div class="info-row">
         <div class="info-label">ドレスコード</div>
-        <div class="info-value" id="site-info-dress">スマートカジュアル以上<br>（デニム・スニーカーはご遠慮ください）</div>
+        <div class="info-value" id="site-info-dress">規定なし（カジュアルでもOK）</div>
       </div>
       <div class="info-row">
         <div class="info-label">料金</div>
-        <div class="info-value" id="site-info-price">セット料金 ¥15,000〜<br>（サービス料15%別途）</div>
+        <div class="info-value" id="site-info-price">お一人様 ¥4,000 〜 ¥5,000<br>（会員制）</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">電話</div>
+        <div class="info-value"><a href="tel:0836-52-8997" style="color:var(--accent);text-decoration:none;" id="site-info-tel-link">0836-52-8997</a></div>
       </div>
     </div>
   </div>
-  <div class="map-placeholder" style="padding:0;overflow:hidden;position:relative;">
+  <div class="map-box" id="site-gmap-wrapper">
     <iframe id="site-gmap"
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.4!2d139.7641!3d35.6716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188be791b8d9b1%3A0xba7bc2875f0cf5b9!2z6YqA5bqK77yV5LiB55uu!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp"
-      width="100%" height="100%" style="border:0;position:absolute;inset:0;filter:grayscale(0.6) contrast(1.1);"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.3!2d131.2400981!3d33.9550329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354381847e70a00b%3A0xdae4cdddf37b8d9a!2sLounge%20Cow%20girl.!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp"
       allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
     </iframe>
-    <div style="position:absolute;inset:0;pointer-events:none;border:1px solid var(--border);"></div>
   </div>
 </section>
+</div>
 
-</div><!-- /wrapper-info -->
-<div class="section-wrapper" id="wrapper-reservation">
 <!-- DIVIDER -->
 <div class="divider reveal">
   <div class="divider-line"></div>
-  <div class="divider-symbol">✦</div>
+  <div class="divider-dot"></div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- RECRUIT -->
+<div class="section-wrapper" id="wrapper-recruit">
+<section id="recruit" class="reveal">
+  <div class="recruit-header">
+    <div class="section-label">Staff Recruit</div>
+    <h2 class="section-title">スタッフ募集中</h2>
+    <p class="recruit-catch">一緒に働きませんか？</p>
+    <p class="section-body" style="max-width:480px;">お酒が飲めなくても大丈夫！笑顔が好きな方、自分のペースで働きたい方、大歓迎です。まずは体験入店からお気軽にどうぞ。</p>
+  </div>
+
+  <div class="recruit-grid">
+    <!-- 働きやすい理由 -->
+    <div class="recruit-card">
+      <div class="recruit-card-label">Working Style</div>
+      <div class="recruit-card-title">Cow girl. が働きやすい理由</div>
+      <ul class="recruit-list">
+        <li>お酒が飲めなくてもOK（代飲もなし）</li>
+        <li>未経験・ナイトジョブ初めての方も丁寧にサポート</li>
+        <li>客引き・ノルマ一切なし</li>
+        <li>シフト自由、週ごとに調整できます</li>
+        <li>服装自由（私服・ドレスどちらでもOK）</li>
+        <li>20:00〜0:00なので早上がりもしやすい</li>
+        <li>体験入店あり・まずは見学だけでもOK</li>
+      </ul>
+    </div>
+
+    <!-- 給与・バック -->
+    <div class="pay-highlight">
+      <div class="pay-label">Hourly Wage</div>
+      <div class="pay-amount">¥2,000<span>〜 / 時給</span></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.6rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;margin-top:4px;">日払い・週払い・月払い対応</div>
+      <div class="pay-backs">
+        <div class="pay-back-item"><span>ドリンクバック</span><strong>20%</strong></div>
+        <div class="pay-back-item"><span>アポバック</span><strong>5%</strong></div>
+        <div class="pay-back-item"><span>シャンパンバック</span><strong>10%</strong></div>
+        <div class="pay-back-item"><span>お誕生日</span><strong>+30% UP</strong></div>
+        <div class="pay-back-item"><span>同伴バック</span><strong>¥1,500 + 5%</strong></div>
+      </div>
+    </div>
+
+    <!-- 待遇 -->
+    <div class="recruit-card">
+      <div class="recruit-card-label">Benefits</div>
+      <div class="recruit-card-title">待遇・福利厚生</div>
+      <ul class="recruit-list">
+        <li>雇用保険加入</li>
+        <li>交通費支給</li>
+        <li>年次有給休暇あり</li>
+        <li>扶養控除あり（シングルマザーさんも安心）</li>
+        <li>正社員登用制度あり</li>
+        <li>技術手当あり</li>
+      </ul>
+    </div>
+
+    <!-- 応募方法 -->
+    <div class="recruit-card">
+      <div class="recruit-card-label">How to Apply</div>
+      <div class="recruit-card-title">応募方法</div>
+      <ul class="recruit-list">
+        <li>お電話・DM・Instagramでお気軽にご連絡ください</li>
+        <li>まずは体験入店（見学だけでもOK）</li>
+        <li>面接は宇部市内で対応、遠方の方はご相談ください</li>
+        <li>Instagram: <a href="https://instagram.com/cow_girl.1201" target="_blank" style="color:var(--accent);text-decoration:none;">@cow_girl.1201</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="recruit-cta">
+    <div class="recruit-cta-title">まずはお気軽にご連絡を</div>
+    <p class="recruit-cta-sub">
+      電話・DMどちらでもOK。<br>
+      「見学だけしたい」というご相談も大歓迎です。
+    </p>
+    <a href="tel:0836-52-8997" class="recruit-cta-tel">0836-52-8997</a>
+    <div class="recruit-cta-note">受付時間 20:00 — 0:00（日・祝を除く）</div>
+    <a href="https://instagram.com/cow_girl.1201" target="_blank"
+      style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--border2);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-decoration:none;text-transform:uppercase;transition:all 0.3s;"
+      onmouseover="this.style.background='var(--accent)';this.style.color='white'"
+      onmouseout="this.style.background='transparent';this.style.color='var(--accent)'">
+      Instagram でDMする
+    </a>
+  </div>
+</section>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-dot"></div>
   <div class="divider-line"></div>
 </div>
 
 <!-- RESERVATION -->
+<div class="section-wrapper" id="wrapper-reservation">
 <section id="reservation" class="reveal">
-  <h2 class="reservation-title">特別な夜の、ご予約を</h2>
+  <h2 class="reservation-title">ご予約・お問合せ</h2>
   <p class="reservation-sub">
-    はじめてのお客様も、お気軽にどうぞ。<br>
-    ご予算・ご要望に合わせたプランをご提案いたします。
+    はじめてのお客様もお気軽にどうぞ。<br>
+    体験入店・見学のご相談も承っております。
   </p>
-  <a href="tel:03-XXXX-XXXX" class="reservation-tel">03-XXXX-XXXX</a>
-  <div class="reservation-hours">受付時間 18:00 — 翌2:00</div>
-  <a href="#" class="line-cta">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-    LINEでご予約・お問い合わせ
+  <a href="tel:0836-52-8997" class="reservation-tel">0836-52-8997</a>
+  <div class="reservation-hours">営業時間 20:00 — 0:00 ／ 日・祝定休</div>
+  <a href="https://instagram.com/cow_girl.1201" target="_blank"
+    style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-decoration:none;text-transform:uppercase;transition:all 0.3s;"
+    onmouseover="this.style.borderColor='rgba(255,255,255,0.6)';this.style.color='white'"
+    onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';this.style.color='rgba(255,255,255,0.7)'">
+    Instagram @cow_girl.1201
   </a>
 </section>
-</div><!-- /wrapper-reservation -->
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">NOIR</div>
-  <div class="footer-copy">© 2025 NOIR Premium Lounge. All rights reserved.
-    <span style="margin-left:24px; opacity:0.3; cursor:pointer; font-size:0.5rem; letter-spacing:0.1em;" onclick="showAdminLogin()">管理者</span>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">© 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
   </div>
 </footer>
+
 
 <!-- ══════════════════════════════════════
      ADMIN OVERLAY
@@ -1149,13 +1311,27 @@
     <!-- ═══════ LINE設定タブ ═══════ -->
     <div id="esec-line" class="edit-section" style="display:none;">
       <div style="background:var(--surface); border:1px solid var(--border); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:16px;">⚙ LINE API 設定</div>
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.65rem; color:var(--muted); margin-bottom:10px; letter-spacing:0.1em;">チャンネルアクセストークン</div>
-        <div style="display:flex; gap:12px;">
-          <input id="line-token" type="password" placeholder="LINE Messaging API チャンネルアクセストークン" style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
-          <button onclick="saveToken()" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">保存</button>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:20px;">⚙ API 設定</div>
+
+        <div style="margin-bottom:24px;">
+          <div style="font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Anthropic APIキー（AIチャット用）</div>
+          <div style="display:flex; gap:12px;">
+            <input id="anthropic-key" type="password" placeholder="sk-ant-..." style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
+            <button onclick="saveAnthropicKey()" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">保存</button>
+          </div>
+          <div id="anthropic-key-saved-msg" style="font-family:'Montserrat',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:8px;opacity:0.7;line-height:1.8;">console.anthropic.com → API Keys → Create Key で発行できます。</div>
         </div>
-        <div id="token-saved-msg" style="font-family:'Montserrat',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
+
+        <div style="border-top:1px solid var(--border);padding-top:24px;">
+          <div style="font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">LINE チャンネルアクセストークン（配信用）</div>
+          <div style="display:flex; gap:12px;">
+            <input id="line-token" type="password" placeholder="LINE Messaging API チャンネルアクセストークン" style="flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:0.72rem;padding:12px 16px;outline:none;letter-spacing:0.05em;">
+            <button onclick="saveToken()" style="padding:12px 20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;cursor:pointer;white-space:nowrap;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">保存</button>
+          </div>
+          <div id="token-saved-msg" style="font-family:'Montserrat',sans-serif;font-size:0.58rem;color:#27ae60;letter-spacing:0.15em;margin-top:8px;display:none;">✓ 保存しました</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.52rem;color:var(--muted);margin-top:8px;opacity:0.7;line-height:1.8;">LINE Developersコンソール → Messaging API → チャンネルアクセストークン（長期）で発行できます。</div>
+        </div>
         <div style="font-family:'Montserrat',sans-serif; font-size:0.55rem; color:var(--muted); margin-top:16px; line-height:1.9; opacity:0.7;">
           LINE Developersコンソール → チャンネル → Messaging API → チャンネルアクセストークン（長期）で発行できます。<br>
           管理者パスワード変更はHTMLファイル内の <code style="background:var(--deep);padding:2px 6px;">ADMIN_PASSWORD</code> を書き換えてください。
@@ -1226,23 +1402,22 @@
 </div><!-- /admin-overlay -->
 
 <script>
+
   // ── Scroll reveal ──
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} });
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);} });
   }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
 
   // ── Admin state ──
-  const ADMIN_PASSWORD = 'noir2025';
+  const ADMIN_PASSWORD = 'cowgirl2025';
   let currentTab = 'text';
   let broadcastHistory = [];
   let aiChatHistory = [];
   const CAST_DATA = [
-    { name: 'Reina — 麗奈', role: 'No.1 Hostess' },
-    { name: 'Sakura — 咲良', role: 'Top Cast' },
-    { name: 'Yuki — 雪', role: 'Top Cast' },
-    { name: 'Aoi — 葵', role: 'New Face' },
+    { name: 'キャスト1', role: 'Staff' },
+    { name: 'キャスト2', role: 'Staff' },
+    { name: 'キャスト3', role: 'Staff' },
+    { name: 'キャスト4', role: 'Staff' },
   ];
 
   // ── Admin login ──
@@ -1260,6 +1435,7 @@
       document.getElementById('admin-login').style.display = 'none';
       document.getElementById('admin-dashboard').style.display = 'block';
       loadToken();
+      loadAnthropicKey();
       renderHistory();
       initCastEditor();
       loadStoreEdits();
@@ -1294,6 +1470,19 @@
   }
 
   // ── LINE token ──
+  function saveAnthropicKey() {
+    const k = document.getElementById('anthropic-key').value.trim();
+    if (k) localStorage.setItem('noir_anthropic_key', k);
+    const msg = document.getElementById('anthropic-key-saved-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
+  }
+
+  function loadAnthropicKey() {
+    const k = localStorage.getItem('noir_anthropic_key') || '';
+    document.getElementById('anthropic-key').value = k;
+  }
+
   function saveToken() {
     const t = document.getElementById('line-token').value.trim();
     if (t) { localStorage.setItem('noir_line_token', t); }
@@ -1418,13 +1607,20 @@
     appendChatMsg('ai', '考え中...', thinkingId);
     aiChatHistory.push({ role: 'user', content: userText });
     try {
+      const anthropicKey = localStorage.getItem('noir_anthropic_key') || '';
+      if (!anthropicKey) {
+        document.getElementById(thinkingId)?.remove();
+        appendChatMsg('ai', '⚠️ AnthropicのAPIキーが設定されていません。管理者画面の「LINE設定」タブから設定してください。');
+        btn.disabled = false; btn.style.opacity = '1'; input.focus();
+        return;
+      }
       const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'x-api-key': anthropicKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1000,
-          system: 'あなたはNOIRという銀座の高級クラブ・ラウンジのLINE配信メッセージ専門ライティングアシスタントです。店名=NOIR（ノワール）、場所=銀座5丁目、営業20:00〜翌5:00（日祝定休）、キャスト=麗奈(No.1)・咲良(Top)・雪(Top)・葵(New Face)。文体は丁寧で上品、絵文字1〜3個、100〜300文字、冒頭に「✦ NOIR からお知らせ ✦」などの見出し。メッセージ案を出したら転送するか聞いてください。転送希望時は<TRANSFER>転送テキスト</TRANSFER>タグで出力してください。',
+          system: 'あなたはLounge Cow girl.（ラウンジ カウガール）のLINE配信メッセージ専門ライティングアシスタントです。店名=Lounge Cow girl.、運営=MORE Co., Ltd.、場所=山口県宇部市中央町3丁目1-1 PLAZA19.III 2階、営業=月〜土曜20:00〜0:00（日祝定休）、料金=¥4,000〜5,000、会員制、Instagram=cow_girl.1201、特徴=白ベースのナチュラルでカジュアルな雰囲気、ウイスキー豊富、Google評価5.0。文体はフレンドリーで温かく、絵文字2〜4個、100〜250文字。メッセージ案を出したら転送するか聞いてください。転送希望時は<TRANSFER>転送テキスト</TRANSFER>タグで出力してください。',
           messages: aiChatHistory
         })
       });
@@ -1571,7 +1767,7 @@
     }
     // Update tel link
     if (d.tel) {
-      const telLink = document.querySelector('.reservation-tel');
+      const telLink = document.querySelector('.reservation-tel') || document.getElementById('site-info-tel-link');
       if (telLink) { telLink.href = 'tel:' + d.tel; telLink.textContent = d.tel; }
     }
     localStorage.setItem('noir_store', JSON.stringify(d));
@@ -1672,7 +1868,7 @@
   }
 
   // ── Analytics ──
-  const SECTIONS_TRACK = ['hero','concept','features','cast','info','reservation'];
+  const SECTIONS_TRACK = ['hero','concept','features','info','recruit','reservation'];
 
   function getAnalyticsData() {
     return JSON.parse(localStorage.getItem('noir_analytics') || '{"visits":[],"lineClicks":0,"scrollDepth":{},"bounces":0}');
@@ -1831,8 +2027,8 @@
     { id: 'hero',        label: 'ヒーロー（メインビジュアル）', required: true },
     { id: 'concept',     label: 'コンセプト' },
     { id: 'features',    label: '特徴・こだわり（6項目）' },
-    { id: 'cast',        label: 'キャスト紹介' },
     { id: 'info',        label: '店舗情報' },
+    { id: 'recruit',     label: '求人セクション' },
     { id: 'reservation', label: 'ご予約' },
   ];
 
@@ -1989,6 +2185,15 @@
 
   // ── On page load: apply saved data ──
   window.addEventListener('load', () => {
+    // Hash-based admin access
+    if (window.location.hash === '#admin') {
+      showAdminLogin();
+      history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Scroll reveal
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
     // Analytics
     recordVisit();
     initLineFloat();
@@ -2029,7 +2234,7 @@
       if (lineLink) lineLink.href = savedStore.lineUrl;
     }
     if (savedStore.tel) {
-      const telLink = document.querySelector('.reservation-tel');
+      const telLink = document.querySelector('.reservation-tel') || document.getElementById('site-info-tel-link');
       if (telLink) { telLink.href = 'tel:' + savedStore.tel; telLink.textContent = savedStore.tel; }
     }
     // Concept
@@ -2041,6 +2246,13 @@
     const savedNotice = JSON.parse(localStorage.getItem('noir_notice') || '{}');
     if (savedNotice.active && savedNotice.text) showNoticeBanner(savedNotice.text);
   });
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#admin') {
+      showAdminLogin();
+      history.replaceState(null, '', window.location.pathname);
+    }
+  });
+
 </script>
 </body>
 </html>
