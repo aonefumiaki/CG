@@ -6,12 +6,6 @@
 
   // ── Admin state ──
   const ADMIN_PASSWORD = 'cowgirl2025';
-  const CAST_DATA = [
-    { name: 'キャスト1', role: 'Staff' },
-    { name: 'キャスト2', role: 'Staff' },
-    { name: 'キャスト3', role: 'Staff' },
-    { name: 'キャスト4', role: 'Staff' },
-  ];
 
   // ── Admin login ──
   function showAdminLogin() {
@@ -27,7 +21,6 @@
     if (document.getElementById('admin-pw-input').value === ADMIN_PASSWORD) {
       document.getElementById('admin-login').style.display = 'none';
       document.getElementById('admin-dashboard').style.display = 'block';
-      initCastEditor();
       loadStoreEdits();
       loadConceptEdits();
       loadNoticeEdits();
@@ -47,7 +40,7 @@
 
   // ── Tab switching ──
   function showEditSection(name) {
-    const sections = ['cast','store','notice','concept','analytics','layout'];
+    const sections = ['store','notice','concept','analytics','layout'];
     sections.forEach(s => {
       document.getElementById('esec-'+s).style.display = s === name ? 'block' : 'none';
       const tab = document.getElementById('etab-'+s);
@@ -58,62 +51,6 @@
       }
     });
     if (name === 'analytics') loadAnalyticsDashboard();
-  }
-
-  // ── Cast editor ──
-  function initCastEditor() {
-    const saved = JSON.parse(localStorage.getItem('noir_cast') || 'null') || CAST_DATA;
-    const container = document.getElementById('cast-editor');
-    container.innerHTML = '';
-    const labelStyle = "font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;";
-    const inputStyle = 'width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:0.9rem;padding:8px 12px;outline:none;';
-    saved.forEach((cast, i) => {
-      const row = document.createElement('div');
-      row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;border:1px solid var(--border);background:var(--deep);';
-      const nameDiv = document.createElement('div');
-      const nameLbl = document.createElement('label');
-      nameLbl.style.cssText = labelStyle;
-      nameLbl.textContent = 'キャスト' + (i+1) + ' 名前';
-      const nameInp = document.createElement('input');
-      nameInp.dataset.castName = i;
-      nameInp.value = cast.name;
-      nameInp.style.cssText = inputStyle;
-      nameDiv.appendChild(nameLbl);
-      nameDiv.appendChild(nameInp);
-      const roleDiv = document.createElement('div');
-      const roleLbl = document.createElement('label');
-      roleLbl.style.cssText = labelStyle;
-      roleLbl.textContent = '役職';
-      const roleInp = document.createElement('input');
-      roleInp.dataset.castRole = i;
-      roleInp.value = cast.role;
-      roleInp.style.cssText = inputStyle;
-      roleDiv.appendChild(roleLbl);
-      roleDiv.appendChild(roleInp);
-      row.appendChild(nameDiv);
-      row.appendChild(roleDiv);
-      container.appendChild(row);
-    });
-  }
-
-
-  function saveCastEdits() {
-    const newData = [];
-    for (let i = 0; i < 4; i++) {
-      const nameEl = document.querySelector('[data-cast-name="'+i+'"]');
-      const roleEl = document.querySelector('[data-cast-role="'+i+'"]');
-      if (!nameEl) continue;
-      const name = nameEl.value.trim();
-      const role = roleEl.value.trim();
-      newData.push({ name, role });
-      const nameDiv = document.getElementById('site-cast-name-' + i);
-      const roleDiv = document.getElementById('site-cast-role-' + i);
-      if (nameDiv) nameDiv.textContent = name;
-      if (roleDiv) roleDiv.textContent = role;
-    }
-    localStorage.setItem('noir_cast', JSON.stringify(newData));
-    const msg = document.getElementById('cast-save-msg');
-    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 2000);
   }
 
   // ── Store editor ──
@@ -339,7 +276,7 @@
     // Scroll depth
     const depthList = document.getElementById('scroll-depth-list');
     depthList.innerHTML = '';
-    const sectionLabels = { hero:'ヒーロー', concept:'コンセプト', features:'特徴', cast:'キャスト', info:'店舗情報', reservation:'予約' };
+    const sectionLabels = { hero:'ヒーロー', concept:'コンセプト', features:'特徴', info:'店舗情報', reservation:'予約' };
     const heroCount = (d.scrollDepth || {})['hero'] || totalVisits;
     SECTIONS_TRACK.forEach(id => {
       const count = (d.scrollDepth || {})[id] || 0;
@@ -592,16 +529,6 @@
       layoutOrder   = savedLayout.order   || layoutOrder;
       layoutVisible = savedLayout.visible || layoutVisible;
       applyLayout();
-    }
-    // Cast
-    const savedCast = JSON.parse(localStorage.getItem('noir_cast') || 'null');
-    if (savedCast) {
-      savedCast.forEach((cast, i) => {
-        const nameEl = document.getElementById('site-cast-name-' + i);
-        const roleEl = document.getElementById('site-cast-role-' + i);
-        if (nameEl) nameEl.textContent = cast.name;
-        if (roleEl) roleEl.textContent = cast.role;
-      });
     }
     // Store
     const savedStore = JSON.parse(localStorage.getItem('noir_store') || '{}');

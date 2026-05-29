@@ -412,7 +412,6 @@
       <button onclick="closeAdmin()"
         style="padding:12px 32px; border:1px solid var(--border); background:transparent; color:#9a8878; font-family:'DM Sans',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase;">閉じる</button>
     </div>
-    <div style="font-family:'DM Sans',sans-serif; font-size:0.52rem; color:#9a8878; opacity:0.4; margin-top:32px; letter-spacing:0.2em;">初期パスワード: noir2025</div>
   </div>
 
   <!-- DASHBOARD -->
@@ -429,7 +428,6 @@
 
     <!-- Tab Nav -->
     <div style="display:flex; gap:2px; margin-bottom:32px; flex-wrap:wrap;">
-      <button onclick="showEditSection('cast')"    id="etab-cast"    style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">キャスト</button>
       <button onclick="showEditSection('store')"   id="etab-store"   style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">店舗情報</button>
       <button onclick="showEditSection('notice')"  id="etab-notice"  style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">お知らせ</button>
       <button onclick="showEditSection('concept')" id="etab-concept" style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">コンセプト</button>
@@ -437,16 +435,6 @@
       <button onclick="showEditSection('layout')"  id="etab-layout"  style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">レイアウト</button>
     </div>
 
-
-    <!-- ═══════ キャストタブ ═══════ -->
-    <div id="esec-cast" class="edit-section" style="display:none;">
-      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:24px;">🎭 キャスト情報の編集</div>
-        <div id="cast-editor" style="display:flex; flex-direction:column; gap:24px;"></div>
-        <button onclick="saveCastEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
-        <div id="cast-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
-      </div>
-    </div>
 
     <!-- ═══════ 店舗情報タブ ═══════ -->
     <div id="esec-store" class="edit-section" style="display:none;">
