@@ -859,6 +859,12 @@
   /* ===== SUBPAGE (blog.html / article.html) ===== */
   .subpage { padding: 140px 48px 80px; max-width: 1100px; margin: 0 auto; min-height: 72vh; }
   .subpage-head { margin-bottom: 56px; }
+  .subpage-back {
+    display: inline-block; margin-bottom: 20px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s;
+  }
+  .subpage-back:hover { color: var(--accent); }
 
   .article-wrap { max-width: 760px; margin: 0 auto; }
   .article-meta {
