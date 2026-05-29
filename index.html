@@ -93,6 +93,7 @@
   <ul class="nav-links">
     <li><a href="#concept">About</a></li>
     <li><a href="#features">Features</a></li>
+    <li><a href="#news">News</a></li>
     <li><a href="#info">Access</a></li>
     <li><a href="#recruit">Recruit</a></li>
     <li><a href="#reservation">Reserve</a></li>
@@ -145,10 +146,10 @@
 <section id="concept" class="reveal">
   <div>
     <div class="section-label">Our Concept</div>
-    <h2 class="section-title">笑顔が集まる、<br><em>ナチュラルな</em>大人の空間</h2>
+    <h2 class="section-title" id="site-concept-title">笑顔が集まる、<br><em>ナチュラルな</em>大人の空間</h2>
     <p class="section-body" id="site-concept-body">Cow girl. は、白を基調としたナチュラル＆カジュアルな雰囲気の会員制ラウンジです。お酒が飲めなくても全く心配なし。山崎・白州・竹鶴など厳選されたウイスキーをはじめ、豊富なドリンクをご用意しています。堅苦しくなく、でも上質な時間を。それが私たちのコンセプトです。</p>
   </div>
-  <div class="concept-visual">
+  <div class="concept-visual" id="site-concept-visual">
     <div class="concept-visual-inner">
       <div class="concept-logo-big">COW<br>GIRL.</div>
       <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--taupe);text-transform:uppercase;">By MORE Co., Ltd.</div>
@@ -203,6 +204,29 @@
       <div class="feature-title">手頃な料金設定</div>
       <p class="feature-body">お一人様¥4,000〜5,000のリーズナブルな料金設定。特別な夜も、気軽な一杯も。</p>
     </div>
+  </div>
+</section>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-dot"></div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- NEWS / BLOG -->
+<div class="section-wrapper" id="wrapper-news">
+<section id="news" class="reveal">
+  <div class="news-header">
+    <div>
+      <div class="section-label">News &amp; Blog</div>
+      <h2 class="section-title">お知らせ・ブログ</h2>
+    </div>
+    <a href="blog.html" class="news-more">記事一覧を見る →</a>
+  </div>
+  <div class="news-grid" id="news-grid">
+    <div class="news-empty">読み込み中…</div>
   </div>
 </section>
 </div>
@@ -391,168 +415,7 @@
 </footer>
 
 
-<!-- ══════════════════════════════════════
-     ADMIN OVERLAY
-══════════════════════════════════════ -->
-<div id="admin-overlay" style="display:none; position:fixed; inset:0; z-index:9000; background:#faf8f5; overflow-y:auto;">
-
-  <!-- LOGIN SCREEN -->
-  <div id="admin-login" style="min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:24px;">
-    <div style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; letter-spacing:0.2em; color:var(--dark); margin-bottom:4px;">Cow girl.</div>
-    <div style="font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.35em; color:var(--accent); text-transform:uppercase; margin-bottom:24px;">Admin Panel</div>
-    <input id="admin-pw-input" type="password" placeholder="パスワードを入力"
-      style="background:white; border:1px solid var(--border2); color:#3a2e28; font-family:'DM Sans',sans-serif; font-size:0.8rem; padding:14px 24px; width:280px; outline:none; letter-spacing:0.1em; text-align:center;"
-      onkeydown="if(event.key==='Enter') checkAdminLogin()">
-    <div id="admin-login-err" style="color:#c0392b; font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.15em; display:none;">パスワードが違います</div>
-    <div style="display:flex; gap:16px; margin-top:8px;">
-      <button onclick="checkAdminLogin()"
-        style="padding:12px 32px; border:1px solid #b8907a; background:transparent; color:#b8907a; font-family:'DM Sans',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase; transition:all 0.3s;"
-        onmouseover="this.style.background='#b8907a';this.style.color='white'"
-        onmouseout="this.style.background='transparent';this.style.color='#b8907a'">ログイン</button>
-      <button onclick="closeAdmin()"
-        style="padding:12px 32px; border:1px solid var(--border); background:transparent; color:#9a8878; font-family:'DM Sans',sans-serif; font-size:0.65rem; letter-spacing:0.25em; cursor:pointer; text-transform:uppercase;">閉じる</button>
-    </div>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div id="admin-dashboard" style="display:none; padding:60px 48px; max-width:960px; margin:0 auto; background:transparent;">
-
-    <!-- Header -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; border-bottom:1px solid rgba(140,112,96,0.18); padding-bottom:24px;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; letter-spacing:0.12em; color:var(--dark);">Lounge Cow girl.</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.55rem; letter-spacing:0.3em; color:var(--accent); margin-top:4px; text-transform:uppercase;">Admin Dashboard</div>
-      </div>
-      <button onclick="closeAdmin()" style="padding:10px 24px; border:1px solid var(--border); background:transparent; color:#9a8878; font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.2em; cursor:pointer; text-transform:uppercase;">ログアウト</button>
-    </div>
-
-    <!-- Tab Nav -->
-    <div style="display:flex; gap:2px; margin-bottom:32px; flex-wrap:wrap;">
-      <button onclick="showEditSection('store')"   id="etab-store"   style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">店舗情報</button>
-      <button onclick="showEditSection('notice')"  id="etab-notice"  style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">お知らせ</button>
-      <button onclick="showEditSection('concept')" id="etab-concept" style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">コンセプト</button>
-      <button onclick="showEditSection('analytics')" id="etab-analytics" style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">アクセス解析</button>
-      <button onclick="showEditSection('layout')"  id="etab-layout"  style="padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:0.58rem; letter-spacing:0.15em; cursor:pointer; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:#9a8878;">レイアウト</button>
-    </div>
-
-
-    <!-- ═══════ 店舗情報タブ ═══════ -->
-    <div id="esec-store" class="edit-section" style="display:none;">
-      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:24px;">🏪 店舗情報の編集</div>
-        <div style="display:grid; gap:16px;">
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">店名</label><input id="edit-name" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="Lounge Cow girl.（ラウンジ カウガール）"></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">住所</label><textarea id="edit-address" rows="2" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">営業時間</label><input id="edit-hours" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">アクセス</label><textarea id="edit-access" rows="2" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;"></textarea></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">ドレスコード</label><input id="edit-dress" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">料金</label><input id="edit-price" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;"></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">電話番号</label><input id="edit-tel" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="03-XXXX-XXXX"></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">LINE 公式アカウント URL</label><input id="edit-lineUrl" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://line.me/R/ti/p/@xxxxxxxx"><div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:6px;opacity:0.6;">LINE公式アカウント → プロフィール → URLをコピー</div></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">Google マップ埋め込みURL</label><input id="edit-gmap" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:10px 14px;outline:none;" placeholder="https://www.google.com/maps/embed?pb=..."><div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:6px;opacity:0.6;">Googleマップ → 共有 → 地図を埋め込む → HTMLをコピー → src=&quot;...&quot; の中のURLのみ貼り付け</div></div>
-        </div>
-        <button onclick="saveStoreEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
-        <div id="store-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
-      </div>
-    </div>
-
-    <!-- ═══════ お知らせタブ ═══════ -->
-    <div id="esec-notice" class="edit-section" style="display:none;">
-      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:8px;">📣 お知らせ・イベント情報</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; color:#9a8878; margin-bottom:20px; line-height:1.8;">設定するとページ上部にゴールドのバナーで表示されます。</div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-          <label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;">バナー表示</label>
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-            <input type="checkbox" id="notice-active" onchange="toggleNoticePreview()" style="accent-color:#b8907a;">
-            <span style="font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#3a2e28;">有効にする</span>
-          </label>
-        </div>
-        <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">バナーテキスト</label>
-          <input id="notice-text-input" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;" placeholder="例：【今週末限定】新キャスト・葵のデビューイベント開催！" oninput="updateNoticePreview()">
-        </div>
-        <button onclick="saveNoticeEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
-        <div id="notice-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
-      </div>
-    </div>
-
-    <!-- ═══════ コンセプトタブ ═══════ -->
-    <div id="esec-concept" class="edit-section" style="display:none;">
-      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:24px;">✍ キャッチコピー・コンセプト文の編集</div>
-        <div style="display:grid; gap:16px;">
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">ヒーロー強調ワード（金色で表示される言葉）</label><input id="edit-hero-em" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Cormorant Garamond',serif;font-size:1rem;padding:10px 14px;outline:none;" placeholder="静寂"></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">ヒーローサブテキスト</label><textarea id="edit-hero-sub" rows="2" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:none;" placeholder="喧騒を忘れ、選ばれた時間の中へ。"></textarea></div>
-          <div><label style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.2em;color:#9a8878;text-transform:uppercase;display:block;margin-bottom:6px;">コンセプト本文</label><textarea id="edit-concept-body" rows="6" style="width:100%;background:#f3efe9;border:1px solid rgba(140,112,96,0.18);color:#3a2e28;font-family:'Noto Serif JP',serif;font-size:0.9rem;padding:10px 14px;outline:none;resize:vertical;line-height:1.8;"></textarea></div>
-        </div>
-        <button onclick="saveConceptEdits()" style="margin-top:24px;padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">変更をサイトに反映する</button>
-        <div id="concept-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
-      </div>
-    </div>
-
-
-    <!-- ═══════ アナリティクスタブ ═══════ -->
-    <div id="esec-analytics" class="edit-section" style="display:none;">
-      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-          <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase;">📊 アクセス解析</div>
-          <button onclick="clearAnalytics()" style="padding:6px 16px;border:1px solid var(--border);background:transparent;color:#9a8878;font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;">データをリセット</button>
-        </div>
-
-        <!-- KPI Cards -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;">
-          <div style="background:#f3efe9;border:1px solid rgba(140,112,96,0.18);padding:20px 16px;text-align:center;">
-            <div id="stat-visits" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#b8907a;">—</div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#9a8878;margin-top:4px;text-transform:uppercase;">総訪問数</div>
-          </div>
-          <div style="background:#f3efe9;border:1px solid rgba(140,112,96,0.18);padding:20px 16px;text-align:center;">
-            <div id="stat-bounce" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#b8907a;">—</div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#9a8878;margin-top:4px;text-transform:uppercase;">直帰率</div>
-          </div>
-          <div style="background:#f3efe9;border:1px solid rgba(140,112,96,0.18);padding:20px 16px;text-align:center;">
-            <div id="stat-line-clicks" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#b8907a;">—</div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:0.55rem;letter-spacing:0.2em;color:#9a8878;margin-top:4px;text-transform:uppercase;">LINE タップ数</div>
-          </div>
-        </div>
-
-        <!-- Daily Chart -->
-        <div style="margin-bottom:20px;">
-          <div style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:#9a8878;text-transform:uppercase;margin-bottom:12px;">直近7日間の訪問数</div>
-          <div id="analytics-chart" style="display:flex;align-items:flex-end;gap:6px;height:80px;"></div>
-          <div id="analytics-chart-labels" style="display:flex;gap:6px;margin-top:6px;"></div>
-        </div>
-
-        <!-- Section Scroll Depth -->
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:0.58rem;letter-spacing:0.25em;color:#9a8878;text-transform:uppercase;margin-bottom:12px;">セクション到達率</div>
-          <div id="scroll-depth-list" style="display:flex;flex-direction:column;gap:8px;"></div>
-        </div>
-
-        <div style="font-family:'DM Sans',sans-serif;font-size:0.52rem;color:#9a8878;margin-top:20px;opacity:0.5;line-height:1.8;">
-          ※ このブラウザのデータのみ記録されます。複数端末での集計には Google Analytics をお勧めします。
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════ レイアウトタブ ═══════ -->
-    <div id="esec-layout" class="edit-section" style="display:none;">
-      <div style="background:#ffffff; border:1px solid rgba(140,112,96,0.18); padding:32px; margin-bottom:32px;">
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; color:#b8907a; text-transform:uppercase; margin-bottom:8px;">⠿ ページレイアウト管理</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; color:#9a8878; margin-bottom:24px; line-height:1.9;">
-          ドラッグで順番を変更 / トグルで表示・非表示を切り替え。変更は即座にページに反映されます。
-        </div>
-        <div id="layout-list" style="display:flex; flex-direction:column; gap:8px;"></div>
-        <div style="margin-top:24px; display:flex; gap:12px;">
-          <button onclick="applyLayout()" style="padding:12px 32px;border:1px solid #b8907a;background:transparent;color:#b8907a;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;" onmouseover="this.style.background='#b8907a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8907a'">ページに反映する</button>
-          <button onclick="resetLayout()" style="padding:12px 24px;border:1px solid var(--border);background:transparent;color:#9a8878;font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;">リセット</button>
-        </div>
-        <div id="layout-save-msg" style="display:none;margin-top:12px;font-family:'DM Sans',sans-serif;font-size:0.6rem;color:#27ae60;letter-spacing:0.15em;">✓ 反映しました</div>
-      </div>
-    </div>
-
-  </div><!-- /admin-dashboard -->
-</div><!-- /admin-overlay -->
-
+<script src="js/cms.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
