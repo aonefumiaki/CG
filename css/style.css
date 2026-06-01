@@ -856,6 +856,15 @@
   #site-concept-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .concept-visual.has-image .concept-border { z-index: 1; }
 
+  /* ── ヒーロー内の求人導線 ── */
+  .hero-recruit {
+    display: inline-block; margin-top: 28px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border2); padding-bottom: 4px;
+    opacity: 0; animation: fadeUp 0.9s ease 1s forwards; transition: color 0.3s, border-color 0.3s;
+  }
+  .hero-recruit:hover { color: var(--dark); border-color: var(--accent); }
+
   /* ===== SUBPAGE (blog.html / article.html) ===== */
   .subpage { padding: 140px 48px 80px; max-width: 1100px; margin: 0 auto; min-height: 72vh; }
   .subpage-head { margin-bottom: 56px; }
