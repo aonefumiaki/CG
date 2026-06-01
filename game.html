@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>文字シャッフル — Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「文字シャッフル」。お題の言葉をバラバラに並べて当てっこ。会話のきっかけに。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/game.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="index.html#recruit">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="game.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="index.html" class="subpage-back">← ホームに戻る</a>
+    <div class="section-label">Table Game</div>
+    <h2 class="section-title">文字シャッフル</h2>
+    <p class="game-intro">
+      お題の言葉を入力するか「おまかせ出題」を押すと、文字がバラバラに並びます。
+      お客様に元の言葉を当ててもらいましょう。タップで文字を並べ替えられます。
+      会話のきっかけや、ちょっとした盛り上げの一手にどうぞ。
+    </p>
+  </div>
+
+  <div class="game-card">
+    <!-- 出題セットアップ -->
+    <div id="setup">
+      <label class="game-label" for="src">お題の言葉（答え）</label>
+      <textarea class="game-textarea" id="src" placeholder="ここに言葉を入力（例：また会いたくなる人）"></textarea>
+      <div class="game-controls">
+        <button class="game-btn primary" id="shuffleBtn">この言葉で出題</button>
+        <button class="game-btn" id="randomBtn">おまかせ出題</button>
+      </div>
+    </div>
+
+    <!-- 出題中（答えは隠れている） -->
+    <div id="play" class="game-hidden">
+      <div class="game-pool-label">
+        <label class="game-label">文字をタップして並べてください</label>
+        <span class="game-count" id="count"></span>
+      </div>
+      <div class="game-pool" id="pool"></div>
+
+      <label class="game-label" style="margin-top:22px">解答</label>
+      <div class="game-answer" id="picked"></div>
+      <div class="game-result" id="result"></div>
+
+      <div class="game-controls" style="margin-top:22px">
+        <button class="game-btn" id="reshuffleBtn">もう一度混ぜる</button>
+        <button class="game-btn" id="revealBtn">答えを表示</button>
+        <button class="game-btn" id="newBtn">新しい問題</button>
+      </div>
+      <div class="game-reveal">
+        <span id="answer" class="game-hidden"></span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
