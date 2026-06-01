@@ -61,7 +61,12 @@ async function loadStore() {
     }
     if (d.gmap) { const f = document.getElementById('site-gmap'); if (f) f.src = d.gmap; }
     if (d.instagram) document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.href = d.instagram);
-    if (d.lineUrl) { const l = document.getElementById('line-float-link'); if (l) l.href = d.lineUrl; }
+    // LINEリンク：フロート＋応募CTA（lineUrlが無ければ電話にフォールバック）
+    const lineHref = d.lineUrl || (d.tel ? 'tel:' + d.tel : '');
+    if (lineHref) {
+      const l = document.getElementById('line-float-link'); if (l) l.href = lineHref;
+      document.querySelectorAll('.js-line-cta').forEach(a => a.href = lineHref);
+    }
   } catch (e) { console.warn('store load failed', e); }
 }
 
@@ -178,6 +183,23 @@ async function loadArticle() {
   }
 }
 
+// ── 求人ページのギャラリー（写真がある時だけ表示）──
+async function loadGallery() {
+  const wrap = document.getElementById('recruit-gallery');
+  const section = document.getElementById('gallery-section');
+  if (!wrap) return;
+  try {
+    const d = await cmsGet('gallery', '?limit=30');
+    const items = (d.contents || []).filter(g => g.image && g.image.url);
+    if (items.length) {
+      wrap.innerHTML = items.map(g =>
+        '<div class="gallery-item"><img src="' + g.image.url + '?fit=crop&w=600&h=600" alt="' + escapeHtml(g.caption || 'Lounge Cow girl.') + '"></div>'
+      ).join('');
+      if (section) section.style.display = '';
+    }
+  } catch (e) { console.warn('gallery load failed', e); }
+}
+
 // ── 初期化（各ページで必要なものだけ動く）──
 document.addEventListener('DOMContentLoaded', () => {
   loadStore();
@@ -186,4 +208,5 @@ document.addEventListener('DOMContentLoaded', () => {
   loadHomeNews();
   loadBlogList();
   loadArticle();
+  loadGallery();
 });
