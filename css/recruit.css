@@ -1,0 +1,97 @@
+/* ============================================================
+   求人ランディングページ（recruit.html 専用）
+   ※ 給与・待遇カード等は style.css の .recruit-* を再利用します
+============================================================ */
+.rec-hero {
+  position: relative; min-height: 70vh; display: flex; align-items: center;
+  padding: 150px 48px 80px; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 70% at 78% 25%, rgba(212,168,150,0.22), transparent 60%),
+    linear-gradient(160deg, #fdfbf8 0%, #f3ece4 100%);
+}
+.rec-hero-inner { position: relative; z-index: 1; max-width: 660px; }
+.rec-eyebrow {
+  font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
+}
+.rec-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.2; color: var(--dark);
+}
+.rec-title .jp {
+  display: block; margin-top: 12px; font-family: 'Noto Serif JP', serif; font-weight: 500;
+  font-size: clamp(1.5rem, 3.6vw, 2.4rem); line-height: 1.4; color: var(--dark);
+}
+.rec-sub { font-size: 0.95rem; line-height: 2.1; color: var(--text); margin: 26px 0 36px; max-width: 540px; }
+
+.line-apply-btn {
+  display: inline-flex; align-items: center; gap: 12px; background: var(--green); color: #fff;
+  font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 500; letter-spacing: 0.06em;
+  padding: 18px 42px; text-decoration: none; border-radius: 50px;
+  box-shadow: 0 10px 26px rgba(6,199,85,0.32); transition: transform 0.2s, filter 0.2s;
+}
+.line-apply-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.line-apply-note { font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--muted); margin-top: 14px; }
+
+.rec-rating { display: flex; align-items: center; gap: 14px; margin-top: 34px; }
+.rec-rating-num { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; color: var(--dark); line-height: 1; }
+.rec-rating-stars { color: var(--accent); letter-spacing: 0.1em; font-size: 0.9rem; }
+.rec-rating-meta { font-family: 'DM Sans', sans-serif; font-size: 0.58rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+
+.rec-section { padding: 76px 48px; }
+.rec-section.alt { background: var(--cream); }
+.rec-narrow { max-width: 1000px; margin: 0 auto; }
+
+.rec-reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 44px; }
+.rec-reason { background: var(--white); padding: 34px 28px; }
+.rec-reason-ico { font-size: 1.7rem; margin-bottom: 14px; }
+.rec-reason-title { font-family: 'Noto Serif JP', serif; font-size: 1.02rem; color: var(--dark); margin-bottom: 10px; }
+.rec-reason-body { font-size: 0.82rem; line-height: 1.95; color: var(--muted); }
+
+.rec-callout {
+  display: flex; gap: 28px; align-items: center; flex-wrap: wrap; justify-content: space-between;
+  background: var(--white); border: 1px solid var(--border); padding: 36px; margin-top: 44px;
+}
+.rec-callout-text { max-width: 580px; }
+.rec-callout-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--dark); margin-bottom: 12px; }
+.rec-callout-body { font-size: 0.88rem; line-height: 2; color: var(--muted); }
+
+.rec-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 44px; }
+.gallery-item { aspect-ratio: 1; overflow: hidden; background: var(--blush); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.rec-qa { max-width: 780px; margin: 44px auto 0; }
+.rec-qa details { border-bottom: 1px solid var(--border); }
+.rec-qa summary {
+  cursor: pointer; list-style: none; padding: 22px 30px 22px 0; position: relative;
+  font-family: 'Noto Serif JP', serif; font-size: 0.95rem; color: var(--dark);
+}
+.rec-qa summary::-webkit-details-marker { display: none; }
+.rec-qa summary::after { content: '+'; position: absolute; right: 4px; top: 20px; color: var(--accent); font-size: 1.3rem; }
+.rec-qa details[open] summary::after { content: '−'; }
+.rec-qa-a { padding: 0 0 22px; font-size: 0.85rem; line-height: 2.1; color: var(--muted); }
+
+.rec-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 44px; }
+.rec-step { text-align: center; }
+.rec-step-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--accent); line-height: 1; }
+.rec-step-title { font-family: 'Noto Serif JP', serif; font-size: 0.92rem; color: var(--dark); margin: 10px 0 6px; }
+.rec-step-body { font-size: 0.78rem; line-height: 1.85; color: var(--muted); }
+
+.rec-final { background: var(--dark); color: #fff; text-align: center; padding: 80px 48px; position: relative; overflow: hidden; }
+.rec-final::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(212,168,150,0.12), transparent); pointer-events: none;
+}
+.rec-final-title { position: relative; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: #fff; margin-bottom: 16px; }
+.rec-final-sub { position: relative; font-size: 0.88rem; line-height: 2; color: rgba(255,255,255,0.6); margin-bottom: 34px; }
+.rec-final .line-apply-note { color: rgba(255,255,255,0.45); }
+
+@media (max-width: 768px) {
+  .rec-hero { padding: 110px 20px 60px; min-height: auto; }
+  .rec-section { padding: 52px 20px; }
+  .rec-reasons { grid-template-columns: 1fr; }
+  .rec-gallery { grid-template-columns: repeat(2, 1fr); }
+  .rec-flow { grid-template-columns: repeat(2, 1fr); }
+  .rec-final { padding: 56px 20px; }
+  .rec-callout { padding: 24px; }
+}
