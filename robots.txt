@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aonefumiaki.github.io/CG/sitemap.xml
