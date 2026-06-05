@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>ジェスチャー当て（Heads Up!）— Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「ジェスチャー当て（Heads Up!）」。額のお題を周りのジェスチャーで当てる、盛り上がる60秒ゲーム。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/headsup.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/headsup.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="recruit.html">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="game.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="index.html" class="subpage-back">← ホームに戻る</a>　<a href="game.html" class="subpage-back">文字シャッフルへ →</a>
+    <div class="section-label">Party Game</div>
+    <h2 class="section-title">ジェスチャー当て<br><em>Heads Up!</em></h2>
+    <p class="game-intro">
+      ジャンルを選んで「スタート」。スマホを額に当てると、お題が表示されます。
+      周りのジェスチャーを見て、持ち主がお題を当てましょう。
+      <strong>当たったら画面をタップ＝正解</strong>、分からなければ「パス」。60秒で何問正解できるか挑戦！
+    </p>
+  </div>
+
+  <!-- セットアップ -->
+  <div class="hu-setup-card" id="hu-setup">
+    <div class="game-label" style="font-family:'DM Sans',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);">ジャンルを選ぶ</div>
+    <div class="hu-cats" id="hu-cats"></div>
+    <button class="hu-start" id="hu-start">スタート（60秒）</button>
+    <p class="hu-note">スマホを額に当てて、画面が周りの人に見えるように構えてください。<br>当たったら画面タップ、難しければ「パス」。</p>
+  </div>
+
+  <!-- 結果 -->
+  <div class="hu-end-card" id="hu-end" style="display:none;">
+    <div class="hu-score"><span id="hu-score">0</span></div>
+    <div class="hu-score-label">正解数</div>
+    <ul class="hu-results" id="hu-results"></ul>
+    <button class="hu-start" id="hu-retry">もう一度あそぶ</button>
+  </div>
+</main>
+
+<!-- プレイ画面（全画面） -->
+<div class="hu-screen" id="hu-screen">
+  <div class="hu-top">
+    <span><span class="lbl">Time</span><span id="hu-timer">60</span></span>
+    <span><span class="lbl">Score</span><span id="hu-scoretop">0</span></span>
+  </div>
+  <div class="hu-word" id="hu-word"></div>
+  <div class="hu-hint">画面タップ＝正解</div>
+  <button class="hu-pass" id="hu-pass">パス</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/headsup.js"></script>
+</body>
+</html>

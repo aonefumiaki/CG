@@ -1,0 +1,52 @@
+/* ============================================================
+   ジェスチャー当て（Heads Up! タップ版）headsup.html 専用
+============================================================ */
+.hu-setup-card, .hu-end-card {
+  max-width: 600px; margin: 40px auto 0;
+  background: var(--white); border: 1px solid var(--border);
+  padding: 36px 32px; text-align: center;
+}
+.hu-cats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 18px 0 28px; }
+.hu-cat {
+  font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.06em;
+  padding: 10px 18px; border: 1px solid var(--border2); background: transparent;
+  color: var(--text); cursor: pointer; border-radius: 50px; transition: all 0.25s;
+}
+.hu-cat.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.hu-start {
+  font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 16px 44px; background: var(--dark); color: #fff; border: none; cursor: pointer; transition: background 0.3s;
+}
+.hu-start:hover { background: var(--accent); }
+.hu-note { font-size: 0.8rem; line-height: 1.95; color: var(--muted); margin-top: 20px; }
+
+/* 全画面プレイ */
+.hu-screen {
+  position: fixed; inset: 0; z-index: 9000; display: none;
+  flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  color: #fff; background: var(--accent); transition: background 0.15s; cursor: pointer; user-select: none; padding: 24px;
+}
+.hu-screen.show { display: flex; }
+.hu-screen.ok { background: #3f8f5b; }
+.hu-screen.pass { background: #6d5a4c; }
+.hu-top {
+  position: absolute; top: 22px; left: 0; right: 0; display: flex; justify-content: space-between;
+  padding: 0 30px; font-family: 'DM Sans', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+}
+.hu-top .lbl { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.7; display: block; }
+.hu-word { font-family: 'Noto Serif JP', serif; font-weight: 500; font-size: clamp(2.6rem, 13vw, 6.5rem); line-height: 1.15; }
+.hu-hint { position: absolute; bottom: 92px; left: 0; right: 0; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; opacity: 0.85; }
+.hu-pass {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  padding: 13px 40px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.5); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.2em; border-radius: 50px; cursor: pointer;
+}
+
+/* 結果 */
+.hu-score { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300; color: var(--accent); line-height: 1; }
+.hu-score-label { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.hu-results { list-style: none; text-align: left; margin: 24px 0; max-height: 300px; overflow-y: auto; }
+.hu-results li { padding: 9px 4px; border-bottom: 1px solid var(--border); font-size: 0.9rem; display: flex; justify-content: space-between; }
+.hu-results .ok { color: #3f8f5b; } .hu-results .ng { color: var(--muted); }
+
+.hu-hidden { display: none; }
