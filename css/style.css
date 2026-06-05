@@ -1008,3 +1008,13 @@
     text-transform: uppercase; text-decoration: none; transition: all 0.3s;
   }
   .recruit-card-cta .btn-outline:hover { background: var(--accent); color: #fff; }
+
+  /* ===== ゲーム選択ハブ（games.html） ===== */
+  .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 44px; }
+  .game-pick { display: block; text-decoration: none; background: var(--white); border: 1px solid var(--border); padding: 40px 32px; transition: transform 0.3s, box-shadow 0.3s; }
+  .game-pick:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(140,112,96,0.12); }
+  .game-pick-label { font-family: 'DM Sans', sans-serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .game-pick-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--dark); margin-bottom: 14px; }
+  .game-pick-body { font-size: 0.85rem; line-height: 1.95; color: var(--muted); margin-bottom: 22px; }
+  .game-pick-cta { font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  @media (max-width: 768px) { .games-grid { grid-template-columns: 1fr; } }
