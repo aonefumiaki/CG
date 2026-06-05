@@ -1001,5 +1001,10 @@
   /* 応募方法カード内のCTA */
   .recruit-card-cta { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
   .recruit-card-cta .btn-line { width: 100%; justify-content: center; }
-  .recruit-card-link { font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); text-decoration: none; transition: color 0.3s; }
-  .recruit-card-link:hover { color: var(--dark); }
+  .recruit-card-cta .btn-outline {
+    width: 100%; text-align: center; padding: 13px 20px;
+    border: 1px solid var(--accent); color: var(--accent);
+    font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em;
+    text-transform: uppercase; text-decoration: none; transition: all 0.3s;
+  }
+  .recruit-card-cta .btn-outline:hover { background: var(--accent); color: #fff; }
