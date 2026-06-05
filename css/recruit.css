@@ -44,8 +44,7 @@
 
 .rec-reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 44px; }
 .rec-reason { background: var(--white); padding: 34px 28px; }
-.rec-reason-ico { color: var(--accent); margin-bottom: 16px; line-height: 0; }
-.rec-reason-ico svg { width: 30px; height: 30px; }
+.rec-reason-ico { font-size: 1.7rem; margin-bottom: 14px; }
 .rec-reason-title { font-family: 'Noto Serif JP', serif; font-size: 1.02rem; color: var(--dark); margin-bottom: 10px; }
 .rec-reason-body { font-size: 0.82rem; line-height: 1.95; color: var(--muted); }
 
