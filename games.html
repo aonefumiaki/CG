@@ -46,7 +46,7 @@
 
 <main class="subpage">
   <div class="subpage-head">
-    <a href="index.html" class="subpage-back">← ホームに戻る</a>
+    <a href="index.html" class="subpage-back" id="games-back">← ホームに戻る</a>
     <div class="section-label">Games</div>
     <h2 class="section-title">ゲーム</h2>
     <p class="game-intro">ご来店時のお楽しみに。会話のきっかけや盛り上げに使える、ちょっとしたゲームをご用意しました。お好きなゲームをお選びください。</p>
@@ -80,5 +80,18 @@
 
 <script src="js/cms.js"></script>
 <script src="js/script.js"></script>
+<script>
+  // 求人ページから来た場合は戻るボタンを「求人ページに戻る」に切り替え
+  (function () {
+    var back = document.getElementById('games-back');
+    if (!back) return;
+    var fromRecruit = (new URLSearchParams(location.search).get('from') === 'recruit')
+      || (document.referrer && document.referrer.indexOf('recruit.html') !== -1);
+    if (fromRecruit) {
+      back.href = 'recruit.html';
+      back.textContent = '← 求人ページに戻る';
+    }
+  })();
+</script>
 </body>
 </html>
