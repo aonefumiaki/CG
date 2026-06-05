@@ -789,7 +789,7 @@
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    #hero { padding: 100px 20px 60px; min-height: auto; }
+    #hero { padding: 124px 20px 60px; min-height: auto; }
     .hero-deco, .hero-deco2, .hero-rating, .hero-tag { display: none; }
     #concept { padding: 0 20px; grid-template-columns: 1fr; gap: 40px; }
     .concept-visual { display: none; }
