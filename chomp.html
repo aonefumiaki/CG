@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>チョンプ（Chomp）— Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「チョンプ（Chomp）」。毒マスを食べたら負けの戦略ゲーム。最強CPU・2人対戦に対応。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/chomp.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/chomp.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="recruit.html">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="games.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="games.html" class="subpage-back">← ゲーム一覧へ戻る</a>
+    <div class="section-label">Strategy Game</div>
+    <h2 class="section-title">チョンプ<br><em>Chomp</em></h2>
+    <p class="game-intro">
+      マスを選ぶと、その<strong>右下すべて</strong>を一緒に食べます。
+      左上の<strong>毒マス ☠ を食べた人が負け</strong>。
+      「対CPU（最強）」は完全読みで一切手を抜きません。2人対戦でもどうぞ。
+    </p>
+  </div>
+
+  <div id="chomp">
+    <div class="modebar">
+      <div class="seg" id="modeSeg">
+        <button data-mode="cpu" class="on">対 CPU（最強）</button>
+        <button data-mode="pvp">2人で対戦</button>
+      </div>
+    </div>
+
+    <div class="turn you" id="turn">あなたの番</div>
+
+    <div class="chomp-board"><div class="grid" id="grid"></div></div>
+
+    <div class="presets" id="presets">
+      <button data-s="4,3">4×3</button>
+      <button data-s="5,4">5×4</button>
+      <button data-s="3,3">3×3</button>
+      <button data-s="6,4">6×4</button>
+      <button data-s="6,5">6×5</button>
+    </div>
+    <div class="controls">
+      <button class="act" id="reset">同じ盤でやり直す</button>
+      <button class="act" id="reveal">種明かし（勝敗判定）</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="chomp-reveal" id="revealBox"></div>
+    <div class="hint">マスにカーソルを合わせると食べられる範囲が点線で出ます。クリック／タップで確定。</div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/chomp.js"></script>
+</body>
+</html>
