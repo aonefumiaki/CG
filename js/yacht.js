@@ -99,7 +99,7 @@ function render(){
   $('roll').disabled = rollsLeft<=0;
   $('roll').textContent = rollsLeft===3 ? 'サイコロを振る' : `振り直す（残り${rollsLeft}）`;
   $('ghint').textContent = !rolled ? 'サイコロを振ってください。'
-    : (rollsLeft>0 ? '残す目をタップして、振り直すか役を選びます。' : '役を1つ選んでください（0点でもどれか選びます）。');
+    : (rollsLeft>0 ? '残す目をタップ→振り直すか、緑のマスをタップして役を決めます。' : '緑のマスをタップして役を1つ選びます（0点でもOK）。');
 
   // dice
   const dc=$('dice'); dc.innerHTML='';
@@ -131,7 +131,7 @@ function renderCard(){
       players.forEach((p,i)=>{
         const isCur=i===cur, val=p.scores[cat.k];
         if(val!==undefined){
-          h+=`<td class="filled ${isCur?'curcol':''}">${val}</td>`;
+          h+=`<td class="filled ${isCur?'curcol curdone':''}">${val}</td>`;
         }else if(isCur && rolled){
           const pv=cat.fn(dice);
           h+=`<td class="pick curcol ${pv===0?'zero':''}" data-k="${cat.k}">${pv}</td>`;
