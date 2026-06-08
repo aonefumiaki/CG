@@ -51,3 +51,10 @@
 #yacht .rankrow .nm { font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; flex: 1; }
 #yacht .rankrow .pts { font-family: 'DM Sans', sans-serif; font-size: 1.1rem; color: var(--y-green); }
 #yacht .rankrow.first { background: #faf0d8; border-color: var(--accent); }
+
+/* 選べる役（緑チップ）と記入済み（グレー）を明確化 */
+#yacht td.pick { background: rgba(63,82,38,0.14); color: var(--y-green); font-weight: 700; outline: 1.5px solid rgba(63,82,38,0.45); outline-offset: -3px; }
+#yacht td.pick:hover { background: var(--y-green); color: #fff; }
+#yacht td.pick.zero { background: rgba(140,112,96,0.08); color: var(--muted); outline-color: var(--border2); }
+#yacht td.pick.zero:hover { background: var(--muted); color: #fff; }
+#yacht td.curdone { background: rgba(140,112,96,0.16); color: var(--muted); }
