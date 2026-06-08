@@ -54,29 +54,28 @@
       市民3人・狼男3人を、ボートで全員<strong>右岸</strong>へ渡しましょう。
       ボートは<strong>1〜2人</strong>まで。どちらの岸でも<strong>市民が狼男より少なくなったら</strong>襲われて失敗です（市民が0人の岸はOK）。
     </p>
-    <p class="game-intro" style="margin-top:4px;">🧑＝市民　🐺＝狼男　🛶＝ボート</p>
+    <p class="game-intro" style="margin-top:4px;">🧑＝市民　🐺＝狼男</p>
   </div>
 
   <div id="river">
-    <div class="bank" id="bankL">
-      <div class="bank-h">🌲 左岸（スタート）</div>
-      <div class="tokens" id="tokL"></div>
-    </div>
-
-    <div class="boatrow">
-      <div class="boat">
-        <div class="boat-h">🛶 ボート <span id="dock"></span></div>
-        <div class="tokens" id="tokB"></div>
+    <div class="scene">
+      <div class="bank-zone left" id="bankL">
+        <div class="bank-label">左岸（スタート）</div>
+        <div class="tokens" id="tokL"></div>
       </div>
-      <div class="river-water" aria-hidden="true">🌊 🌊 🌊 🌊 🌊 🌊 🌊 🌊</div>
-      <button class="river-cross" id="cross">渡る ⇅</button>
+
+      <div class="boat" id="boatEl">
+        <img class="boat-img" src="images/boat.png" alt="ボート">
+        <div class="boat-tokens" id="tokB"></div>
+      </div>
+
+      <div class="bank-zone right" id="bankR">
+        <div class="bank-label">右岸（ゴール）</div>
+        <div class="tokens" id="tokR"></div>
+      </div>
     </div>
 
-    <div class="bank" id="bankR">
-      <div class="bank-h">🏁 右岸（ゴール）</div>
-      <div class="tokens" id="tokR"></div>
-    </div>
-
+    <button class="river-cross" id="cross">渡る ⇆</button>
     <div class="river-status" id="status"></div>
     <div class="river-controls">
       <span class="river-moves" id="moves">手数: 0</span>
