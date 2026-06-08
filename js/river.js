@@ -1,15 +1,15 @@
 // ============================================================
-//  川渡りパズル（オオカミとヒツジ）
-//  ボートは最大2匹・最低1匹で移動。どちらの岸でも
-//  「ヒツジ＜オオカミ（ヒツジが0でない）」になったら失敗。
-//  全員を右岸へ渡せばクリア。
+//  川渡りパズル（市民と狼男）— イラスト版
+//  ボートは最大2人・最低1人で移動。どちらの岸でも
+//  「市民＜狼男（市民が0でない）」になったら失敗。全員を右岸へ渡せばクリア。
+//  ボートは渡った側の岸に着く。
 // ============================================================
 (function () {
   function init() {
     var el = function (id) { return document.getElementById(id); };
     var tokL = el('tokL'); if (!tokL) return;
     var tokR = el('tokR'), tokB = el('tokB');
-    var bankL = el('bankL'), bankR = el('bankR'), dock = el('dock');
+    var bankL = el('bankL'), bankR = el('bankR'), boatEl = el('boatEl');
     var statusEl = el('status'), movesEl = el('moves'), crossBtn = el('cross');
     var s;
 
@@ -19,8 +19,8 @@
       render();
     }
     function bankNow() { return s[s.side]; }
-    function board(type) { if (s.over || s.win) return; if (s.B.w + s.B.s >= 2) return; if (bankNow()[type] <= 0) return; bankNow()[type]--; s.B[type]++; render(); }
-    function unboard(type) { if (s.over || s.win) return; if (s.B[type] <= 0) return; s.B[type]--; bankNow()[type]++; render(); }
+    function board(t) { if (s.over || s.win) return; if (s.B.w + s.B.s >= 2) return; if (bankNow()[t] <= 0) return; bankNow()[t]--; s.B[t]++; render(); }
+    function unboard(t) { if (s.over || s.win) return; if (s.B[t] <= 0) return; s.B[t]--; bankNow()[t]++; render(); }
     function unsafe(b) { return b.s > 0 && b.w > b.s; }
     function cross() {
       if (s.over || s.win) return;
@@ -35,22 +35,22 @@
 
     function makeTok(type, tappable, onClick) {
       var d = document.createElement('div');
-      d.className = 'tok ' + (type === 'w' ? 'wolf' : 'sheep') + (tappable ? '' : ' dim');
+      d.className = 'tok' + (tappable ? '' : ' dim');
       d.innerHTML = '<span class="ic">' + (type === 'w' ? '🐺' : '🧑') + '</span><span class="lb">' + (type === 'w' ? '狼男' : '市民') + '</span>';
       if (tappable) d.addEventListener('click', onClick);
       return d;
     }
     function renderBank(container, obj, docked) {
       container.innerHTML = '';
-      var tappable = docked && !s.over && !s.win;
-      for (var i = 0; i < obj.w; i++) container.appendChild(makeTok('w', tappable, function () { board('w'); }));
-      for (var j = 0; j < obj.s; j++) container.appendChild(makeTok('s', tappable, function () { board('s'); }));
+      var t = docked && !s.over && !s.win;
+      for (var i = 0; i < obj.w; i++) container.appendChild(makeTok('w', t, function () { board('w'); }));
+      for (var j = 0; j < obj.s; j++) container.appendChild(makeTok('s', t, function () { board('s'); }));
     }
     function renderBoat() {
       tokB.innerHTML = '';
-      var tappable = !s.over && !s.win;
-      for (var i = 0; i < s.B.w; i++) tokB.appendChild(makeTok('w', tappable, function () { unboard('w'); }));
-      for (var j = 0; j < s.B.s; j++) tokB.appendChild(makeTok('s', tappable, function () { unboard('s'); }));
+      var t = !s.over && !s.win;
+      for (var i = 0; i < s.B.w; i++) tokB.appendChild(makeTok('w', t, function () { unboard('w'); }));
+      for (var j = 0; j < s.B.s; j++) tokB.appendChild(makeTok('s', t, function () { unboard('s'); }));
     }
     function render() {
       renderBank(tokL, s.L, s.side === 'L');
@@ -58,7 +58,7 @@
       renderBoat();
       bankL.classList.toggle('active', s.side === 'L');
       bankR.classList.toggle('active', s.side === 'R');
-      dock.textContent = '（' + (s.side === 'L' ? '左岸' : '右岸') + 'にいます）';
+      boatEl.classList.toggle('right', s.side === 'R');
       movesEl.textContent = '手数: ' + s.moves;
       if (s.win) {
         statusEl.textContent = 'クリア！ 全員が右岸へわたれました（手数 ' + s.moves + '）。';
