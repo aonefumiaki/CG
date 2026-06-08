@@ -24,7 +24,7 @@
     function unsafe(b) { return b.s > 0 && b.w > b.s; }
     function cross() {
       if (s.over || s.win) return;
-      if (s.B.w + s.B.s === 0) { statusEl.textContent = 'ボートに1匹は乗せてください。'; return; }
+      if (s.B.w + s.B.s === 0) { statusEl.textContent = 'ボートに1人は乗せてください。'; return; }
       s.side = s.side === 'L' ? 'R' : 'L';
       s[s.side].w += s.B.w; s[s.side].s += s.B.s; s.B = { w: 0, s: 0 };
       s.moves++;
@@ -67,7 +67,7 @@
         statusEl.textContent = '失敗… 警官が泥棒より少なくなり、取り押さえられてしまいました。「最初から」でリトライ。';
         statusEl.className = 'river-status fail'; crossBtn.disabled = true;
       } else {
-        statusEl.textContent = '岸のコマをタップしてボートに乗せ（最大2匹）、「渡る」で対岸へ。どちらの岸も「警官＜泥棒」になると失敗です。';
+        statusEl.textContent = '岸のコマをタップしてボートに乗せ（最大2人）、「渡る」で対岸へ。どちらの岸も「警官＜泥棒」になると失敗です。';
         statusEl.className = 'river-status';
       }
     }
