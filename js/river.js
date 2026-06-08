@@ -2,7 +2,6 @@
 //  川渡りパズル（市民と狼男）— イラスト版
 //  ボートは最大2人・最低1人で移動。どちらの岸でも
 //  「市民＜狼男（市民が0でない）」になったら失敗。全員を右岸へ渡せばクリア。
-//  ボートは渡った側の岸に着く。
 // ============================================================
 (function () {
   function init() {
@@ -11,6 +10,7 @@
     var tokR = el('tokR'), tokB = el('tokB');
     var bankL = el('bankL'), bankR = el('bankR'), boatEl = el('boatEl');
     var statusEl = el('status'), movesEl = el('moves'), crossBtn = el('cross');
+    var overlay = el('overlay'), scene = document.querySelector('#river .scene');
     var s;
 
     function reset() {
@@ -31,6 +31,7 @@
       if (unsafe(s.L) || unsafe(s.R)) s.over = true;
       else if (s.R.w === 3 && s.R.s === 3) s.win = true;
       render();
+      if (s.over && scene) { scene.classList.remove('shake'); void scene.offsetWidth; scene.classList.add('shake'); }
     }
 
     function makeTok(type, tappable, onClick) {
@@ -52,6 +53,13 @@
       for (var i = 0; i < s.B.w; i++) tokB.appendChild(makeTok('w', t, function () { unboard('w'); }));
       for (var j = 0; j < s.B.s; j++) tokB.appendChild(makeTok('s', t, function () { unboard('s'); }));
     }
+    function showOverlay(kind, title, msg, btn) {
+      if (!overlay) return;
+      overlay.className = 'river-overlay show ' + kind;
+      overlay.innerHTML = '<div class="ov-title">' + title + '</div><div class="ov-msg">' + msg + '</div><button class="ov-btn">' + btn + '</button>';
+      var b = overlay.querySelector('.ov-btn');
+      if (b) b.addEventListener('click', reset);
+    }
     function render() {
       renderBank(tokL, s.L, s.side === 'L');
       renderBank(tokR, s.R, s.side === 'R');
@@ -61,14 +69,17 @@
       boatEl.classList.toggle('right', s.side === 'R');
       movesEl.textContent = '手数: ' + s.moves;
       if (s.win) {
-        statusEl.textContent = 'クリア！ 全員が右岸へわたれました（手数 ' + s.moves + '）。';
+        statusEl.textContent = 'クリア！（手数 ' + s.moves + '）';
         statusEl.className = 'river-status win'; crossBtn.disabled = true;
+        showOverlay('win', 'クリア！', '全員ぶじに右岸へ渡れました（手数 ' + s.moves + '）', 'もう一度あそぶ');
       } else if (s.over) {
-        statusEl.textContent = '失敗… 市民が狼男より少なくなり、襲われてしまいました。「最初から」でリトライ。';
+        statusEl.textContent = '失敗…';
         statusEl.className = 'river-status fail'; crossBtn.disabled = true;
+        showOverlay('fail', '✕ 失敗', '市民が狼男より少なくなり、襲われてしまいました。', '最初からやり直す');
       } else {
         statusEl.textContent = '岸のコマをタップしてボートに乗せ（最大2人）、「渡る」で対岸へ。どちらの岸も「市民＜狼男」になると失敗です。';
         statusEl.className = 'river-status';
+        if (overlay) { overlay.className = 'river-overlay'; overlay.innerHTML = ''; }
       }
     }
     crossBtn.addEventListener('click', cross);
