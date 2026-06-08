@@ -83,9 +83,9 @@ $('roll').addEventListener('click',()=>{
 });
 $('greset') && $('greset').addEventListener('click',()=>{
   if(animating) return;
-  if(confirm('ゲームをリセットして人数選択に戻りますか？（今の得点は消えます）')){
-    $('game').classList.add('hidden'); $('setup').classList.remove('hidden');
-  }
+  $('game').classList.add('hidden');
+  $('result').classList.add('hidden');
+  $('setup').classList.remove('hidden');
 });
 function toggleHold(i){ if(!rolled) return; held[i]=!held[i]; render(); }
 function choose(catKey){
