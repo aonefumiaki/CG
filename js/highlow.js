@@ -8,38 +8,15 @@
     const $=id=>document.getElementById(id);
     const SUITS=[{s:'♠',c:'blk'},{s:'♥',c:'red'},{s:'♦',c:'red'},{s:'♣',c:'blk'}];
     const RANKS=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    const SCODE={'♠':'s','♥':'h','♦':'d','♣':'c'};   // 絵札画像ファイル名のスート記号
     const rankLabel=v=>RANKS[v-1];
+    const courtSrc=c=>`images/cards/${rankLabel(c.rank)}-${SCODE[c.suit]}.png`;
 
     let deck=[], current=null, streak=0, best=0, gameOver=false, showProb=false, history=[];
 
-    /* 絵札（J/Q/K）の王冠エンブレム。上下対称に配置 */
-    function faceArt(letter, colorClass, suit){
-      const col = colorClass==='red' ? '#c0392b' : '#1c1c1c';
-      const gold='#d4a52a', goldd='#b8901f';
-      const crowns={
-        K:`<path d="M27 52 L30 28 L40 42 L50 24 L60 42 L70 28 L73 52 Z" fill="${gold}" stroke="${col}" stroke-width="1.6" stroke-linejoin="round"/>`
-          +`<path d="M50 24 L50 14 M45 18 L55 18" stroke="${col}" stroke-width="1.6" stroke-linecap="round"/>`
-          +`<rect x="27" y="52" width="46" height="10" rx="2.5" fill="${gold}" stroke="${col}" stroke-width="1.6"/>`
-          +`<circle cx="30" cy="27" r="2.6" fill="${col}"/><circle cx="70" cy="27" r="2.6" fill="${col}"/>`
-          +`<circle cx="38" cy="57" r="2" fill="${col}"/><circle cx="50" cy="57" r="2.4" fill="${goldd}" stroke="${col}" stroke-width="1"/><circle cx="62" cy="57" r="2" fill="${col}"/>`,
-        Q:`<path d="M29 52 Q30 38 40 45 Q44 30 50 30 Q56 30 60 45 Q70 38 71 52 Z" fill="${gold}" stroke="${col}" stroke-width="1.6" stroke-linejoin="round"/>`
-          +`<rect x="29" y="52" width="42" height="9" rx="2.5" fill="${gold}" stroke="${col}" stroke-width="1.6"/>`
-          +`<circle cx="50" cy="27" r="3.4" fill="${goldd}" stroke="${col}" stroke-width="1.1"/>`
-          +`<circle cx="34" cy="40" r="1.8" fill="${col}"/><circle cx="66" cy="40" r="1.8" fill="${col}"/>`
-          +`<circle cx="40" cy="56.5" r="1.7" fill="${col}"/><circle cx="50" cy="56.5" r="1.7" fill="${col}"/><circle cx="60" cy="56.5" r="1.7" fill="${col}"/>`,
-        J:`<path d="M33 52 L35 38 L43 46 L50 35 L57 46 L65 38 L67 52 Z" fill="${gold}" stroke="${col}" stroke-width="1.6" stroke-linejoin="round"/>`
-          +`<rect x="33" y="52" width="34" height="9" rx="2.5" fill="${gold}" stroke="${col}" stroke-width="1.6"/>`
-          +`<path d="M67 40 Q83 33 79 53 Q72 47 66 50 Z" fill="${col}" opacity="0.85"/>`
-          +`<circle cx="50" cy="56.5" r="2" fill="${goldd}" stroke="${col}" stroke-width="1"/>`
-      };
-      const emblem=`<g>${crowns[letter]}<text x="50" y="70" text-anchor="middle" font-size="15" fill="${col}" font-family="Georgia,serif">${suit}</text></g>`;
-      return `<svg class="faceart" viewBox="0 0 100 144" width="98" height="150" xmlns="http://www.w3.org/2000/svg">`
-        +`<rect x="5" y="5" width="90" height="134" rx="9" fill="none" stroke="${gold}" stroke-width="1" opacity="0.6"/>`
-        +`<line x1="13" y1="72" x2="87" y2="72" stroke="${gold}" stroke-width="1" opacity="0.45"/>`
-        +`<circle cx="50" cy="72" r="2.2" fill="${gold}" opacity="0.7"/>`
-        +emblem
-        +`<g transform="translate(0,144) scale(1,-1)">${emblem}</g>`
-        +`</svg>`;
+    // 絵札画像を先読み（めくり演出時のちらつき防止）
+    for(const rk of ['J','Q','K']) for(const sc of ['s','h','d','c']){
+      const im=new Image(); im.src=`images/cards/${rk}-${sc}.png`;
     }
 
     function buildDeck(exclude){
@@ -91,14 +68,17 @@
 
       // card
       const el=$('card'); const isFace=current.rank>=11;
-      el.className='card '+(current.color)+(isFace?' face':'');
-      const center = isFace
-        ? faceArt(rankLabel(current.rank), current.color, current.suit)
-        : `<div class="big ${current.color}">${current.suit}</div>`;
-      el.innerHTML=
-        `<div class="corner tl ${current.color}"><div class="r">${rankLabel(current.rank)}</div><div class="s">${current.suit}</div></div>`
-       +center
-       +`<div class="corner br ${current.color}"><div class="r">${rankLabel(current.rank)}</div><div class="s">${current.suit}</div></div>`;
+      if(isFace){
+        // 絵札は専用イラストを全面表示（カード枠・隅の数字も画像に含まれる）
+        el.className='card cardimg '+current.color;
+        el.innerHTML=`<img class="court" src="${courtSrc(current)}" alt="${rankLabel(current.rank)}${current.suit}">`;
+      }else{
+        el.className='card '+current.color;
+        el.innerHTML=
+          `<div class="corner tl ${current.color}"><div class="r">${rankLabel(current.rank)}</div><div class="s">${current.suit}</div></div>`
+         +`<div class="big ${current.color}">${current.suit}</div>`
+         +`<div class="corner br ${current.color}"><div class="r">${rankLabel(current.rank)}</div><div class="s">${current.suit}</div></div>`;
+      }
       if(dealAnim){ void el.offsetWidth; el.classList.add('deal'); }
 
       // probability hint
