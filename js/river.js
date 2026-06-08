@@ -36,7 +36,7 @@
     function makeTok(type, tappable, onClick) {
       var d = document.createElement('div');
       d.className = 'tok ' + (type === 'w' ? 'wolf' : 'sheep') + (tappable ? '' : ' dim');
-      d.textContent = type === 'w' ? '狼' : '羊';
+      d.textContent = type === 'w' ? '泥棒' : '警官';
       if (tappable) d.addEventListener('click', onClick);
       return d;
     }
@@ -64,10 +64,10 @@
         statusEl.textContent = 'クリア！ 全員が右岸へわたれました（手数 ' + s.moves + '）。';
         statusEl.className = 'river-status win'; crossBtn.disabled = true;
       } else if (s.over) {
-        statusEl.textContent = '失敗… ヒツジがオオカミより少なくなってしまいました。「最初から」でリトライ。';
+        statusEl.textContent = '失敗… 警官が泥棒より少なくなり、取り押さえられてしまいました。「最初から」でリトライ。';
         statusEl.className = 'river-status fail'; crossBtn.disabled = true;
       } else {
-        statusEl.textContent = '岸のコマをタップしてボートに乗せ（最大2匹）、「渡る」で対岸へ。どちらの岸も「ヒツジ＜オオカミ」になると失敗です。';
+        statusEl.textContent = '岸のコマをタップしてボートに乗せ（最大2匹）、「渡る」で対岸へ。どちらの岸も「警官＜泥棒」になると失敗です。';
         statusEl.className = 'river-status';
       }
     }
