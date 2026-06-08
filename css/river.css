@@ -6,7 +6,7 @@
 #river .scene {
   position: relative; min-height: 300px;
   border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-  background: url('../images/river-bg.jpg') center / cover no-repeat;
+  background: url('../images/river-bg.png') center / cover no-repeat;
 }
 
 #river .bank-zone {
@@ -38,7 +38,8 @@
   transition: left 0.5s ease, right 0.5s ease;
 }
 #river .boat.right { left: auto; right: 27%; }
-#river .boat-img { width: 100%; display: block; pointer-events: none; }
+#river .boat-img { width: 100%; display: block; pointer-events: none; transition: transform 0.3s ease; }
+#river .boat.right .boat-img { transform: scaleX(-1); }
 #river .boat-tokens { position: absolute; top: 22%; left: 0; right: 0; display: flex; justify-content: center; gap: 2px; }
 #river .boat-tokens .tok .ic { font-size: 1.4rem; }
 #river .boat-tokens .tok .lb { display: none; }
