@@ -7,10 +7,11 @@
 #river .bank-h, #river .boat-h { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; text-align: center; }
 #river .tokens { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; align-items: center; justify-content: center; }
 #river .tok {
-  min-width: 46px; height: 42px; padding: 0 12px; border-radius: 999px; display: flex; align-items: center; justify-content: center;
-  font-family: 'Noto Serif JP', serif; font-size: 0.8rem; cursor: pointer; user-select: none;
-  transition: transform 0.1s, opacity 0.15s;
+  min-width: 54px; padding: 7px 10px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  cursor: pointer; user-select: none; transition: transform 0.1s, opacity 0.15s;
 }
+#river .tok .ic { font-size: 1.35rem; line-height: 1; }
+#river .tok .lb { font-family: 'DM Sans', sans-serif; font-size: 0.5rem; letter-spacing: 0.05em; }
 #river .tok.wolf { background: var(--dark); color: #fff; }
 #river .tok.sheep { background: var(--blush); color: var(--brown); border: 1px solid var(--border2); }
 #river .tok:hover { transform: translateY(-2px); }
@@ -30,3 +31,5 @@
 #river .river-moves { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
 #river .river-reset { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 9px 20px; border: 1px solid var(--border2); background: transparent; color: var(--text); cursor: pointer; border-radius: 8px; }
 #river .river-reset:hover { border-color: var(--dark); }
+
+#river .river-water { width: 100%; text-align: center; font-size: 1rem; letter-spacing: 6px; opacity: 0.55; line-height: 1; overflow: hidden; white-space: nowrap; margin: 2px 0; }
