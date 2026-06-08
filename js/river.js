@@ -36,7 +36,7 @@
     function makeTok(type, tappable, onClick) {
       var d = document.createElement('div');
       d.className = 'tok ' + (type === 'w' ? 'wolf' : 'sheep') + (tappable ? '' : ' dim');
-      d.textContent = type === 'w' ? '狼男' : '市民';
+      d.innerHTML = '<span class="ic">' + (type === 'w' ? '🐺' : '🧑') + '</span><span class="lb">' + (type === 'w' ? '狼男' : '市民') + '</span>';
       if (tappable) d.addEventListener('click', onClick);
       return d;
     }
