@@ -35,6 +35,7 @@ function hasRun(d,len){
 }
 
 let players=[], cur=0, round=1, dice=[1,1,1,1,1], held=[false,false,false,false,false], rollsLeft=3, rolled=false;
+let animating=false, animFace=[1,1,1,1,1], rolling=[false,false,false,false,false];
 
 /* ---- setup ---- */
 let nPlayers=2;
@@ -68,9 +69,23 @@ function newTurn(){
   render();
 }
 $('roll').addEventListener('click',()=>{
-  if(rollsLeft<=0) return;
-  for(let i=0;i<5;i++) if(!held[i]) dice[i]=r6();
-  rollsLeft--; rolled=true; render();
+  if(rollsLeft<=0 || animating) return;
+  for(let i=0;i<5;i++){ rolling[i]=!held[i]; if(!held[i]) dice[i]=r6(); }
+  rollsLeft--; rolled=true;
+  animating=true; $('roll').disabled=true;
+  let ticks=0; const TT=9;
+  const iv=setInterval(()=>{
+    ticks++;
+    for(let i=0;i<5;i++) if(rolling[i]) animFace[i]=r6();
+    drawDice();
+    if(ticks>=TT){ clearInterval(iv); animating=false; rolling=[false,false,false,false,false]; render(); }
+  }, 55);
+});
+$('greset') && $('greset').addEventListener('click',()=>{
+  if(animating) return;
+  if(confirm('ゲームをリセットして人数選択に戻りますか？（今の得点は消えます）')){
+    $('game').classList.add('hidden'); $('setup').classList.remove('hidden');
+  }
 });
 function toggleHold(i){ if(!rolled) return; held[i]=!held[i]; render(); }
 function choose(catKey){
@@ -101,22 +116,27 @@ function render(){
   $('ghint').textContent = !rolled ? 'サイコロを振ってください。'
     : (rollsLeft>0 ? '残す目をタップ→振り直すか、緑のマスをタップして役を決めます。' : '緑のマスをタップして役を1つ選びます（0点でもOK）。');
 
-  // dice
+  drawDice();
+  renderCard();
+}
+function faceFor(i){ return (animating && rolling[i]) ? animFace[i] : dice[i]; }
+function drawDice(){
   const dc=$('dice'); dc.innerHTML='';
   for(let i=0;i<5;i++){
     const die=document.createElement('div');
-    die.className='die'+(!rolled?' empty':'')+(held[i]?' held':'');
-    if(rolled){
+    const showPips = rolled || animating;
+    die.className='die'+(!showPips?' empty':'')+(held[i]?' held':'')+((animating&&rolling[i])?' rolling':'');
+    if(showPips){
+      const f=faceFor(i);
       for(let cell=0;cell<9;cell++){
         const c=document.createElement('div');
-        if(PIP[dice[i]].includes(cell)){const p=document.createElement('div');p.className='pip';c.appendChild(p);}
+        if(PIP[f].includes(cell)){const p=document.createElement('div');p.className='pip';c.appendChild(p);}
         die.appendChild(c);
       }
-      die.addEventListener('click',()=>toggleHold(i));
+      if(!animating) die.addEventListener('click',()=>toggleHold(i));
     }
     dc.appendChild(die);
   }
-  renderCard();
 }
 function renderCard(){
   const t=$('card');
