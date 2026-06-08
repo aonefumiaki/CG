@@ -58,3 +58,14 @@
 #yacht td.pick.zero { background: rgba(140,112,96,0.08); color: var(--muted); outline-color: var(--border2); }
 #yacht td.pick.zero:hover { background: var(--muted); color: #fff; }
 #yacht td.curdone { background: rgba(140,112,96,0.16); color: var(--muted); }
+
+/* 配点早見表 */
+#yacht .yacht-help { width: 100%; max-width: 620px; margin-top: 14px; }
+#yacht .yacht-help summary { cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--accent); padding: 10px 4px; }
+#yacht .yacht-help summary:hover { color: var(--dark); }
+#yacht .help-table { margin-top: 8px; }
+#yacht .help-table thead th { background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.66rem; color: var(--muted); }
+#yacht .help-table td { font-size: 0.78rem; color: var(--text); }
+#yacht .help-table td:first-child { font-family: 'Noto Serif JP', serif; text-align: left; font-weight: 500; }
+#yacht .help-table td:nth-child(2) { text-align: left; color: var(--muted); white-space: normal; }
+#yacht .help-table td:last-child { font-family: 'DM Sans', sans-serif; color: var(--y-green); }
