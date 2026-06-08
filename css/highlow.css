@@ -1,0 +1,57 @@
+/* ============================================================
+   ハイ＆ロー（highlow.html 専用 / #highlow にスコープ）
+============================================================ */
+#highlow { display: flex; flex-direction: column; align-items: center; --hl-red: #a52a2a; --hl-green: #3f5226; --hl-gold: #b8901f; --cardred: #c0392b; }
+
+#highlow .stats { display: flex; gap: 10px; justify-content: center; margin: 10px 0; font-family: 'DM Sans', sans-serif; flex-wrap: wrap; }
+#highlow .stat { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 7px 16px; text-align: center; min-width: 96px; }
+#highlow .stat .k { font-size: 0.66rem; color: var(--muted); }
+#highlow .stat .v { font-size: 1.4rem; font-weight: 500; margin-top: 2px; }
+#highlow .stat .v.green { color: var(--hl-green); }
+#highlow .stat .v.gold { color: var(--hl-gold); }
+
+#highlow .panel { width: 100%; max-width: 440px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 22px 18px; margin-top: 6px; display: flex; flex-direction: column; align-items: center; }
+#highlow .hidden { display: none; }
+
+#highlow .cardstage { display: flex; justify-content: center; align-items: center; min-height: 172px; }
+#highlow .card { width: 118px; height: 168px; border-radius: 14px; background: #fff; border: 1px solid #d8d2c2; box-shadow: 0 8px 18px -6px rgba(0,0,0,.3); position: relative; display: flex; align-items: center; justify-content: center; }
+#highlow .card.face { background: linear-gradient(160deg,#fffdf7,#fbf3df); border-color: #d8c79a; }
+#highlow .card .faceart { display: block; }
+#highlow .card .corner { position: absolute; font-family: 'DM Sans', sans-serif; font-weight: 500; line-height: 1; text-align: center; }
+#highlow .card .corner.tl { top: 10px; left: 11px; }
+#highlow .card .corner.br { bottom: 10px; right: 11px; transform: rotate(180deg); }
+#highlow .card .corner .r { font-size: 20px; }
+#highlow .card .corner .s { font-size: 16px; }
+#highlow .card .big { font-size: 54px; }
+#highlow .red { color: var(--cardred); }
+#highlow .blk { color: #1c1c1c; }
+
+/* カードをめくる演出 */
+@keyframes hl-deal {
+  0%   { transform: translateY(-18px) rotateY(90deg) scale(.92); opacity: 0; }
+  55%  { transform: translateY(0) rotateY(0deg) scale(1.04); opacity: 1; }
+  100% { transform: translateY(0) rotateY(0deg) scale(1); opacity: 1; }
+}
+#highlow .card.deal { animation: hl-deal 0.34s ease-out; }
+
+#highlow .guessbtns { display: flex; gap: 14px; justify-content: center; margin-top: 18px; width: 100%; }
+#highlow .gbtn { flex: 1; font-family: 'Noto Serif JP', serif; font-size: 1.05rem; padding: 15px 0; border-radius: 12px; border: 1px solid var(--dark); background: var(--white); color: var(--dark); cursor: pointer; transition: transform .12s, background .12s, color .12s, border-color .12s; }
+#highlow .gbtn.high:hover:not(:disabled) { background: var(--hl-green); color: #fff; border-color: var(--hl-green); transform: translateY(-2px); }
+#highlow .gbtn.low:hover:not(:disabled) { background: var(--hl-red); color: #fff; border-color: var(--hl-red); transform: translateY(-2px); }
+#highlow .gbtn .arrow { font-size: 20px; display: block; }
+#highlow .gbtn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+#highlow .prob { margin-top: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--muted); min-height: 18px; text-align: center; }
+#highlow .msg { margin-top: 12px; min-height: 24px; text-align: center; font-size: 1rem; font-weight: 700; font-family: 'Noto Serif JP', serif; }
+#highlow .msg.good { color: var(--hl-green); }
+#highlow .msg.bad { color: var(--hl-red); }
+#highlow .msg.push { color: var(--hl-gold); }
+
+#highlow .history { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin-top: 14px; min-height: 26px; }
+#highlow .hcard { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; padding: 3px 7px; border: 1px solid var(--border); border-radius: 6px; background: var(--white); }
+
+#highlow .btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+#highlow button.act { font-family: 'Noto Serif JP', serif; font-size: 0.85rem; padding: 10px 20px; border-radius: 10px; border: 1px solid var(--dark); background: transparent; color: var(--dark); cursor: pointer; transition: transform .12s; }
+#highlow button.act:hover { transform: translateY(-2px); }
+#highlow button.act.solid { background: var(--dark); color: #fff; }
+#highlow .hint { margin-top: 8px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; line-height: 1.7; }
