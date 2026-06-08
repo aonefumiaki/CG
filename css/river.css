@@ -39,7 +39,7 @@
 }
 #river .boat.right { left: auto; right: 27%; }
 #river .boat-img { width: 100%; display: block; pointer-events: none; transition: transform 0.3s ease; }
-#river .boat.right .boat-img { transform: scaleX(-1); }
+#river .boat:not(.right) .boat-img { transform: scaleX(-1); }
 #river .boat-tokens { position: absolute; top: 22%; left: 0; right: 0; display: flex; justify-content: center; gap: 2px; }
 #river .boat-tokens .tok .ic { font-size: 1.4rem; }
 #river .boat-tokens .tok .lb { display: none; }
@@ -59,3 +59,15 @@
 #river .river-moves { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
 #river .river-reset { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 9px 20px; border: 1px solid var(--border2); background: transparent; color: var(--text); cursor: pointer; border-radius: 8px; }
 #river .river-reset:hover { border-color: var(--dark); }
+
+/* 失敗/クリアのオーバーレイ */
+#river .river-overlay { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 5; }
+#river .river-overlay.show { display: flex; }
+#river .river-overlay.fail { background: rgba(165,42,42,0.86); }
+#river .river-overlay.win { background: rgba(63,82,38,0.86); }
+#river .river-overlay .ov-title { font-family: 'Noto Serif JP', serif; font-weight: 700; font-size: 2rem; color: #fff; margin-bottom: 8px; letter-spacing: 0.05em; }
+#river .river-overlay .ov-msg { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.92); margin-bottom: 18px; max-width: 320px; }
+#river .river-overlay .ov-btn { font-family: 'DM Sans', sans-serif; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 12px 28px; background: #fff; color: var(--dark); border: none; border-radius: 8px; cursor: pointer; }
+#river .river-overlay .ov-btn:hover { background: var(--cream); }
+@keyframes river-shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)} 40%{transform:translateX(7px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+#river .scene.shake { animation: river-shake 0.45s; }
