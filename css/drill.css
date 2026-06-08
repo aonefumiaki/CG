@@ -1,0 +1,42 @@
+/* ============================================================
+   特殊算ドリル（drill.html 専用 / #drill にスコープ）
+============================================================ */
+#drill { --d-red: #a52a2a; --d-green: #3f5226; display: flex; flex-direction: column; align-items: center; }
+
+#drill .levelbar { display: flex; gap: 8px; justify-content: center; margin: 4px 0; flex-wrap: wrap; }
+#drill .seg { display: inline-flex; border: 1px solid var(--dark); border-radius: 10px; overflow: hidden; }
+#drill .seg button { font-family: 'Noto Serif JP', serif; font-size: 0.8rem; padding: 8px 18px; border: none; background: transparent; color: var(--dark); cursor: pointer; transition: background 0.15s; }
+#drill .seg button.on { background: var(--dark); color: #fff; }
+
+#drill .steps { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 16px 0 6px; }
+#drill .step { font-family: 'DM Sans', sans-serif; font-size: 0.66rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: #fff; color: var(--muted); }
+#drill .step.cur { border-color: var(--d-red); color: var(--d-red); font-weight: 500; }
+#drill .step.done { border-color: var(--d-green); color: var(--d-green); }
+
+#drill .card { width: 100%; max-width: 600px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 24px; margin-top: 8px; }
+#drill .kind { font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+#drill .q { font-family: 'Noto Serif JP', serif; font-size: 0.95rem; line-height: 1.95; margin-top: 10px; color: var(--text); }
+#drill .q b { color: var(--d-red); font-weight: 700; }
+#drill .q .unit, #drill .unit { font-size: 0.85rem; color: var(--muted); }
+
+#drill .answers { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; align-items: flex-end; }
+#drill .field { display: flex; flex-direction: column; gap: 5px; }
+#drill .field label { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; color: var(--muted); }
+#drill .field .row { display: flex; align-items: center; gap: 6px; }
+#drill input[type=number] { width: 110px; font-family: 'DM Sans', sans-serif; font-size: 1rem; padding: 9px 12px; border-radius: 9px; border: 1px solid var(--border); background: var(--cream); color: var(--text); }
+#drill input[type=number]:focus { outline: none; border-color: var(--accent); }
+
+#drill .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+#drill button.act { font-family: 'Noto Serif JP', serif; font-size: 0.85rem; padding: 10px 22px; border-radius: 10px; border: 1px solid var(--dark); background: var(--dark); color: #fff; cursor: pointer; transition: transform 0.12s; }
+#drill button.act.ghost { background: transparent; color: var(--dark); }
+#drill button.act:hover { transform: translateY(-2px); }
+#drill button.act:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+#drill .result { margin-top: 20px; font-size: 1rem; font-weight: 700; min-height: 24px; font-family: 'Noto Serif JP', serif; }
+#drill .result.ok { color: var(--d-green); }
+#drill .result.ng { color: var(--d-red); }
+#drill .solution { margin-top: 14px; padding: 16px 18px; border-radius: 12px; background: var(--cream); border: 1px solid var(--border); font-size: 0.85rem; line-height: 1.95; display: none; color: var(--text); }
+#drill .solution.show { display: block; }
+#drill .solution h4 { font-family: 'DM Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
+#drill .solution .ans { color: var(--d-green); font-weight: 700; }
+#drill .foot { margin-top: 14px; font-size: 0.7rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; }
