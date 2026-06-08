@@ -9,6 +9,8 @@
     const turnEl = document.getElementById('turn');
     const msgEl = document.getElementById('msg');
     const revealBox = document.getElementById('revealBox');
+    const boardEl = document.querySelector('#chomp .chomp-board');
+    const overlayEl = document.getElementById('chompOverlay');
 
     let C, R, heights, startC, startR, mode = 'cpu', turn = 0, gameOver = false, showReveal = false, locked = false;
     // heights[c] = 列cに残っている上からの行数。左→右で非増加。
@@ -18,6 +20,8 @@
     function reset() {
       C = startC; R = startR; heights = Array(C).fill(R);
       turn = 0; gameOver = false; locked = false; msgEl.textContent = '';
+      if (overlayEl) { overlayEl.className = 'chomp-overlay'; overlayEl.innerHTML = ''; }
+      if (boardEl) boardEl.classList.remove('shake');
       render();
     }
     function playerName(t) {
@@ -84,9 +88,24 @@
         msgEl.style.color = (mode === 'cpu') ? (winner === 0 ? 'var(--c-win)' : 'var(--c-lose)') : 'var(--c-win)';
         msgEl.textContent = playerName(loser) + 'が毒マスを食べた… ' + playerName(winner) + 'の勝ち！';
         updateTurnBadge();
+        showOverlay(winner, loser);
         return true;
       }
       return false;
+    }
+    function showOverlay(winner, loser) {
+      if (!overlayEl) return;
+      let kind, title, sub;
+      if (mode === 'cpu') {
+        if (winner === 0) { kind = 'win'; title = '🎉 あなたの勝ち！'; sub = 'CPUが毒マスを食べました。お見事！'; }
+        else { kind = 'lose'; title = '💀 あなたの負け…'; sub = '毒マスを食べてしまいました。'; }
+      } else {
+        kind = 'win'; title = '🎉 ' + playerName(winner) + 'の勝ち！'; sub = playerName(loser) + 'が毒マスを食べました。';
+      }
+      overlayEl.className = 'chomp-overlay show ' + kind;
+      overlayEl.innerHTML = '<div class="co-title">' + title + '</div><div class="co-sub">' + sub + '</div><button class="co-btn" id="coRetry">同じ盤でもう一度</button>';
+      const b = document.getElementById('coRetry'); if (b) b.addEventListener('click', reset);
+      if (boardEl) { boardEl.classList.remove('shake'); void boardEl.offsetWidth; if (kind === 'lose') boardEl.classList.add('shake'); }
     }
 
     /* ---------- 完全読みCPU（メモ化ミニマックス） ---------- */

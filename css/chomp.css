@@ -39,3 +39,16 @@
 #chomp .msg { margin-top: 18px; min-height: 26px; font-size: 1.05rem; font-weight: 500; color: var(--c-win); font-family: 'Noto Serif JP', serif; }
 #chomp .chomp-reveal { margin-top: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); min-height: 18px; line-height: 1.7; }
 #chomp .hint { margin-top: 6px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; line-height: 1.7; }
+
+/* 勝敗オーバーレイ */
+#chomp .chomp-board { position: relative; }
+#chomp .chomp-overlay { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 18px; border-radius: 16px; z-index: 5; }
+#chomp .chomp-overlay.show { display: flex; }
+#chomp .chomp-overlay.win { background: rgba(63,82,38,0.92); }
+#chomp .chomp-overlay.lose { background: rgba(165,42,42,0.92); }
+#chomp .chomp-overlay .co-title { font-family: 'Noto Serif JP', serif; font-weight: 700; font-size: 1.7rem; color: #fff; margin-bottom: 8px; }
+#chomp .chomp-overlay .co-sub { font-size: 0.82rem; color: rgba(255,255,255,0.92); margin-bottom: 18px; max-width: 280px; line-height: 1.7; }
+#chomp .chomp-overlay .co-btn { font-family: 'DM Sans', sans-serif; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 11px 26px; background: #fff; color: var(--dark); border: none; border-radius: 8px; cursor: pointer; }
+#chomp .chomp-overlay .co-btn:hover { background: var(--cream); }
+@keyframes chomp-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 50%{transform:translateX(6px)} 75%{transform:translateX(-4px)} }
+#chomp .chomp-board.shake { animation: chomp-shake 0.4s; }
