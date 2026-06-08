@@ -69,3 +69,13 @@
 #yacht .help-table td:first-child { font-family: 'Noto Serif JP', serif; text-align: left; font-weight: 500; }
 #yacht .help-table td:nth-child(2) { text-align: left; color: var(--muted); white-space: normal; }
 #yacht .help-table td:last-child { font-family: 'DM Sans', sans-serif; color: var(--y-green); }
+
+/* サイコロを振る演出 */
+@keyframes yacht-roll {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-9px) rotate(-13deg); }
+  50%  { transform: translateY(0) rotate(9deg); }
+  75%  { transform: translateY(-5px) rotate(-6deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+#yacht .die.rolling { animation: yacht-roll 0.18s linear infinite; border-color: var(--accent); box-shadow: 0 8px 14px -6px rgba(80,60,20,.4); }
