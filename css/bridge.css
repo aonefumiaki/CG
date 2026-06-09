@@ -1,0 +1,60 @@
+/* ============================================================
+   橋渡し（懐中電灯）パズル（bridge.html 専用 / #bridge にスコープ）
+============================================================ */
+#bridge { display: flex; flex-direction: column; align-items: center; --b-red: #a52a2a; --b-green: #3f5226; --b-gold: #e0b84c; }
+#bridge .panel { width: 100%; max-width: 600px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 20px 18px; margin-top: 10px; }
+#bridge .hidden { display: none; }
+
+#bridge .clock { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+#bridge .cl { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 7px 16px; text-align: center; min-width: 110px; }
+#bridge .cl .k { font-family: 'DM Sans', sans-serif; font-size: 0.64rem; color: var(--muted); }
+#bridge .cl .v { font-family: 'DM Sans', sans-serif; font-size: 1.5rem; font-weight: 500; margin-top: 2px; display: inline-block; }
+#bridge .cl .u { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; color: var(--muted); display: inline-block; margin-left: 3px; }
+#bridge .cl .v.red { color: var(--b-red); }
+#bridge .cl .v.green { color: var(--b-green); }
+
+/* ── 橋のステージ ── */
+#bridge .bridge-stage { position: relative; width: 100%; max-width: 460px; margin: 4px auto 6px; }
+#bridge .bridge-img { display: block; width: 100%; height: auto; user-select: none; }
+#bridge .flash { position: absolute; bottom: 30%; width: 26%; height: auto; user-select: none; pointer-events: none; transition: opacity .2s; filter: drop-shadow(0 0 0 rgba(224,184,76,0)); }
+#bridge .flash.on-left  { left: -2%; animation: bridge-glow 1.8s ease-in-out infinite; }
+#bridge .flash.on-right { right: -2%; animation: bridge-glow 1.8s ease-in-out infinite; }
+#bridge .flash.done { opacity: 0; }
+
+@keyframes bridge-glow {
+  0%,100% { filter: drop-shadow(0 2px 3px rgba(0,0,0,.2)) drop-shadow(0 0 6px rgba(224,184,76,.45)); }
+  50%     { filter: drop-shadow(0 2px 3px rgba(0,0,0,.2)) drop-shadow(0 0 16px rgba(224,184,76,.85)); }
+}
+/* 渡る演出：反対側から滑り込む */
+@keyframes bridge-arrive-r { from { transform: translateX(-220px); } to { transform: translateX(0); } }
+@keyframes bridge-arrive-l { from { transform: translateX(220px); }  to { transform: translateX(0); } }
+#bridge .flash.arrive-r { animation: bridge-arrive-r .5s ease-out, bridge-glow 1.8s ease-in-out infinite; }
+#bridge .flash.arrive-l { animation: bridge-arrive-l .5s ease-out, bridge-glow 1.8s ease-in-out infinite; }
+
+/* ── 両岸 ── */
+#bridge .banks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0 4px; }
+#bridge .bank { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 10px; min-height: 150px; transition: background .2s, border-color .2s; }
+#bridge .bank h3 { font-family: 'DM Sans', sans-serif; font-size: 0.66rem; color: var(--muted); text-align: center; margin-bottom: 8px; font-weight: 500; }
+#bridge .bank.lit { background: #fdf7e6; border-color: var(--b-gold); }
+#bridge .people { display: flex; flex-direction: column; gap: 7px; }
+#bridge .person { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 8px 11px; cursor: pointer; transition: all .12s; }
+#bridge .person .who { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; }
+#bridge .person .t { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--muted); }
+#bridge .person.sel { border-color: var(--b-red); background: rgba(165,42,42,.07); box-shadow: 0 0 0 2px rgba(165,42,42,.12); }
+#bridge .person.locked { opacity: .45; cursor: default; }
+
+#bridge .btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+#bridge button.act { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; padding: 11px 22px; border-radius: 10px; border: 1px solid var(--dark); background: var(--dark); color: #fff; cursor: pointer; transition: transform .12s; }
+#bridge button.act.ghost { background: transparent; color: var(--dark); }
+#bridge button.act:hover:not(:disabled) { transform: translateY(-2px); }
+#bridge button.act:disabled { opacity: .35; cursor: not-allowed; }
+
+#bridge .msg { margin-top: 12px; min-height: 22px; text-align: center; font-size: 0.95rem; font-weight: 700; font-family: 'Noto Serif JP', serif; }
+#bridge .msg.good { color: var(--b-green); }
+#bridge .msg.bad { color: var(--b-red); }
+#bridge .log { margin-top: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); line-height: 1.8; max-height: 120px; overflow-y: auto; border-top: 1px dashed var(--border); padding-top: 8px; }
+#bridge .hint { margin-top: 8px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; line-height: 1.7; }
+
+@media (max-width: 420px){
+  #bridge .flash { width: 30%; }
+}
