@@ -52,8 +52,8 @@
     <div class="section-label">High &amp; Low</div>
     <h2 class="section-title">ハイ＆ロー（複数人対戦）</h2>
     <p class="game-intro">
-      1台のデバイスを順番に回して、2〜6人で遊ぶパス＆プレイ版。手番の人が場のカードに対して「ハイ／ロー」を予想します。
-      当たり +1点・外れ −1点・引き分け 0点。決めた周回数のあと、持ち点の多い順に順位を競います。
+      1台のデバイスを回して2〜6人で遊ぶパス＆プレイ版。1枚の場のカードに対して全員が順番に「ハイ／ロー」を予想し、
+      全員そろったらめくって一斉に判定します。当たり +1点・外れ −1点・引き分け 0点。決めた周回数のあと、持ち点の多い順に順位を競います。
     </p>
   </div>
 
@@ -91,9 +91,13 @@
       </div>
       <div class="hlm-scores" id="hlm-scores"></div>
       <div class="cardstage"><div class="card" id="hlm-card"></div></div>
-      <div class="guessbtns">
+      <div class="guessbtns" id="hlm-guess">
         <button class="gbtn high" id="hlm-high"><span class="arrow">▲</span>ハイ（高い）</button>
         <button class="gbtn low" id="hlm-low"><span class="arrow">▼</span>ロー（低い）</button>
+      </div>
+      <div class="btns" id="hlm-actrow">
+        <button class="act solid hidden" id="hlm-reveal">めくる！</button>
+        <button class="act solid hidden" id="hlm-next">次のカードへ</button>
       </div>
       <div class="msg" id="hlm-msg"></div>
       <div class="history" id="hlm-history"></div>
