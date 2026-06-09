@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>走り幅跳び — Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「走り幅跳び」。助走で加速→踏切ゾーンでジャンプ→空中で連打して距離を伸ばす連打アクション。1〜6人で記録を競えます。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/longjump.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/longjump.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="recruit.html">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="games.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="games.html" class="subpage-back">← ゲーム一覧へ戻る</a>
+    <div class="section-label">Long Jump</div>
+    <h2 class="section-title">走り幅跳び</h2>
+    <p class="game-intro">
+      助走で加速 → 踏切ゾーンでジャンプ → 空中で連打して距離を伸ばす連打アクション。
+      1〜6人で同じ端末を回し、各自3回ずつ跳んでベスト記録で順位を競います。
+    </p>
+  </div>
+
+  <div id="longjump">
+    <div class="bar">
+      <div class="pill" id="who">プレイヤー1</div>
+      <div class="pill" id="attemptPill">試技 1 / 3</div>
+      <div class="pill">ベスト <b id="bestPill">--</b></div>
+    </div>
+
+    <div class="panel">
+      <div class="pcount" id="pcount"><span class="lab">人数</span>
+        <div class="seg" id="pseg">
+          <button data-p="1">1人</button><button data-p="2" class="on">2人</button><button data-p="3">3人</button>
+          <button data-p="4">4人</button><button data-p="5">5人</button><button data-p="6">6人</button>
+        </div>
+      </div>
+      <div class="names" id="names"></div>
+      <canvas id="cv" width="456" height="240"></canvas>
+      <div class="speedwrap">
+        <div class="speedlab"><span>助走スピード</span><span id="spdtxt">0%</span></div>
+        <div class="speedbar"><div class="fill" id="spdfill"></div></div>
+      </div>
+      <div class="stage" id="stage"></div>
+      <div class="pad" id="pad" style="display:none;">
+        <button class="tapbtn left" id="padL">左<span class="k">LEFT</span></button>
+        <button class="tapbtn right" id="padR">右<span class="k">RIGHT</span></button>
+        <button class="tapbtn mash" id="padMash" style="display:none;">連打！<span class="k">TAP TAP TAP</span></button>
+      </div>
+      <div class="attempts" id="attempts"></div>
+      <div class="btns" id="btns"></div>
+      <div class="hint" id="hint"></div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/celebrate.js"></script>
+<script src="js/longjump.js"></script>
+</body>
+</html>

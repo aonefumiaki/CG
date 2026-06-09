@@ -1,0 +1,50 @@
+/* ============================================================
+   走り幅跳び（longjump.html 専用 / #longjump にスコープ）
+============================================================ */
+#longjump { display: flex; flex-direction: column; align-items: center; --lj-red: #a52a2a; --lj-green: #3f5226; --lj-gold: #e0b84c; --lj-blue: #3f7f9e; --lj-sky: #cfe6ef; --lj-sand: #e9d7a8; --lj-line: rgba(140,112,96,0.2); }
+
+#longjump .bar { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+#longjump .pill { background: var(--white); border: 1px solid var(--border); border-radius: 999px; padding: 5px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: #7c7768; }
+#longjump .pill b { color: var(--lj-green); }
+
+#longjump .panel { width: 100%; max-width: 480px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 14px; margin-top: 4px; }
+#longjump canvas { width: 100%; display: block; border-radius: 10px; background: linear-gradient(var(--lj-sky) 0 62%,#bcd9c0 62% 72%,#d9c794 72%); touch-action: none; cursor: pointer; }
+
+#longjump .speedwrap { margin-top: 10px; }
+#longjump .speedlab { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; color: var(--muted); display: flex; justify-content: space-between; }
+#longjump .speedbar { height: 12px; border-radius: 7px; background: #eee4cf; overflow: hidden; margin-top: 3px; }
+#longjump .speedbar .fill { height: 100%; width: 0%; background: linear-gradient(90deg,var(--lj-green),var(--lj-gold)); transition: width .08s linear; }
+
+#longjump .stage { margin-top: 12px; text-align: center; font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; min-height: 24px; }
+#longjump .stage.run { color: var(--lj-green); }
+#longjump .stage.air { color: var(--lj-blue); }
+#longjump .stage.foul { color: var(--lj-red); }
+#longjump .stage.ok { color: #a07e10; }
+
+#longjump .pad { display: flex; gap: 10px; margin-top: 12px; }
+#longjump .tapbtn { flex: 1; min-height: 88px; border-radius: 14px; border: 2px solid var(--dark); background: var(--white); color: var(--dark); font-family: 'Noto Serif JP', serif; font-size: 1.4rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.3; user-select: none; -webkit-user-select: none; transition: background .05s, transform .05s; touch-action: manipulation; }
+#longjump .tapbtn .k { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 3px; }
+#longjump .tapbtn.left { border-color: var(--lj-blue); color: var(--lj-blue); }
+#longjump .tapbtn.right { border-color: var(--lj-green); color: var(--lj-green); }
+#longjump .tapbtn.mash { border-color: var(--lj-red); color: var(--lj-red); font-size: 1.6rem; }
+#longjump .tapbtn:active { transform: scale(.97); background: #f3ece0; }
+
+#longjump .btns { display: flex; gap: 10px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+#longjump button.act { font-family: 'Noto Serif JP', serif; font-size: 0.95rem; padding: 11px 26px; border-radius: 10px; border: 1px solid var(--dark); background: var(--dark); color: #fff; cursor: pointer; transition: transform .12s; }
+#longjump button.act.ghost { background: transparent; color: var(--dark); }
+#longjump button.act:hover { transform: translateY(-2px); }
+#longjump .hint { margin-top: 10px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; line-height: 1.8; }
+
+#longjump .attempts { display: flex; gap: 8px; justify-content: center; margin-top: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; flex-wrap: wrap; }
+#longjump .att { padding: 4px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--white); color: #7c7768; min-width: 64px; text-align: center; }
+#longjump .att.best { border-color: var(--lj-gold); color: #a07e10; font-weight: 600; }
+
+#longjump .pcount { display: flex; gap: 10px; align-items: center; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+#longjump .lab { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: #7c7768; }
+#longjump .seg { display: inline-flex; border: 1px solid var(--dark); border-radius: 10px; overflow: hidden; flex-wrap: wrap; }
+#longjump .seg button { font-family: 'Noto Serif JP', serif; font-size: 0.78rem; padding: 7px 11px; border: none; background: transparent; color: var(--dark); cursor: pointer; }
+#longjump .seg button.on { background: var(--dark); color: #fff; }
+#longjump .names { display: flex; flex-direction: column; gap: 6px; align-items: center; margin-bottom: 10px; }
+#longjump .namerow { display: flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: #7c7768; }
+#longjump .namerow input { font-family: 'Noto Serif JP', serif; font-size: 0.88rem; padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px; width: 170px; background: var(--white); color: var(--text); }
+#longjump .namerow input:focus { outline: none; border-color: var(--lj-gold); }
