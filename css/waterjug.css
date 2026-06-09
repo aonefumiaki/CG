@@ -1,0 +1,47 @@
+/* ============================================================
+   水汲みパズル（waterjug.html 専用 / #waterjug にスコープ）
+============================================================ */
+#waterjug { display: flex; flex-direction: column; align-items: center; --wj-red: #a52a2a; --wj-green: #3f5226; --wj-water: #5aa0c4; }
+
+#waterjug .goal { text-align: center; font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; margin: 10px 0 4px; }
+#waterjug .goal b { color: var(--wj-red); }
+
+#waterjug .clock { display: flex; gap: 10px; justify-content: center; margin: 6px 0 8px; flex-wrap: wrap; }
+#waterjug .cl { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 6px 16px; text-align: center; min-width: 110px; }
+#waterjug .cl .k { font-family: 'DM Sans', sans-serif; font-size: 0.64rem; color: var(--muted); }
+#waterjug .cl .v { font-family: 'DM Sans', sans-serif; font-size: 1.35rem; font-weight: 500; margin-top: 2px; }
+#waterjug .cl .v.red { color: var(--wj-red); }
+#waterjug .cl .v.green { color: var(--wj-green); }
+
+#waterjug .panel { width: 100%; max-width: 480px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 20px 18px; margin-top: 6px; }
+
+#waterjug .jugs { display: flex; gap: 24px; justify-content: center; align-items: flex-end; }
+#waterjug .jugwrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+#waterjug .cap { font-family: 'DM Sans', sans-serif; font-size: 0.74rem; color: var(--muted); }
+#waterjug .glass { width: 78px; border: 3px solid #b9b09a; border-top: none; border-radius: 6px 6px 14px 14px; background: linear-gradient(var(--white),#f6f1e6); position: relative; overflow: hidden; }
+#waterjug .glass.target { box-shadow: 0 0 0 3px rgba(63,82,38,.25); border-color: var(--wj-green); }
+#waterjug .water { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: linear-gradient(var(--wj-water),#3f7f9e); transition: height .45s cubic-bezier(.4,1.2,.5,1); }
+#waterjug .water::before { content: ""; position: absolute; top: -5px; left: 0; right: 0; height: 8px; background: #7bb8d6; border-radius: 50%; opacity: .6; }
+#waterjug .amt { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+#waterjug .glass.target ~ .amt { color: var(--wj-green); }
+#waterjug .ticks { position: absolute; inset: 0; pointer-events: none; }
+#waterjug .tick { position: absolute; left: 0; width: 9px; height: 1px; background: rgba(0,0,0,.2); }
+
+#waterjug .jugbtns { display: flex; gap: 6px; }
+#waterjug .jugbtns button { font-family: 'Noto Serif JP', serif; font-size: 0.72rem; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--dark); background: transparent; color: var(--dark); cursor: pointer; transition: background .12s, color .12s; }
+#waterjug .jugbtns button:hover { background: var(--dark); color: #fff; }
+
+#waterjug .pourrow { display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+#waterjug .pourrow button { font-family: 'Noto Serif JP', serif; font-size: 0.85rem; padding: 9px 16px; border-radius: 9px; border: 1px solid var(--wj-water); background: var(--white); color: #2c6c8c; cursor: pointer; transition: background .12s, color .12s; }
+#waterjug .pourrow button:hover { background: var(--wj-water); color: #fff; }
+
+#waterjug .btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+#waterjug button.act { font-family: 'Noto Serif JP', serif; font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; border: 1px solid var(--dark); background: transparent; color: var(--dark); cursor: pointer; transition: transform .12s; }
+#waterjug button.act:hover:not(:disabled) { transform: translateY(-2px); }
+#waterjug button.act.solid { background: var(--dark); color: #fff; }
+#waterjug button.act:disabled { opacity: .35; cursor: not-allowed; }
+
+#waterjug .msg { margin-top: 14px; min-height: 24px; text-align: center; font-size: 0.95rem; font-weight: 700; font-family: 'Noto Serif JP', serif; }
+#waterjug .msg.good { color: var(--wj-green); }
+#waterjug .log { margin-top: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); line-height: 1.8; max-height: 96px; overflow-y: auto; border-top: 1px dashed var(--border); padding-top: 8px; }
+#waterjug .hint { margin-top: 8px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; line-height: 1.7; }
