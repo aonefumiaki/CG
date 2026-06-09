@@ -1,0 +1,36 @@
+/* ============================================================
+   ハイ＆ロー 複数人対戦版（highlow-multi.html 専用 / #highlow にスコープ）
+   ※ カード・ボタン等の基本デザインは css/highlow.css を流用
+============================================================ */
+/* セットアップ */
+#highlow .hlm-setup-row { display: flex; align-items: center; gap: 10px; margin: 12px 0; flex-wrap: wrap; justify-content: center; }
+#highlow .hlm-lab { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); }
+#highlow .seg { display: inline-flex; border: 1px solid var(--dark); border-radius: 10px; overflow: hidden; }
+#highlow .seg button { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; padding: 9px 15px; border: none; background: transparent; color: var(--dark); cursor: pointer; }
+#highlow .seg button.on { background: var(--dark); color: #fff; }
+#highlow .hlm-names { display: flex; flex-direction: column; gap: 8px; margin: 6px 0; width: 100%; max-width: 280px; }
+#highlow .hlm-names input { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; padding: 8px 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--cream); color: var(--text); }
+#highlow .hlm-names input:focus { outline: none; border-color: var(--accent); }
+
+/* 手番バー */
+#highlow .hlm-turnbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; margin-bottom: 6px; }
+#highlow .hlm-who { font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; color: var(--hl-red); }
+#highlow .hlm-meta { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); }
+
+/* スコアボード */
+#highlow .hlm-scores { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%; margin-bottom: 6px; }
+#highlow .hlm-sc { flex: 1 1 72px; min-width: 72px; max-width: 110px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 7px 6px; text-align: center; transition: all .15s; }
+#highlow .hlm-sc .nm { font-family: 'Noto Serif JP', serif; font-size: 0.74rem; color: #7c7768; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#highlow .hlm-sc .pt { font-family: 'DM Sans', sans-serif; font-size: 1.3rem; font-weight: 600; margin-top: 1px; }
+#highlow .hlm-sc.cur { border-color: var(--hl-red); box-shadow: 0 0 0 2px rgba(165,42,42,.14); }
+#highlow .hlm-sc.cur .pt { color: var(--hl-red); }
+
+/* 結果・順位 */
+#highlow .hlm-rank { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 8px; }
+#highlow .hlm-rankrow { display: flex; align-items: center; gap: 14px; padding: 11px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--white); }
+#highlow .hlm-rankrow .pos { font-size: 1.3rem; width: 38px; text-align: center; }
+#highlow .hlm-rankrow .nm { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; flex: 1; }
+#highlow .hlm-rankrow .pts { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; color: var(--hl-green); }
+#highlow .hlm-rankrow.first { background: #faf0d8; border-color: var(--accent); }
+
+#highlow .hlm-title { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; text-align: center; margin-bottom: 4px; color: var(--dark); }

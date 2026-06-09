@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>ハイ＆ロー 複数人対戦 — Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「ハイ＆ロー」複数人対戦版。1台のデバイスを回して2〜6人で遊ぶパス＆プレイ。当たり+1・外れ−1で持ち点を競います。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/highlow-multi.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/highlow.css">
+<link rel="stylesheet" href="css/highlow-multi.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="recruit.html">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="games.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="games.html" class="subpage-back">← ゲーム一覧へ戻る</a>
+    <div class="section-label">High &amp; Low</div>
+    <h2 class="section-title">ハイ＆ロー（複数人対戦）</h2>
+    <p class="game-intro">
+      1台のデバイスを順番に回して、2〜6人で遊ぶパス＆プレイ版。手番の人が場のカードに対して「ハイ／ロー」を予想します。
+      当たり +1点・外れ −1点・引き分け 0点。決めた周回数のあと、持ち点の多い順に順位を競います。
+    </p>
+  </div>
+
+  <div id="highlow">
+    <div class="hl-modeswitch">
+      <a href="highlow.html">ひとりで</a>
+      <a class="on">みんなで対戦</a>
+    </div>
+
+    <!-- SETUP -->
+    <div class="panel" id="hlm-setup">
+      <div class="hlm-setup-row">
+        <span class="hlm-lab">人数</span>
+        <div class="seg" id="hlm-count">
+          <button data-n="2" class="on">2</button><button data-n="3">3</button>
+          <button data-n="4">4</button><button data-n="5">5</button><button data-n="6">6</button>
+        </div>
+      </div>
+      <div class="hlm-names" id="hlm-names"></div>
+      <div class="hlm-setup-row">
+        <span class="hlm-lab">周回数（各自の予想回数）</span>
+        <div class="seg" id="hlm-rounds">
+          <button data-r="3">3周</button><button data-r="5" class="on">5周</button><button data-r="10">10周</button>
+        </div>
+      </div>
+      <div class="btns"><button class="act solid" id="hlm-start">ゲーム開始</button></div>
+      <div class="hint">同じ端末を順番に回して遊びます。カードも予想も全員に見えてOK（隠す必要はありません）。</div>
+    </div>
+
+    <!-- GAME -->
+    <div class="panel hidden" id="hlm-game">
+      <div class="hlm-turnbar">
+        <div class="hlm-who" id="hlm-who"></div>
+        <div class="hlm-meta" id="hlm-meta"></div>
+      </div>
+      <div class="hlm-scores" id="hlm-scores"></div>
+      <div class="cardstage"><div class="card" id="hlm-card"></div></div>
+      <div class="guessbtns">
+        <button class="gbtn high" id="hlm-high"><span class="arrow">▲</span>ハイ（高い）</button>
+        <button class="gbtn low" id="hlm-low"><span class="arrow">▼</span>ロー（低い）</button>
+      </div>
+      <div class="msg" id="hlm-msg"></div>
+      <div class="history" id="hlm-history"></div>
+      <div class="btns">
+        <button class="act" id="hlm-quit">設定にもどる</button>
+      </div>
+      <div class="hint" id="hlm-hint"></div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="panel hidden" id="hlm-result">
+      <div class="hlm-title">最終順位</div>
+      <div class="hlm-rank" id="hlm-rank"></div>
+      <div class="btns">
+        <button class="act" id="hlm-again">もう一度（同じメンバー）</button>
+        <button class="act solid" id="hlm-back">設定にもどる</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/celebrate.js"></script>
+<script src="js/highlow-core.js"></script>
+<script src="js/highlow-multi.js"></script>
+</body>
+</html>

@@ -58,3 +58,8 @@
 #highlow button.act:hover { transform: translateY(-2px); }
 #highlow button.act.solid { background: var(--dark); color: #fff; }
 #highlow .hint { margin-top: 8px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; line-height: 1.7; }
+
+/* ── モード切替（ひとり用 / 複数人用）── */
+#highlow .hl-modeswitch { display: inline-flex; border: 1px solid var(--dark); border-radius: 10px; overflow: hidden; margin: 0 auto 12px; }
+#highlow .hl-modeswitch a { font-family: 'Noto Serif JP', serif; font-size: 0.82rem; padding: 8px 18px; color: var(--dark); text-decoration: none; cursor: pointer; }
+#highlow .hl-modeswitch a.on { background: var(--dark); color: #fff; }
