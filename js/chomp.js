@@ -105,6 +105,7 @@
       overlayEl.className = 'chomp-overlay show ' + kind;
       overlayEl.innerHTML = '<div class="co-title">' + title + '</div><div class="co-sub">' + sub + '</div><button class="co-btn" id="coRetry">同じ盤でもう一度</button>';
       const b = document.getElementById('coRetry'); if (b) b.addEventListener('click', reset);
+      if (kind === 'win' && window.cgCelebrate) cgCelebrate.win(title.replace(/^🎉\s*/, ''));
       if (boardEl) { boardEl.classList.remove('shake'); void boardEl.offsetWidth; if (kind === 'lose') boardEl.classList.add('shake'); }
     }
 

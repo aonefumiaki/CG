@@ -72,6 +72,7 @@
         statusEl.textContent = 'クリア！（手数 ' + s.moves + '）';
         statusEl.className = 'river-status win'; crossBtn.disabled = true;
         showOverlay('win', 'クリア！', '全員ぶじに右岸へ渡れました（手数 ' + s.moves + '）', 'もう一度あそぶ');
+        window.cgCelebrate && cgCelebrate.win('クリア！');
       } else if (s.over) {
         statusEl.textContent = '失敗…';
         statusEl.className = 'river-status fail'; crossBtn.disabled = true;

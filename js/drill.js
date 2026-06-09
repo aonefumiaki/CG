@@ -446,6 +446,7 @@ function checkAns(){
   if(allOk){
     $('result').textContent='正解！🎉';
     $('result').className='result ok';
+    window.cgCelebrate && cgCelebrate.win('正解！');
     answered[idx]=true; $('next').disabled=false;
     $('solution').classList.add('show');
     renderSteps();

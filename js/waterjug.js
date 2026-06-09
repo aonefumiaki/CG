@@ -52,6 +52,7 @@
           ? `${target}L 完成！ ${moves}手 — 最短ぴったり！🎉`
           : `${target}L 完成！ ${moves}手（最短は ${optimal.moves}手）🎉`;
         $('msg').className='msg good';
+        window.cgCelebrate && cgCelebrate.win('正解！', `${target}L 完成`);
       }
     }
     function log(t){ const d=document.createElement('div'); d.textContent='・'+t; $('log').appendChild(d); $('log').scrollTop=$('log').scrollHeight; }

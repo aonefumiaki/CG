@@ -52,6 +52,7 @@
       if(correct){
         streak++; if(streak>best) best=streak;
         setMsg(`正解！ ${rankLabel(next.rank)} ・ ${streak} 連勝中`,'good');
+        window.cgCelebrate && (streak>=5 && streak===best ? cgCelebrate.win(`${streak} 連勝！`) : cgCelebrate.correct());
         ensureDeck(); render(true);
       }else{
         gameOver=true;
