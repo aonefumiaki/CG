@@ -57,6 +57,7 @@
       }else{
         gameOver=true;
         setMsg(`はずれ… ${rankLabel(next.rank)} が出ました。${streak} 連勝でゲーム終了。`,'bad');
+        window.cgCelebrate && cgCelebrate.fail('ざんねん…', streak>0 ? `${streak} 連勝でストップ` : 'もう一度挑戦！');
         render(true);
       }
     }
