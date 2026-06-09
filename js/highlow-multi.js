@@ -17,7 +17,7 @@
 
     if(C.preload) C.preload();
 
-    var style='blitz', nPlayers=2, rounds=5;
+    var style='blitz', nPlayers=2, rounds=5, deckMode=false;
     var players=[], cur=0, round=1, deck=[], current=null, history=[], phase='bet', busy=false, over=false;
 
     /* ---------- セットアップ ---------- */
@@ -29,7 +29,9 @@
     }
     $('hlm-style').addEventListener('click', function(e){ seg(e,'s',function(v){ style=v; }); });
     $('hlm-count').addEventListener('click', function(e){ seg(e,'n',function(v){ nPlayers=parseInt(v,10); buildNames(); }); });
-    $('hlm-rounds').addEventListener('click', function(e){ seg(e,'r',function(v){ rounds=parseInt(v,10); }); });
+    $('hlm-rounds').addEventListener('click', function(e){ seg(e,'r',function(v){ if(v==='deck'){ deckMode=true; } else { deckMode=false; rounds=parseInt(v,10); } }); });
+    function isLastReveal(){ return deckMode ? deck.length===0 : round>=rounds; }
+    function shouldEnd(){ return deckMode ? deck.length===0 : round>rounds; }
 
     function buildNames(){
       var wrap=$('hlm-names'); wrap.innerHTML='';
@@ -73,7 +75,7 @@
     $('hlm-high').addEventListener('click', function(){ onGuess('high'); });
     $('hlm-low').addEventListener('click', function(){ onGuess('low'); });
 
-    function ensureDeck(){ if(deck.length===0) deck=C.buildDeck(current); }
+    function ensureDeck(){ if(!deckMode && deck.length===0) deck=C.buildDeck(current); }
 
     /* ---- 一斉(blitz)：賭け収集 → めくる → 一斉判定 ---- */
     function betBlitz(dir){
@@ -105,7 +107,7 @@
     $('hlm-reveal').addEventListener('click', doReveal);
     $('hlm-next').addEventListener('click', function(){
       round++;
-      if(round>rounds){ endGame(); return; }
+      if(shouldEnd()){ endGame(); return; }
       beginRound();
     });
 
@@ -130,7 +132,7 @@
         players[cur].result=null; players[cur].bet=null;
         cur++; busy=false;
         if(cur>=players.length){ cur=0; round++; }
-        if(round>rounds){ endGame(); return; }
+        if(shouldEnd()){ endGame(); return; }
         renderBoard();
       }, 1100);
     }
@@ -154,7 +156,7 @@
 
     function renderBoard(){
       // 手番バー
-      var who, meta=round+' / '+rounds+'周';
+      var who, meta = deckMode ? ('残り '+deck.length+' 枚') : (round+' / '+rounds+'周');
       if(phase==='reveal'){ who='全員そろいました！'; }
       else if(phase==='result'){ who='結果'; }
       else { who=players[cur].name+(style==='relay'?' の番':' の予想'); }  // bet / relay
@@ -187,7 +189,7 @@
       $('hlm-high').disabled=!guessOn; $('hlm-low').disabled=!guessOn;
       $('hlm-reveal').classList.toggle('hidden', !(style==='blitz' && phase==='reveal'));
       $('hlm-next').classList.toggle('hidden', !(style==='blitz' && phase==='result'));
-      if(style==='blitz' && phase==='result') $('hlm-next').textContent = (round>=rounds) ? '結果を見る' : '次のカードへ';
+      if(style==='blitz' && phase==='result') $('hlm-next').textContent = isLastReveal() ? '結果を見る' : '次のカードへ';
 
       // 履歴
       var h=$('hlm-history'); h.innerHTML='';
@@ -201,7 +203,7 @@
       // ヒント
       $('hlm-hint').textContent =
         phase==='reveal' ? '全員の予想がそろいました。「めくる！」を押して一斉に判定します。'
-        : phase==='result' ? (round>=rounds ? '「結果を見る」で最終順位へ。' : '「次のカードへ」で続けます。')
+        : phase==='result' ? (isLastReveal() ? '「結果を見る」で最終順位へ。' : '「次のカードへ」で続けます。')
         : style==='relay' ? players[cur].name+'さん：場のカード（'+C.rankLabel(current.rank)+'）より次が高い(ハイ)か低い(ロー)か予想。当たり+1 / 外れ−1。'
         : players[cur].name+'さん：場のカード（'+C.rankLabel(current.rank)+'）より次が高い(ハイ)か低い(ロー)か予想して、端末を次の人へ。';
     }
