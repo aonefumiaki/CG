@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>天秤の偽コイン — Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「天秤の偽コイン」。決まった回数だけ天秤を使い、重さの違う偽コインを1枚だけ見つけ出す定番の論理パズル。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/coinbalance.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/coinbalance.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="recruit.html">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="games.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="games.html" class="subpage-back">← ゲーム一覧へ戻る</a>
+    <div class="section-label">Counterfeit Coin</div>
+    <h2 class="section-title">天秤の偽コイン</h2>
+    <p class="game-intro">
+      本物に1枚だけ重さの違う偽物が混じっています。天秤を決まった回数だけ使って、偽物を1枚だけ見つけ出してください。
+      コインをタップして皿に載せ、はかった結果から推理する定番の論理パズルです。
+    </p>
+  </div>
+
+  <div id="coinbalance">
+    <div class="modebar">
+      <div class="seg" id="modeSeg">
+        <button data-m="easy" class="on">やさしい：偽物は重い</button>
+        <button data-m="hard">本格：重い軽い不明</button>
+      </div>
+    </div>
+
+    <div class="condition" id="condition"></div>
+
+    <div class="clock">
+      <div class="cl"><div class="k">使った回数 / 上限</div><div class="v" id="weighs">0 / 2</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="balance">
+        <div class="post"></div><div class="fulcrum"></div>
+        <div class="beam" id="beam"><span class="knob l"></span><span class="knob r"></span></div>
+        <div class="pan l" id="panL"><div class="wire"></div><div class="plabel">左の皿</div></div>
+        <div class="pan r" id="panR"><div class="wire"></div><div class="plabel">右の皿</div></div>
+      </div>
+      <div class="result" id="result"></div>
+      <div class="tray" id="tray"><div class="traylabel">手元（ここをタップで戻す）</div></div>
+      <div class="btns">
+        <button class="act solid" id="weigh">天秤にかける</button>
+        <button class="act" id="clear">全部もどす</button>
+        <button class="act danger" id="accuse">偽物を指名</button>
+        <button class="act" id="hintBtn">最適手順を見る</button>
+        <button class="act" id="restart">最初から</button>
+      </div>
+      <div class="msg" id="msg"></div>
+      <div class="log" id="log"></div>
+      <div class="hint" id="hint"></div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/celebrate.js"></script>
+<script src="js/coinbalance.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* ============================================================
+   天秤の偽コイン（coinbalance.html 専用 / #coinbalance にスコープ）
+============================================================ */
+#coinbalance { display: flex; flex-direction: column; align-items: center; --cb-red: #a52a2a; --cb-green: #3f5226; --cb-gold: #e0b84c; --cb-blue: #3f7f9e; --cb-wood: #8a7f63; --cb-metal: #b9b09a; }
+
+#coinbalance .modebar { display: flex; gap: 8px; justify-content: center; margin: 10px 0 4px; flex-wrap: wrap; }
+#coinbalance .seg { display: inline-flex; border: 1px solid var(--dark); border-radius: 10px; overflow: hidden; }
+#coinbalance .seg button { font-family: 'Noto Serif JP', serif; font-size: 0.78rem; padding: 8px 14px; border: none; background: transparent; color: var(--dark); cursor: pointer; }
+#coinbalance .seg button.on { background: var(--dark); color: #fff; }
+
+#coinbalance .condition { text-align: center; margin: 8px auto 0; max-width: 460px; background: var(--white); border: 1px solid var(--cb-gold); border-radius: 10px; padding: 8px 14px; }
+#coinbalance .condition .big { font-size: 0.95rem; font-weight: 700; color: var(--cb-red); font-family: 'Noto Serif JP', serif; }
+#coinbalance .condition .small { font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; margin-top: 2px; }
+
+#coinbalance .clock { display: flex; gap: 10px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+#coinbalance .cl { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 6px 16px; text-align: center; min-width: 120px; }
+#coinbalance .cl .k { font-family: 'DM Sans', sans-serif; font-size: 0.64rem; color: var(--muted); }
+#coinbalance .cl .v { font-family: 'DM Sans', sans-serif; font-size: 1.3rem; font-weight: 500; margin-top: 2px; color: var(--cb-red); }
+
+#coinbalance .panel { width: 100%; max-width: 520px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 18px; margin-top: 6px; }
+
+#coinbalance .balance { position: relative; height: 190px; margin: 0 auto 6px; max-width: 460px; }
+#coinbalance .post { position: absolute; left: 50%; top: 10px; width: 5px; height: 70px; background: var(--cb-metal); transform: translateX(-50%); border-radius: 3px; }
+#coinbalance .fulcrum { position: absolute; left: 50%; top: 80px; width: 60px; height: 14px; background: var(--cb-metal); transform: translateX(-50%); border-radius: 4px 4px 0 0; }
+#coinbalance .beam { position: absolute; left: 50%; top: 10px; width: 320px; height: 7px; background: var(--cb-wood); border-radius: 4px; transform: translateX(-50%) rotate(0deg); transform-origin: center; transition: transform .55s cubic-bezier(.4,1.1,.5,1); }
+#coinbalance .beam .knob { position: absolute; top: -3px; width: 13px; height: 13px; border-radius: 50%; background: var(--cb-wood); }
+#coinbalance .beam .knob.l { left: -6px; } #coinbalance .beam .knob.r { right: -6px; }
+#coinbalance .pan { position: absolute; top: 42px; width: 170px; min-height: 96px; border: 2px solid var(--cb-metal); border-top: none; border-radius: 0 0 22px 22px; background: rgba(255,255,255,.55); display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; justify-content: center; padding: 24px 8px 8px; transition: transform .55s cubic-bezier(.4,1.1,.5,1); cursor: pointer; }
+#coinbalance .pan.l { left: 0; } #coinbalance .pan.r { right: 0; }
+#coinbalance .pan .wire { position: absolute; top: -34px; left: 50%; width: 1px; height: 34px; background: var(--cb-metal); }
+#coinbalance .pan .plabel { position: absolute; top: 5px; left: 0; right: 0; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 0.66rem; color: var(--muted); pointer-events: none; }
+
+#coinbalance .result { text-align: center; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--cb-blue); min-height: 20px; margin: 4px 0 6px; font-weight: 700; }
+
+#coinbalance .tray { margin-top: 8px; border: 1px dashed var(--border); border-radius: 12px; padding: 10px 10px 12px; min-height: 74px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-content: flex-start; cursor: pointer; }
+#coinbalance .traylabel { width: 100%; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 0.66rem; color: var(--muted); margin-bottom: 2px; pointer-events: none; }
+
+#coinbalance .coin { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #cdbf95; background: radial-gradient(circle at 35% 30%,#fbeec2,#e0b84c); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: #5a4410; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .1s, box-shadow .12s, border-color .12s; flex: none; }
+#coinbalance .pan .coin { width: 36px; height: 36px; font-size: 0.8rem; }
+#coinbalance .coin:hover { transform: translateY(-2px); }
+#coinbalance .coin.sel { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(43,43,43,.25); transform: translateY(-3px); }
+#coinbalance .coin.fake { border-color: var(--cb-red); box-shadow: 0 0 0 3px rgba(165,42,42,.35); }
+
+#coinbalance .btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+#coinbalance button.act { font-family: 'Noto Serif JP', serif; font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; border: 1px solid var(--dark); background: transparent; color: var(--dark); cursor: pointer; transition: transform .12s; }
+#coinbalance button.act:hover:not(:disabled) { transform: translateY(-2px); }
+#coinbalance button.act.solid { background: var(--dark); color: #fff; }
+#coinbalance button.act.danger { border-color: var(--cb-red); color: var(--cb-red); }
+#coinbalance button.act.danger.on { background: var(--cb-red); color: #fff; }
+#coinbalance button.act:disabled { opacity: .35; cursor: not-allowed; }
+
+#coinbalance .msg { margin-top: 14px; min-height: 24px; text-align: center; font-size: 0.95rem; font-weight: 700; font-family: 'Noto Serif JP', serif; }
+#coinbalance .msg.good { color: var(--cb-green); }
+#coinbalance .msg.bad { color: var(--cb-red); }
+#coinbalance .log { margin-top: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--muted); line-height: 1.8; max-height: 96px; overflow-y: auto; border-top: 1px dashed var(--border); padding-top: 8px; }
+#coinbalance .hint { margin-top: 8px; font-size: 0.72rem; color: var(--muted); font-family: 'DM Sans', sans-serif; text-align: center; line-height: 1.7; }
