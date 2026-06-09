@@ -19,13 +19,13 @@
 
 #coinbalance .panel { width: 100%; max-width: 520px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 18px 40px -28px rgba(80,60,20,.4); padding: 18px; margin-top: 6px; }
 
-#coinbalance .balance { position: relative; height: 190px; margin: 0 auto 6px; max-width: 460px; }
+#coinbalance .balance { position: relative; height: 190px; margin: 0 auto 6px; width: 100%; max-width: 440px; }
 #coinbalance .post { position: absolute; left: 50%; top: 10px; width: 5px; height: 70px; background: var(--cb-metal); transform: translateX(-50%); border-radius: 3px; }
 #coinbalance .fulcrum { position: absolute; left: 50%; top: 80px; width: 60px; height: 14px; background: var(--cb-metal); transform: translateX(-50%); border-radius: 4px 4px 0 0; }
-#coinbalance .beam { position: absolute; left: 50%; top: 10px; width: 320px; height: 7px; background: var(--cb-wood); border-radius: 4px; transform: translateX(-50%) rotate(0deg); transform-origin: center; transition: transform .55s cubic-bezier(.4,1.1,.5,1); }
+#coinbalance .beam { position: absolute; left: 50%; top: 10px; width: 56%; height: 7px; background: var(--cb-wood); border-radius: 4px; transform: translateX(-50%) rotate(0deg); transform-origin: center; transition: transform .55s cubic-bezier(.4,1.1,.5,1); }
 #coinbalance .beam .knob { position: absolute; top: -3px; width: 13px; height: 13px; border-radius: 50%; background: var(--cb-wood); }
 #coinbalance .beam .knob.l { left: -6px; } #coinbalance .beam .knob.r { right: -6px; }
-#coinbalance .pan { position: absolute; top: 42px; width: 170px; min-height: 96px; border: 2px solid var(--cb-metal); border-top: none; border-radius: 0 0 22px 22px; background: rgba(255,255,255,.55); display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; justify-content: center; padding: 24px 8px 8px; transition: transform .55s cubic-bezier(.4,1.1,.5,1); cursor: pointer; }
+#coinbalance .pan { position: absolute; top: 42px; width: 44%; min-height: 96px; border: 2px solid var(--cb-metal); border-top: none; border-radius: 0 0 22px 22px; background: rgba(255,255,255,.55); display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; justify-content: center; padding: 24px 6px 8px; transition: transform .55s cubic-bezier(.4,1.1,.5,1); cursor: pointer; }
 #coinbalance .pan.l { left: 0; } #coinbalance .pan.r { right: 0; }
 #coinbalance .pan .wire { position: absolute; top: -34px; left: 50%; width: 1px; height: 34px; background: var(--cb-metal); }
 #coinbalance .pan .plabel { position: absolute; top: 5px; left: 0; right: 0; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 0.66rem; color: var(--muted); pointer-events: none; }
