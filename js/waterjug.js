@@ -48,11 +48,13 @@
     function checkWin(){
       if(a===target||b===target){
         won=true; $('optimal').textContent=optimal.moves;
-        $('msg').textContent = moves===optimal.moves
-          ? `${target}L 完成！ ${moves}手 — 最短ぴったり！🎉`
-          : `${target}L 完成！ ${moves}手（最短は ${optimal.moves}手）🎉`;
-        $('msg').className='msg good';
-        window.cgCelebrate && cgCelebrate.win('正解！', `${target}L 完成`);
+        if(moves===optimal.moves){
+          $('msg').textContent=`${target}L 完成！ ${moves}手 — 最短ぴったり！🎉`; $('msg').className='msg good';
+          window.cgCelebrate && cgCelebrate.win('最短で正解！', `${target}L・${moves}手ぴったり`);
+        } else {
+          $('msg').textContent=`${target}L 完成！ ${moves}手（最短は ${optimal.moves}手）🎉`; $('msg').className='msg good';
+          window.cgCelebrate && cgCelebrate.clear('正解！', `${moves}手（最短は ${optimal.moves}手）おしい！`);
+        }
       }
     }
     function log(t){ const d=document.createElement('div'); d.textContent='・'+t; $('log').appendChild(d); $('log').scrollTop=$('log').scrollHeight; }

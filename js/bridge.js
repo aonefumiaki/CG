@@ -89,9 +89,13 @@
     function checkWin(){
       if(people.every(p=>p.side==='R')){
         $('optimal').textContent=optimal.time;
-        if(elapsed===optimal.time){ $('msg').textContent=`全員わたり切った！ ${elapsed}分 — 最短ぴったり！🎉`; $('msg').className='msg good'; }
-        else { $('msg').textContent=`全員わたり切った！ ${elapsed}分（最短は ${optimal.time}分）`; $('msg').className='msg good'; }
-        window.cgCelebrate && cgCelebrate.win('クリア！', `${elapsed}分で全員ゴール`);
+        if(elapsed===optimal.time){
+          $('msg').textContent=`全員わたり切った！ ${elapsed}分 — 最短ぴったり！🎉`; $('msg').className='msg good';
+          window.cgCelebrate && cgCelebrate.win('最短クリア！', `${elapsed}分・最短ぴったり`);
+        } else {
+          $('msg').textContent=`全員わたり切った！ ${elapsed}分（最短は ${optimal.time}分）`; $('msg').className='msg good';
+          window.cgCelebrate && cgCelebrate.clear('クリア！', `${elapsed}分（最短は ${optimal.time}分）あと一歩！`);
+        }
       }
     }
     function log(t){ const d=document.createElement('div'); d.textContent='・'+t; $('log').appendChild(d); $('log').scrollTop=$('log').scrollHeight; }
