@@ -56,9 +56,15 @@
       if(phase!=='air') return;
       airTaps++; targetDist=Math.min(baseDist+1.0, targetDist+0.1);
     }
-    $('padL').addEventListener('pointerdown',e=>{e.preventDefault();handleRun('L');});
-    $('padR').addEventListener('pointerdown',e=>{e.preventDefault();handleRun('R');});
-    $('padMash').addEventListener('pointerdown',e=>{e.preventDefault();handleAir();});
+    // タップ入力：touchstart で受けて preventDefault（ダブルタップ拡大・300ms遅延・合成マウスを抑止）
+    // → 連打がズーム操作に食われず確実にカウントされる。マウス（PC）は mousedown で。
+    function bindTap(el, fn){
+      el.addEventListener('touchstart', function(e){ e.preventDefault(); fn(); }, {passive:false});
+      el.addEventListener('mousedown', function(e){ e.preventDefault(); fn(); });
+    }
+    bindTap($('padL'), function(){ handleRun('L'); });
+    bindTap($('padR'), function(){ handleRun('R'); });
+    bindTap($('padMash'), handleAir);
 
     function updatePad(){
       const run=(phase==='run'), air=(phase==='air');
