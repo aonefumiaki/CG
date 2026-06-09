@@ -7,7 +7,7 @@
     if(!document.getElementById('beam')) return;
     const $=id=>document.getElementById(id);
     let mode='easy', N=9, maxW=2, knownHeavier=true;
-    let state=[], fake=-1, fakeDir=1, used=0, sel=null, accuseMode=false, over=false, weighRecords=[];
+    let state=[], fake=-1, fakeDir=1, used=0, sel=[], accuseMode=false, over=false, weighRecords=[];
 
     /* ---------- 適応的・最適手順ソルバー ----------
        仮説 {c:coin, d:+1 重い / -1 軽い}; 傾き +1=左下がり, -1=右下がり, 0=つり合い */
@@ -47,20 +47,21 @@
       state=Array(N).fill('');     // '', 'L', 'R'
       fake=Math.floor(Math.random()*N);
       fakeDir = knownHeavier ? 1 : (Math.random()<0.5?1:-1);
-      used=0; sel=null; accuseMode=false; over=false; weighRecords=[];
+      used=0; sel=[]; accuseMode=false; over=false; weighRecords=[];
       $('msg').textContent=''; $('msg').className='msg';
       $('log').innerHTML=''; $('result').textContent='';
       setBeam(0,0); render();
     }
 
-    function place(loc){       // 選択中のコインを置き場所（L / R / ''）へ
-      if(over||accuseMode||sel===null) return;
-      state[sel]=loc; sel=null; render();
+    function place(loc){       // 選択中のコイン（複数可）を置き場所（L / R / ''）へまとめて移動
+      if(over||accuseMode||sel.length===0) return;
+      sel.forEach(i=>state[i]=loc); sel=[]; render();
     }
     function selectCoin(i){
       if(over) return;
       if(accuseMode){ doAccuse(i); return; }
-      sel = (sel===i? null : i); render();
+      if(sel.includes(i)) sel=sel.filter(x=>x!==i); else sel=sel.concat(i);
+      render();
     }
 
     function weigh(){
@@ -123,7 +124,7 @@
       const r=solveCoins(H,k,N);
       if(!r.ok){ setTip(`残り ${k} 回では確実に特定するのは難しい状態です。今の可能性は ${H.length} 通り。`); return; }
       const L=r.move.L, R=r.move.R;
-      state=Array(N).fill(''); L.forEach(i=>state[i]='L'); R.forEach(i=>state[i]='R'); sel=null;
+      state=Array(N).fill(''); L.forEach(i=>state[i]='L'); R.forEach(i=>state[i]='R'); sel=[];
       render();
       setTip(`おすすめ：左[${L.map(x=>x+1).join(',')}] と 右[${R.map(x=>x+1).join(',')}] をはかる（今ありうる偽物は ${H.length} 通り）。皿に並べました。`);
     }
@@ -132,7 +133,7 @@
 
     function coinEl(i){
       const el=document.createElement('div');
-      el.className='coin'+(sel===i?' sel':'')+(over&&i===fake?' fake':'');
+      el.className='coin'+(sel.includes(i)?' sel':'')+(over&&i===fake?' fake':'');
       el.textContent=i+1;
       if(!over) el.addEventListener('click',e=>{ e.stopPropagation(); selectCoin(i); });
       return el;
@@ -157,9 +158,9 @@
       $('hintBtn').disabled=over;
       $('hint').textContent = over ? '「最初から」で新しい問題に挑戦できます。'
         : accuseMode ? '指名モード：偽物だと思うコインをタップしてください。'
-        : sel!==null ? `${sel+1} 番を選択中。「左の皿」「右の皿」または「手元」をタップして置いてください。`
-        : (knownHeavier ? '偽物は本物より「重い」と分かっています。コインをタップ→置き場所（皿や手元）をタップで動かします。'
-                        : '偽物は重いか軽いか分かりません。コインをタップ→置き場所をタップで動かします。');
+        : sel.length ? `${sel.map(i=>i+1).join('・')} を選択中（${sel.length}枚）。「左の皿」「右の皿」「手元」をタップするとまとめて移動します。`
+        : (knownHeavier ? '偽物は本物より「重い」と分かっています。コインをタップで選択（複数まとめて選べます）→置き場所（皿や手元）をタップで移動。'
+                        : '偽物は重いか軽いか分かりません。コインをタップで選択（複数まとめて選べます）→置き場所をタップで移動。');
     }
 
     $('panL').addEventListener('click',()=>place('L'));
@@ -167,8 +168,8 @@
     $('tray').addEventListener('click',()=>place(''));
     $('modeSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...e.currentTarget.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');setMode(b.dataset.m);});
     $('weigh').addEventListener('click',weigh);
-    $('clear').addEventListener('click',()=>{ if(over)return; state=Array(N).fill(''); sel=null; render(); });
-    $('accuse').addEventListener('click',()=>{ if(over)return; accuseMode=!accuseMode; sel=null; render(); });
+    $('clear').addEventListener('click',()=>{ if(over)return; state=Array(N).fill(''); sel=[]; render(); });
+    $('accuse').addEventListener('click',()=>{ if(over)return; accuseMode=!accuseMode; sel=[]; render(); });
     $('hintBtn').addEventListener('click',suggest);
     $('restart').addEventListener('click',newGame);
 
