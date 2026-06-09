@@ -34,3 +34,15 @@
 #highlow .hlm-rankrow.first { background: #faf0d8; border-color: var(--accent); }
 
 #highlow .hlm-title { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; text-align: center; margin-bottom: 4px; color: var(--dark); }
+
+/* 各プレイヤーの賭け／結果表示（スコアボード内） */
+#highlow .hlm-sc .bet { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; margin-top: 2px; color: var(--muted); min-height: 15px; }
+#highlow .hlm-sc.betdone { border-color: var(--accent); }
+#highlow .hlm-sc.betdone .bet { color: var(--dark); font-weight: 600; }
+#highlow .hlm-sc.win { background: #eef3e6; border-color: var(--hl-green); }
+#highlow .hlm-sc.win .pt, #highlow .hlm-sc.win .bet { color: var(--hl-green); font-weight: 700; }
+#highlow .hlm-sc.lose { background: #f7ecec; border-color: var(--hl-red); }
+#highlow .hlm-sc.lose .pt, #highlow .hlm-sc.lose .bet { color: var(--hl-red); font-weight: 700; }
+
+/* めくる／次へボタン行 */
+#highlow #hlm-actrow { margin-top: 16px; }
