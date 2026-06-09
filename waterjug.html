@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ64L71Y6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CQ64L71Y6F');
+</script>
+<title>水汲みパズル — Lounge Cow girl.</title>
+<meta name="description" content="Lounge Cow girl. のテーブルゲーム「水汲みパズル」。2つの容器で目標の量をぴったり量る定番の論理パズル。満タン・空・移すの3操作で最短手数に挑戦。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://aonefumiaki.github.io/CG/waterjug.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/waterjug.css">
+</head>
+<body>
+
+<!-- NOTICE BANNER -->
+<div id="site-notice-banner">
+  <span id="site-notice-text"></span>
+  <button onclick="document.getElementById('site-notice-banner').style.display='none'" style="background:none;border:none;color:white;cursor:pointer;margin-left:16px;font-size:0.9rem;">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    Lounge Cow girl.
+    <span>By MORE Co., Ltd. — Ube, Yamaguchi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#concept">About</a></li>
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#news">News</a></li>
+    <li><a href="index.html#info">Access</a></li>
+    <li><a href="recruit.html">Recruit</a></li>
+    <li><a href="index.html#reservation">Reserve</a></li>
+    <li><a href="games.html">Game</a></li>
+  </ul>
+</nav>
+
+<main class="subpage">
+  <div class="subpage-head">
+    <a href="games.html" class="subpage-back">← ゲーム一覧へ戻る</a>
+    <div class="section-label">Water Jug</div>
+    <h2 class="section-title">水汲みパズル</h2>
+    <p class="game-intro">
+      2つの容器を使って、目標の量をぴったり量る定番の論理パズル。できる操作は「満タンにする」「空にする」「もう一方へ移す」の3つだけ。
+      最短手数で量れるか挑戦してみてください。
+    </p>
+  </div>
+
+  <div id="waterjug">
+    <div class="goal" id="goal"></div>
+    <div class="clock">
+      <div class="cl"><div class="k">操作回数</div><div class="v red" id="moves">0</div></div>
+      <div class="cl"><div class="k">最短（コンピューター）</div><div class="v green" id="optimal">?</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="jugs" id="jugs"></div>
+      <div class="pourrow">
+        <button id="AB">A から B へ注ぐ</button>
+        <button id="BA">B から A へ注ぐ</button>
+      </div>
+      <div class="btns">
+        <button class="act" id="undo">1手もどす</button>
+        <button class="act" id="reset2">最初から</button>
+        <button class="act" id="reveal">最短を見る</button>
+        <button class="act solid" id="next">次の問題</button>
+      </div>
+      <div class="msg" id="msg"></div>
+      <div class="log" id="log"></div>
+      <div class="hint" id="hint"></div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lounge Cow girl.</div>
+  <div class="footer-copy">
+    <a href="privacy.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">プライバシーポリシー</a>
+    © 2025 MORE Co., Ltd. All rights reserved.
+    <span style="margin-left:0;display:block;margin-top:4px;opacity:0.4;font-size:0.5rem;">山口県宇部市中央町3丁目1-1 PLAZA19.III 2F</span>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/script.js"></script>
+<script src="js/waterjug.js"></script>
+</body>
+</html>
