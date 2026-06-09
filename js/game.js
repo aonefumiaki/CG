@@ -89,6 +89,7 @@
         if (picked.join('') === stripped) {
           resultEl.textContent = '正解！';
           resultEl.classList.add('ok');
+          window.cgCelebrate && cgCelebrate.win('正解！');
         } else {
           resultEl.textContent = 'ちがうみたい…';
         }

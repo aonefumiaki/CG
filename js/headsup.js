@@ -113,6 +113,7 @@
         ? results.map(r => '<li><span>' + r.word + '</span><span class="' + (r.ok ? 'ok' : 'ng') + '">' + (r.ok ? '○ 正解' : '× パス') + '</span></li>').join('')
         : '<li><span style="color:var(--muted)">お題なし</span></li>';
       endEl.style.display = 'block';
+      if (score > 0 && window.cgCelebrate) cgCelebrate.win(score + '問 正解！');
       endEl.scrollIntoView({ behavior: 'smooth' });
     }
 

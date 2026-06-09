@@ -91,6 +91,7 @@
         $('optimal').textContent=optimal.time;
         if(elapsed===optimal.time){ $('msg').textContent=`全員わたり切った！ ${elapsed}分 — 最短ぴったり！🎉`; $('msg').className='msg good'; }
         else { $('msg').textContent=`全員わたり切った！ ${elapsed}分（最短は ${optimal.time}分）`; $('msg').className='msg good'; }
+        window.cgCelebrate && cgCelebrate.win('クリア！', `${elapsed}分で全員ゴール`);
       }
     }
     function log(t){ const d=document.createElement('div'); d.textContent='・'+t; $('log').appendChild(d); $('log').scrollTop=$('log').scrollHeight; }

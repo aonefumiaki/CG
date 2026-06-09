@@ -168,6 +168,7 @@
       $('finalscore').textContent=players
         .slice().sort((a,b)=>b.score-a.score)
         .map(p=>`${p.name} ${p.score}点`).join(' ／ ');
+      window.cgCelebrate && cgCelebrate.win(`${winner.name} の勝ち！`);
     }
     $('again').addEventListener('click',()=>{
       players.forEach(p=>p.score=0); cur=0; turnTotal=0; die=1; justRolled=false;
